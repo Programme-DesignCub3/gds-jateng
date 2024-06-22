@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -23,7 +24,27 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
+
+Route::get('/test-upload', function () {
+    return Inertia::render('Upload');
+})->name('test-upload.create');
+
+Route::post('/test-upload', function (Request $request) {
+    if ($request->hasfile('files')) {
+        $files = [];
+        foreach ($request->file('files') as $file) {
+            if ($file->isValid()) {
+                $file->store('testUpload');
+            }
+        }
+    } else {
+        echo 'Gagal';
+    }
+
+    // return Inertia::render('Test',);
+})->name('test-upload.store');
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -35,4 +56,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
