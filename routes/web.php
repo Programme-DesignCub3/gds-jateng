@@ -31,8 +31,8 @@ Route::get('/test-upload', function () {
 })->name('test-upload.create');
 
 Route::post('/test-upload', function (Request $request) {
+    dd($request->file('files'));
     if ($request->hasfile('files')) {
-        $files = [];
         foreach ($request->file('files') as $file) {
             if ($file->isValid()) {
                 $file->store('testUpload');
@@ -44,6 +44,10 @@ Route::post('/test-upload', function (Request $request) {
 
     // return Inertia::render('Test',);
 })->name('test-upload.store');
+
+Route::get('/kompetisi', function () {
+    return Inertia::render('Competition');
+})->name('kompetisi');
 
 
 Route::get('/dashboard', function () {

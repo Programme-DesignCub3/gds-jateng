@@ -1,3 +1,20 @@
+<script setup lang="ts">
+import { MenuIcon } from "lucide-vue-next";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/Components/ui/sheet";
+import { Avatar, AvatarImage, AvatarFallback } from "@/Components/ui/avatar";
+import { Link } from "@inertiajs/vue3";
+import { Button } from "@/Components/ui/button";
+</script>
+
 <template>
   <!-- burger menu | mobile -->
   <div class="ml-auto lg:hidden">
@@ -13,24 +30,15 @@
           <SheetDescription> Mobile menu</SheetDescription>
         </SheetHeader>
         <div class="flex flex-col items-end">
-          <Button variant="link" as-child>
-            <Link :href="route('home')"> Home </Link>
-          </Button>
+          <Link :href="route('home')"> Home </Link>
 
-          <Button variant="link" as-child>
-            <Link :href="route('test-upload.create')">
-              Test upload
-              <!-- Tentang Kompetisi -->
-            </Link>
-          </Button>
+          <Link :href="route('test-upload.create')"> Test upload </Link>
 
-          <Button variant="link" as-child>
-            <Link href="#"> Partners </Link>
-          </Button>
+          <Link href="#"> Gallery Video </Link>
 
-          <Button variant="link" as-child>
-            <Link href="#"> Pricing </Link>
-          </Button>
+          <Link :href="route('kompetisi')"> Kompetisi </Link>
+
+          <Link href="#"> Pengumuman </Link>
 
           <div
             v-if="$page.props.auth.user"
@@ -51,7 +59,7 @@
           </div>
           <SheetClose v-else as-child>
             <Button as-child class="w-full px-4 py-2">
-              <Link :href="route('login')"> Join </Link>
+              <Link :href="route('register')"> Join </Link>
             </Button>
           </SheetClose>
         </div>
@@ -66,22 +74,5 @@
     </Sheet>
   </div>
 </template>
-
-<script setup lang="ts">
-import { MenuIcon } from "lucide-vue-next";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/Components/ui/sheet";
-import { Avatar, AvatarImage, AvatarFallback } from "@/Components/ui/avatar";
-import { Link } from "@inertiajs/vue3";
-import { Button } from "@/Components/ui/button";
-</script>
 
 <style scoped></style>

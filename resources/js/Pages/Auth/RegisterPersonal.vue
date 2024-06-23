@@ -1,3 +1,59 @@
+<script setup lang="ts">
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
+import { Head, Link, useForm } from "@inertiajs/vue3";
+import { Textarea } from "@/Components/ui/textarea";
+import { Input } from "@/Components/ui/input";
+import { Separator } from "@/Components/ui/separator";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/Components/ui/select";
+import { useNumberKeydown } from "@/lib/utils";
+
+const { isNumberKey } = useNumberKeydown();
+
+const form = useForm<{
+  is_school_account: false;
+  name: string;
+  address: string;
+  instagram_account: string;
+  phone_no: string;
+  email: string;
+  competition: "kolaborasa" | "chant" | "cheerleading" | "mascot";
+  password: string;
+  password_confirmation: string;
+}>({
+  is_school_account: false,
+  name: "",
+  address: "",
+  instagram_account: "",
+  phone_no: "",
+  email: "",
+  competition: "kolaborasa",
+  password: "",
+  password_confirmation: "",
+});
+
+const submit = () => {
+  form
+    .transform((data) => ({
+      ...data,
+      phone_no: "+62" + data.phone_no,
+    }))
+    .post(route("register"), {
+      onFinish: () => {
+        form.reset("password", "password_confirmation");
+      },
+    });
+};
+</script>
+
 <template>
   <Head title="Register Personal" />
   <form @submit.prevent="submit">
@@ -55,6 +111,7 @@
             @keydown="isNumberKey"
             v-model="form.phone_no"
             placeholder="Nomor telepon anda"
+            required
             class="pl-12"
           />
           <span class="absolute inset-y-0 start-0 flex items-center justify-center px-2">
@@ -144,59 +201,3 @@
     </div>
   </form>
 </template>
-
-<script setup lang="ts">
-import InputError from "@/Components/InputError.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
-import { Head, Link, useForm } from "@inertiajs/vue3";
-import { Textarea } from "@/Components/ui/textarea";
-import { Input } from "@/Components/ui/input";
-import { Separator } from "@/Components/ui/separator";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/Components/ui/select";
-import { useNumberKeydown } from "@/lib/utils";
-
-const { isNumberKey } = useNumberKeydown();
-
-const form = useForm<{
-  is_school_account: false;
-  name: string;
-  address: string;
-  instagram_account: string;
-  phone_no: string;
-  email: string;
-  competition: "kolaborasa" | "chant" | "cheerleading" | "mascot";
-  password: string;
-  password_confirmation: string;
-}>({
-  is_school_account: false,
-  name: "",
-  address: "",
-  instagram_account: "",
-  phone_no: "",
-  email: "",
-  competition: "kolaborasa",
-  password: "",
-  password_confirmation: "",
-});
-
-const submit = () => {
-  form
-    .transform((data) => ({
-      ...data,
-      phone_no: "+62" + data.phone_no,
-    }))
-    .post(route("register"), {
-      onFinish: () => {
-        form.reset("password", "password_confirmation");
-      },
-    });
-};
-</script>

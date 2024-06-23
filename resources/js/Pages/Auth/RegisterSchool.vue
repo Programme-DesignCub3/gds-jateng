@@ -1,3 +1,81 @@
+<script setup lang="ts">
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
+import { Head, Link, useForm } from "@inertiajs/vue3";
+import { Input } from "@/Components/ui/input";
+import { Separator } from "@/Components/ui/separator";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/Components/ui/select";
+import { useNumberKeydown } from "@/lib/utils";
+
+const { isNumberKey } = useNumberKeydown();
+const areas: { label: string; value: string }[] = [
+  { label: "Banjarnegara", value: "banjarnegara" },
+  { label: "Yogyakarta", value: "yogyakarta" },
+  { label: "Purwokerto", value: "purwokerto" },
+];
+
+const form = useForm<{
+  is_school_account: true;
+  name: string;
+  position: string;
+  instagram_account: string;
+  school_name: string;
+  area: string;
+  phone_no: string;
+  email: string;
+  competition: "kolaborasa" | "chant" | "cheerleading" | "mascot";
+  password: string;
+  password_confirmation: string;
+}>({
+  is_school_account: true,
+  name: "",
+  instagram_account: "",
+  position: "",
+  school_name: "",
+  phone_no: "",
+  area: "",
+  email: "",
+  competition: "kolaborasa",
+  password: "",
+  password_confirmation: "",
+});
+
+const handlePhoneInput = (e: KeyboardEvent) => {
+  isNumberKey(e);
+
+  var sanitizedPhoneNo = form.phone_no;
+  while (sanitizedPhoneNo.charAt(0) === "0") {
+    sanitizedPhoneNo = sanitizedPhoneNo.substring(1);
+  }
+
+  form.transform((data) => ({
+    ...data,
+    phone_no: sanitizedPhoneNo,
+  }));
+};
+
+const submit = () => {
+  form
+    .transform((data) => ({
+      ...data,
+      phone_no: "+62" + data.phone_no,
+    }))
+    .post(route("register"), {
+      onFinish: () => {
+        form.reset("password", "password_confirmation");
+      },
+    });
+};
+</script>
+
 <template>
   <Head title="Register Personal" />
   <form @submit.prevent="submit">
@@ -53,7 +131,7 @@
             <SelectValue placeholder="Pilih area sekolah" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem v-for="area in areas" :value="area.value">{{
+            <SelectItem v-for="area in areas" :key="area.value" :value="area.value">{{
               area.label
             }}</SelectItem>
           </SelectContent>
@@ -87,8 +165,9 @@
           <Input
             id="search"
             type="text"
-            @keydown="isNumberKey"
+            @keydown="handlePhoneInput"
             v-model="form.phone_no"
+            required
             placeholder="Nomor telepon perwakilan"
             class="pl-12"
           />
@@ -179,68 +258,3 @@
     </div>
   </form>
 </template>
-
-<script setup lang="ts">
-import InputError from "@/Components/InputError.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
-import { Head, Link, useForm } from "@inertiajs/vue3";
-import { Textarea } from "@/Components/ui/textarea";
-import { Input } from "@/Components/ui/input";
-import { Separator } from "@/Components/ui/separator";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/Components/ui/select";
-import { useNumberKeydown } from "@/lib/utils";
-
-const { isNumberKey } = useNumberKeydown();
-const areas: { label: string; value: string }[] = [
-  { label: "Banjarnegara", value: "banjarnegara" },
-  { label: "Yogyakarta", value: "yogyakarta" },
-  { label: "Purwokerto", value: "purwokerto" },
-];
-
-const form = useForm<{
-  is_school_account: true;
-  name: string;
-  position: string;
-  instagram_account: string;
-  school_name: string;
-  area: string;
-  phone_no: string;
-  email: string;
-  competition: "kolaborasa" | "chant" | "cheerleading" | "mascot";
-  password: string;
-  password_confirmation: string;
-}>({
-  is_school_account: true,
-  name: "",
-  instagram_account: "",
-  position: "",
-  school_name: "",
-  phone_no: "",
-  area: "",
-  email: "",
-  competition: "kolaborasa",
-  password: "",
-  password_confirmation: "",
-});
-
-const submit = () => {
-  form
-    .transform((data) => ({
-      ...data,
-      phone_no: "+62" + data.phone_no,
-    }))
-    .post(route("register"), {
-      onFinish: () => {
-        form.reset("password", "password_confirmation");
-      },
-    });
-};
-</script>

@@ -1,76 +1,70 @@
-<template>
-  <AppLayout>
-    <MainHeader />
-    <Tabs default-value="school" class="container my-12 w-full max-w-lg">
-      <TabsList class="grid w-full grid-cols-2">
-        <TabsTrigger value="school">Daftar Sekolah </TabsTrigger>
-        <TabsTrigger value="personal">Daftar Personal </TabsTrigger>
-      </TabsList>
-
-      <TabsContent value="school">
-        <Card>
-          <CardHeader>
-            <CardTitle>Sekolah</CardTitle>
-            <CardDescription>Daftar untuk Sekolah</CardDescription>
-          </CardHeader>
-          <CardContent class="space-y-2">
-            <RegisterSchool />
-          </CardContent>
-        </Card>
-      </TabsContent>
-
-      <TabsContent value="personal">
-        <Card>
-          <CardHeader>
-            <CardTitle>Personal</CardTitle>
-            <CardDescription>Daftar untuk Personal</CardDescription>
-          </CardHeader>
-          <CardContent class="space-y-2">
-            <RegisterPersonal />
-          </CardContent>
-        </Card>
-      </TabsContent>
-    </Tabs>
-  </AppLayout>
-</template>
-
 <script setup lang="ts">
 import AppLayout from "@/Layouts/AppLayout.vue";
 import MainHeader from "@/Components/MainHeader.vue";
-import { useForm } from "@inertiajs/vue3";
 
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "@/Components/ui/card";
-import { Input } from "@/Components/ui/input";
-import { Label } from "@/Components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/Components/ui/tabs";
 import RegisterPersonal from "./RegisterPersonal.vue";
 import RegisterSchool from "./RegisterSchool.vue";
+import { ref } from "vue";
 
-const form = useForm({
-  name: "",
-  position: "",
-  instagramAccount: "",
-  schoolName: "",
-  area: "",
-  phone: "",
+type TRegistrationType = "sekolah" | "pribadi";
 
-  email: "",
-  password: "",
-  password_confirmation: "",
-});
-
-const submit = () => {
-  form.post(route("register"), {
-    onFinish: () => {
-      form.reset("password", "password_confirmation");
-    },
-  });
-};
+const selectedRegistration = ref<TRegistrationType>("sekolah");
 </script>
+
+<template>
+    <AppLayout>
+        <MainHeader :showJatengText="true" />
+        <div class="container mb-12 w-full max-w-lg">
+            <h1 class="mb-4 text-center text-4xl uppercase">
+                Registrasi {{ selectedRegistration }}
+            </h1>
+            <Tabs
+                @update:modelValue="
+                    (e) => {
+                        selectedRegistration = e as TRegistrationType;
+                    }
+                "
+                default-value="sekolah"
+            >
+                <TabsList class="grid w-full grid-cols-2">
+                    <TabsTrigger value="sekolah">Daftar Sekolah </TabsTrigger>
+                    <TabsTrigger value="pribadi">Daftar Pribadi </TabsTrigger>
+                </TabsList>
+                <TabsContent value="sekolah">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Sekolah</CardTitle>
+                            <CardDescription
+                                >Daftar untuk Sekolah</CardDescription
+                            >
+                        </CardHeader>
+                        <CardContent class="space-y-2">
+                            <RegisterSchool />
+                        </CardContent>
+                    </Card>
+                </TabsContent>
+                <TabsContent value="pribadi">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Pribadi</CardTitle>
+                            <CardDescription
+                                >Daftar untuk Pribadi</CardDescription
+                            >
+                        </CardHeader>
+                        <CardContent class="space-y-2">
+                            <RegisterPersonal />
+                        </CardContent>
+                    </Card>
+                </TabsContent>
+            </Tabs>
+        </div>
+    </AppLayout>
+</template>
