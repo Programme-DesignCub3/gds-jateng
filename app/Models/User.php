@@ -6,11 +6,13 @@ namespace App\Models;
 
 use App\Enums\CompetitionList;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -55,4 +57,10 @@ class User extends Authenticatable
         'password' => 'hashed',
         'competition' => CompetitionList::class
     ];
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+
+        return str_ends_with($this->email, '@gmail.com');
+    }
 }

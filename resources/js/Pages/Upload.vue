@@ -6,7 +6,33 @@ import { Textarea } from "@/Components/ui/textarea";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import FileUpload from "@/Components/ui/custom/FileUpload.vue";
 import { ScrollArea } from "@/Components/ui/scroll-area";
-import { Head } from "@inertiajs/vue3";
+import { Head, useForm } from "@inertiajs/vue3";
+import { VideoOffIcon } from "lucide-vue-next";
+
+const form = useForm({
+    files: null,
+});
+
+const previewVideo = () => {
+    let video = document.getElementById("video-preview") as HTMLVideoElement;
+    let reader = new FileReader();
+
+    if (form.files && video) {
+        reader.readAsDataURL(form.files[0]);
+        reader.addEventListener("load", function () {
+            video.src = reader.result as string;
+        });
+    }
+};
+
+const handleVideoUpload = (files: any) => {
+    form.files = files;
+    previewVideo();
+};
+
+function submit() {
+    form.post("/test-upload");
+}
 </script>
 
 <template>
@@ -19,9 +45,11 @@ import { Head } from "@inertiajs/vue3";
                     class="grid flex-1 gap-4 overflow-auto p-4 lg:grid-cols-3"
                 >
                     <!-- form -->
-                    <ScrollArea class="rounded-md border ring-2 lg:h-[80vh]">
+                    <ScrollArea
+                        class="rounded-md border ring-2 max-md:order-1 lg:h-[78vh]"
+                    >
                         <div
-                            class="relative flex-col items-start gap-8 max-md:order-1 md:flex"
+                            class="relative flex-col items-start gap-8 md:flex"
                         >
                             <form
                                 class="grid w-full items-start gap-6 overflow-auto p-4"
@@ -36,7 +64,11 @@ import { Head } from "@inertiajs/vue3";
                                     </legend>
                                     <div class="grid gap-3">
                                         <Label>Upload File</Label>
-                                        <FileUpload />
+                                        <FileUpload
+                                            @uploaded-files-change="
+                                                handleVideoUpload
+                                            "
+                                        />
                                     </div>
                                     <div class="grid gap-3">
                                         <Label for="judul">Judul</Label>
@@ -86,12 +118,30 @@ import { Head } from "@inertiajs/vue3";
 
                     <!-- editor / preview  -->
                     <div
-                        class="relative flex w-full max-w-[100vw] flex-col rounded-xl bg-muted/50 p-4 ring-2 ring-primary lg:col-span-2"
+                        class="relative flex w-full max-w-[100vw] flex-col items-center justify-center rounded-xl bg-muted/50 p-4 ring-2 ring-primary lg:col-span-2"
                     >
-                        <Badge variant="outline" class="absolute right-3 top-3">
-                            Preview
+                        <Badge
+                            variant="outline"
+                            class="absolute right-6 top-8 bg-muted opacity-75"
+                            v-show="form.files"
+                        >
+                            Video Preview
                         </Badge>
-                        <div class="aspect-video" />
+                        <video
+                            id="video-preview"
+                            class="aspect-video w-full rounded-lg"
+                            controls
+                            v-show="form.files"
+                        />
+                        <div
+                            v-if="!form.files"
+                            class="grid aspect-video w-full items-center justify-center"
+                        >
+                            <div class="text-center text-muted-foreground">
+                                <VideoOffIcon class="size-full" />
+                                <p>No video</p>
+                            </div>
+                        </div>
                     </div>
                 </main>
             </div>
