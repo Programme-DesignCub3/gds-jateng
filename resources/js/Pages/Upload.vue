@@ -46,13 +46,13 @@ function submit() {
                 >
                     <!-- form -->
                     <ScrollArea
-                        class="rounded-md border ring-2 max-md:order-1 lg:h-[78vh]"
+                        class="rounded-md border ring-2 max-lg:order-1 lg:h-[78vh]"
                     >
                         <div
                             class="relative flex-col items-start gap-8 md:flex"
                         >
                             <form
-                                class="grid w-full items-start gap-6 overflow-auto p-4"
+                                class="grid w-full items-start gap-6 overflow-auto p-2 lg:p-4"
                             >
                                 <fieldset
                                     class="grid gap-6 rounded-lg border p-4"
@@ -118,7 +118,7 @@ function submit() {
 
                     <!-- editor / preview  -->
                     <div
-                        class="relative flex w-full max-w-[100vw] flex-col items-center justify-center rounded-xl bg-muted/50 p-4 ring-2 ring-primary lg:col-span-2"
+                        class="relative flex w-full max-w-[100vw] flex-col items-center justify-center rounded-xl bg-muted/50 p-2 ring-2 ring-primary lg:col-span-2 lg:p-4"
                     >
                         <Badge
                             variant="outline"

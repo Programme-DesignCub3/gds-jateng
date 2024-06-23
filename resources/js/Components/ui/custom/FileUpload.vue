@@ -57,6 +57,8 @@ const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     maxFiles: 1,
     multiple: false,
+    accept: "video/*",
+    maxSize: 262144000,
 });
 </script>
 
