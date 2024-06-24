@@ -30,8 +30,11 @@
                 </p>
             </div>
 
-            <PrimaryButton as-child class="mt-20">
+            <PrimaryButton as-child class="mt-20" v-if="!$page.props.auth.user">
                 <Link :href="route('register')">Join Now</Link>
+            </PrimaryButton>
+            <PrimaryButton as-child class="mt-20" v-else>
+                <Link :href="route('register')">Submission</Link>
             </PrimaryButton>
         </div>
     </AppLayout>

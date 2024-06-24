@@ -47,12 +47,15 @@ Route::post('/test-upload', function (Request $request) {
 
 Route::get('/kompetisi', function () {
     return Inertia::render('Competition/Index');
-})->name('kompetisi.index');
+})->name('competition.index');
 
 Route::get('/kompetisi/detail', function () {
     return Inertia::render('Competition/Show');
-})->name('kompetisi.show');
+})->name('competition.show');
 
+Route::get('/pengumuman', function () {
+    return Inertia::render('Announcement');
+})->name('announcement');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

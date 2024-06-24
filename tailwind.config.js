@@ -22,15 +22,21 @@ export default {
         extend: {
             backgroundImage: {
                 login: "url('/assets/images/login.svg')",
+                boy: "url('/assets/images/illust_boy.svg')",
+                girl: "url('/assets/images/illust_girl.svg')",
+                "announcement-illust-etc":
+                    "url('/assets/images/announcement_illust_etc.svg')",
                 "competition-boy":
-                    "url('/assets/images/competition-illust-boy.svg')",
+                    "url('/assets/images/competition_illust_boy.svg')",
                 "competition-girl":
-                    "url('/assets/images/competition-illust-girl.svg')",
+                    "url('/assets/images/competition_illust_girl.svg')",
                 "competition-blob-1":
-                    "url('/assets/images/competition-blob-tl.svg')",
+                    "url('/assets/images/competition_blob_tl.svg')",
                 "competition-blob-2":
-                    "url('/assets/images/competition-blob-br.svg')",
-                "competition-paper-rip": "url('/assets/images/paper-rip.svg')",
+                    "url('/assets/images/competition_blob_br.svg')",
+                "competition-paper-rip": "url('/assets/images/paper_rip.svg')",
+                "orange-paper-rip":
+                    "url('/assets/images/paper_rip_orange.svg')",
                 "competition-juri-overlay":
                     "url('/assets/images/circle_overlay.png')",
             },

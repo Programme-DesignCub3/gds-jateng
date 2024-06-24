@@ -20,7 +20,7 @@
                 </p>
             </div>
             <Button as-child class="shrink-0 rounded-full" size="icon">
-                <Link :href="route('kompetisi.show')">
+                <Link :href="route('competition.show')">
                     <ArrowRight class="h-8 w-8" />
                 </Link>
             </Button>
