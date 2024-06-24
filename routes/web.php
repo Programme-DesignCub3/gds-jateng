@@ -46,8 +46,12 @@ Route::post('/test-upload', function (Request $request) {
 })->name('test-upload.store');
 
 Route::get('/kompetisi', function () {
-    return Inertia::render('Competition');
-})->name('kompetisi');
+    return Inertia::render('Competition/Index');
+})->name('kompetisi.index');
+
+Route::get('/kompetisi/detail', function () {
+    return Inertia::render('Competition/Show');
+})->name('kompetisi.show');
 
 
 Route::get('/dashboard', function () {

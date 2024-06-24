@@ -19,8 +19,21 @@ export default {
                 "2xl": "1400px",
             },
         },
-
         extend: {
+            backgroundImage: {
+                login: "url('/assets/images/login.svg')",
+                "competition-boy":
+                    "url('/assets/images/competition-illust-boy.svg')",
+                "competition-girl":
+                    "url('/assets/images/competition-illust-girl.svg')",
+                "competition-blob-1":
+                    "url('/assets/images/competition-blob-tl.svg')",
+                "competition-blob-2":
+                    "url('/assets/images/competition-blob-br.svg')",
+                "competition-paper-rip": "url('/assets/images/paper-rip.svg')",
+                "competition-juri-overlay":
+                    "url('/assets/images/circle_overlay.png')",
+            },
             screens: {
                 xs: "375px",
             },
@@ -67,6 +80,8 @@ export default {
             },
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
+                syne: ["Syne", ...defaultTheme.fontFamily.sans],
+                raleway: ["Raleway", ...defaultTheme.fontFamily.sans],
             },
             keyframes: {
                 "accordion-down": {

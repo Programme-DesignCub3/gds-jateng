@@ -13,7 +13,7 @@
         --popover: 0 0% 100%;
         --popover-foreground: 240 10% 3.9%;
 
-        --primary: 346.8 77.2% 49.8%;
+        --primary: 358 79% 52%;
         --primary-foreground: 355.7 100% 97.3%;
 
         --secondary: 240 4.8% 95.9%;
@@ -71,5 +71,15 @@
     }
     body {
         @apply bg-background text-foreground;
+    }
+}
+
+@layer components {
+    .competition-detail-pattern {
+        background-color: hsl(var(--primary));
+        background-image: url(/assets/images/kompetisi_pattern.png);
+        background-position: left top;
+        /* background-size: 50%; */
+        /* background-size: 100%; */
     }
 }
