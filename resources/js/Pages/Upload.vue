@@ -13,17 +13,59 @@ const form = useForm({
     files: null,
 });
 
+// ? CHAT-GPT ASSISTED CODE
 const previewVideo = () => {
     let video = document.getElementById("video-preview") as HTMLVideoElement;
     let reader = new FileReader();
 
     if (form.files && video) {
-        reader.readAsDataURL(form.files[0]);
-        reader.addEventListener("load", function () {
-            video.src = reader.result as string;
-        });
+        reader.readAsArrayBuffer(form.files[0]);
+
+        reader.onload = function (e) {
+            // The file reader gives us an ArrayBuffer:
+            let buffer = e.target?.result;
+
+            if (buffer && buffer instanceof ArrayBuffer) {
+                // We have to convert the buffer to a blob:
+                let videoBlob = new Blob([new Uint8Array(buffer)], {
+                    type: "video/mp4",
+                });
+
+                // The blob gives us a URL to the video file:
+                let url = window.URL.createObjectURL(videoBlob);
+
+                video.src = url;
+            } else {
+                console.error("Unexpected buffer type:", buffer);
+            }
+        };
     }
 };
+
+// ? OLD CODE
+// const previewVideo = () => {
+//     let video = document.getElementById("video-preview") as HTMLVideoElement;
+//     let reader = new FileReader();
+
+//     if (form.files && video) {
+//         reader.readAsArrayBuffer(form.files[0]);
+
+//         reader.onload = function (e) {
+//             // The file reader gives us an ArrayBuffer:
+//             let buffer = e.target?.result;
+
+//             // We have to convert the buffer to a blob:
+//             let videoBlob = new Blob([new Uint8Array(buffer)], {
+//                 type: "video/mp4",
+//             });
+
+//             // The blob gives us a URL to the video file:
+//             let url = window.URL.createObjectURL(videoBlob);
+
+//             video.src = url;
+//         };
+//     }
+// };
 
 const handleVideoUpload = (files: any) => {
     form.files = files;
