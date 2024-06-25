@@ -1,10 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\UploadController;
+use App\Http\Controllers\ProfileController;
+use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
+use Pion\Laravel\ChunkUpload\Exceptions\UploadMissingFileException;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,15 +29,20 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+Route::get('/test-upload/basic', function () {
+    return Inertia::render('Upload');
+})->name('test-upload.create.basic');
+
 Route::get('/test-upload', function () {
     return Inertia::render('Upload');
 })->name('test-upload.create');
 
-Route::post('/test-upload', function (Request $request) {
-    dd($request->file('files'));
+Route::post('/test-upload/basic', function (Request $request) {
     if ($request->hasfile('files')) {
+
         foreach ($request->file('files') as $file) {
             if ($file->isValid()) {
+                dd($file);
                 $file->store('testUpload');
             }
         }
@@ -43,7 +51,9 @@ Route::post('/test-upload', function (Request $request) {
     }
 
     // return Inertia::render('Test',);
-})->name('test-upload.store');
+})->name('test-upload.basic');
+
+Route::post('/upload-advanced', [UploadController::class, 'upload'])->name('test-upload.advance');
 
 Route::get('/kompetisi', function () {
     return Inertia::render('Competition/Index');

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c8702c8b92f5ec222f4eeef991da4ed",
+    "content-hash": "2ed95befeace672cba64cef754ea2da0",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -2362,121 +2362,6 @@
             "time": "2023-10-27T10:59:02+00:00"
         },
         {
-            "name": "jobtech/laravel-chunky",
-            "version": "3.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jobtech-dev/laravel-chunky.git",
-                "reference": "604021fd7732d518c161630de60621ea69f690be"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jobtech-dev/laravel-chunky/zipball/604021fd7732d518c161630de60621ea69f690be",
-                "reference": "604021fd7732d518c161630de60621ea69f690be",
-                "shasum": ""
-            },
-            "require": {
-                "ext-fileinfo": "*",
-                "ext-json": "*",
-                "illuminate/contracts": "^10.0",
-                "illuminate/filesystem": "^10.0",
-                "illuminate/support": "^10.0",
-                "keven/append-stream": "^1.0.5",
-                "php": "^8.1"
-            },
-            "require-dev": {
-                "aws/aws-sdk-php": "^3.155",
-                "friendsofphp/php-cs-fixer": "^3.49",
-                "league/flysystem-aws-s3-v3": "^3.0",
-                "mockery/mockery": "^1.4",
-                "orchestra/testbench": "^8.21",
-                "phpunit/phpunit": "^10.0"
-            },
-            "suggest": {
-                "league/flysystem-aws-s3-v3": "Required to use AWS S3 file storage"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Jobtech\\LaravelChunky\\ChunkyServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Jobtech\\LaravelChunky\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "ilGala",
-                    "email": "filippo.galante@jobtech.it",
-                    "homepage": "https://jobtech.it"
-                }
-            ],
-            "description": "A laravel manager to handle chunked files upload",
-            "homepage": "https://github.com/jobtech-dev/laravel-chunky",
-            "keywords": [
-                "chunk",
-                "chunky",
-                "jobtech",
-                "laravel",
-                "upload"
-            ],
-            "support": {
-                "issues": "https://github.com/jobtech-dev/laravel-chunky/issues",
-                "source": "https://github.com/jobtech-dev/laravel-chunky/tree/3.0.0"
-            },
-            "time": "2024-02-07T09:29:46+00:00"
-        },
-        {
-            "name": "keven/append-stream",
-            "version": "1.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kevengodet/append-stream.git",
-                "reference": "fd0438f178d9708747c568f041879822d75068a6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kevengodet/append-stream/zipball/fd0438f178d9708747c568f041879822d75068a6",
-                "reference": "fd0438f178d9708747c568f041879822d75068a6",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^7.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Keven\\AppendStream\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "mit"
-            ],
-            "authors": [
-                {
-                    "name": "Keven Godet",
-                    "email": "contact@keven.fr",
-                    "homepage": "http://keven.fr",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Append stream resources into a single stream to read from.",
-            "support": {
-                "issues": "https://github.com/kevengodet/append-stream/issues",
-                "source": "https://github.com/kevengodet/append-stream/tree/master"
-            },
-            "time": "2018-04-13T08:59:29+00:00"
-        },
-        {
             "name": "kirschbaum-development/eloquent-power-joins",
             "version": "3.5.6",
             "source": {
@@ -4443,6 +4328,72 @@
                 }
             ],
             "time": "2023-11-12T21:59:55+00:00"
+        },
+        {
+            "name": "pion/laravel-chunk-upload",
+            "version": "v1.5.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pionl/laravel-chunk-upload.git",
+                "reference": "cfbc4292ddcace51308a4f2f446d310aa04e6133"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pionl/laravel-chunk-upload/zipball/cfbc4292ddcace51308a4f2f446d310aa04e6133",
+                "reference": "cfbc4292ddcace51308a4f2f446d310aa04e6133",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "5.2 - 5.8 | ^6.0 | ^7.0 | ^8.0 | ^9.0 | ^10.0 | ^11.0",
+                "illuminate/filesystem": "5.2 - 5.8 | ^6.0 | ^7.0 | ^8.0 | ^9.0 | ^10.0 | ^11.0",
+                "illuminate/http": "5.2 - 5.8 | ^6.0 | ^7.0 | ^8.0 | ^9.0 | ^10.0 | ^11.0",
+                "illuminate/support": "5.2 - 5.8 | ^6.0 | ^7.0 | ^8.0 | ^9.0 | ^10.0 | ^11.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16.0 | ^3.52.0",
+                "mockery/mockery": "^1.1.0 | ^1.3.0 | ^1.6.0",
+                "overtrue/phplint": "^1.1 | ^2.0 | ^9.1",
+                "phpunit/phpunit": "5.7 | 6.0 | 7.0 | 7.5 | 8.4 | ^8.5 | ^9.3 | ^10.0 | ^11.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Pion\\Laravel\\ChunkUpload\\Providers\\ChunkUploadServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Pion\\Laravel\\ChunkUpload\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Martin Kluska",
+                    "email": "martin@kluska.cz"
+                }
+            ],
+            "description": "Service for chunked upload with several js providers",
+            "support": {
+                "issues": "https://github.com/pionl/laravel-chunk-upload/issues",
+                "source": "https://github.com/pionl/laravel-chunk-upload/tree/v1.5.4"
+            },
+            "funding": [
+                {
+                    "url": "https://revolut.me/martinpv7n",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/pionl",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-03-25T15:50:07+00:00"
         },
         {
             "name": "propaganistas/laravel-phone",

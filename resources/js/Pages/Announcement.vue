@@ -2,8 +2,10 @@
 import AnnouncementHeader from "@/Components/AnnouncementHeader.vue";
 import AnnouncementSection from "@/Components/AnnouncementSection.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
+import { Head } from "@inertiajs/vue3";
 </script>
 <template>
+    <Head title="Pengumuman" />
     <AppLayout>
         <AnnouncementHeader />
 
@@ -12,7 +14,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                 v-for="competition in [
                     'kolaborasa',
                     'chant competition',
-                    'cheerleadin competition',
+                    'cheerleading competition',
                     'mascot design',
                 ]"
                 :key="competition"

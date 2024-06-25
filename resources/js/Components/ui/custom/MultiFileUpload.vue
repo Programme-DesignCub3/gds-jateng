@@ -1,81 +1,106 @@
 <template>
-  <div>
     <div>
-      <label
-        v-bind="getRootProps()"
-        class="relative flex w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 py-6 hover:bg-gray-100"
-      >
-        <div class="text-center">
-          <div class="mx-auto max-w-min rounded-md border p-2">
-            <UploadCloudIcon :size="20" />
-          </div>
-
-          <p class="mt-2 text-sm text-gray-600">
-            <span class="font-semibold">Drag files</span>
-          </p>
-          <p class="text-xs text-gray-500">
-            Click to upload files (files should be under 250MB)
-          </p>
-        </div>
-      </label>
-
-      <input
-        v-bind="getInputProps()"
-        id="dropzone-file"
-        accept="image/png, image/jpeg, video/mp4"
-        type="file"
-        class="hidden"
-      />
-    </div>
-
-    <div v-if="filesToUpload.length > 0">
-      <ScrollArea class="h-40">
-        <p class="my-2 mt-6 text-sm font-medium text-muted-foreground">Files to upload</p>
-        <div class="space-y-2 pr-3">
-          <div
-            v-for="fileUploadProgress in filesToUpload"
-            :key="fileUploadProgress.File.lastModified"
-            class="group flex justify-between gap-2 overflow-hidden rounded-lg border border-slate-100 pr-2 hover:pr-0"
-          >
-            <div class="flex flex-1 items-center p-2">
-              <div class="text-white">
-                <component
-                  :is="getFileIconAndColor(fileUploadProgress.File).icon"
-                  ::size="40"
-                  :class="getFileIconAndColor(fileUploadProgress.File).fillColor"
-                />
-              </div>
-
-              <div class="ml-2 w-full space-y-1">
-                <div class="flex justify-between text-sm">
-                  <p class="text-muted-foreground">
-                    {{ fileUploadProgress.File.name.slice(0, 25) }}
-                  </p>
-                  <span class="text-xs">{{ fileUploadProgress.progress }}%</span>
-                </div>
-                <Progress
-                  :progress="fileUploadProgress.progress"
-                  :class="getFileIconAndColor(fileUploadProgress.File).color"
-                />
-              </div>
-            </div>
-            <button
-              @click="
-                () => {
-                  if (fileUploadProgress.source)
-                    fileUploadProgress.source.cancel('Upload cancelled');
-                  removeFile(fileUploadProgress.File);
-                }
-              "
-              class="hidden cursor-pointer items-center justify-center bg-red-500 px-2 text-white transition-all group-hover:flex"
+        <div>
+            <label
+                v-bind="getRootProps()"
+                class="relative flex w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 py-6 hover:bg-gray-100"
             >
-              <XCircleIcon :size="20" />
-            </button>
-          </div>
+                <div class="text-center">
+                    <div class="mx-auto max-w-min rounded-md border p-2">
+                        <UploadCloudIcon :size="20" />
+                    </div>
+
+                    <p class="mt-2 text-sm text-gray-600">
+                        <span class="font-semibold">Drag files</span>
+                    </p>
+                    <p class="text-xs text-gray-500">
+                        Click to upload files (files should be under 250MB)
+                    </p>
+                </div>
+            </label>
+
+            <input
+                v-bind="getInputProps()"
+                id="dropzone-file"
+                accept="image/png, image/jpeg, video/mp4"
+                type="file"
+                class="hidden"
+            />
         </div>
-      </ScrollArea>
-    </div>
-    <!--
+
+        <div v-if="filesToUpload.length > 0">
+            <ScrollArea class="h-40">
+                <p class="my-2 mt-6 text-sm font-medium text-muted-foreground">
+                    Files to upload
+                </p>
+                <div class="space-y-2 pr-3">
+                    <div
+                        v-for="fileUploadProgress in filesToUpload"
+                        :key="fileUploadProgress.File.lastModified"
+                        class="group flex justify-between gap-2 overflow-hidden rounded-lg border border-slate-100 pr-2 hover:pr-0"
+                    >
+                        <div class="flex flex-1 items-center p-2">
+                            <div class="text-white">
+                                <component
+                                    :is="
+                                        getFileIconAndColor(
+                                            fileUploadProgress.File,
+                                        ).icon
+                                    "
+                                    ::size="40"
+                                    :class="
+                                        getFileIconAndColor(
+                                            fileUploadProgress.File,
+                                        ).fillColor
+                                    "
+                                />
+                            </div>
+
+                            <div class="ml-2 w-full space-y-1">
+                                <div class="flex justify-between text-sm">
+                                    <p class="text-muted-foreground">
+                                        {{
+                                            fileUploadProgress.File.name.slice(
+                                                0,
+                                                25,
+                                            )
+                                        }}
+                                    </p>
+                                    <span class="text-xs"
+                                        >{{
+                                            fileUploadProgress.progress
+                                        }}%</span
+                                    >
+                                </div>
+                                <Progress
+                                    :progress="fileUploadProgress.progress"
+                                    :class="
+                                        getFileIconAndColor(
+                                            fileUploadProgress.File,
+                                        ).color
+                                    "
+                                />
+                            </div>
+                        </div>
+                        <button
+                            @click="
+                                () => {
+                                    if (fileUploadProgress.source)
+                                        fileUploadProgress.source.cancel(
+                                            'Upload cancelled',
+                                        );
+                                    removeFile(fileUploadProgress.File);
+                                }
+                            "
+                            class="hidden cursor-pointer items-center justify-center bg-red-500 px-2 text-white transition-all group-hover:flex"
+                        >
+                            <XCircleIcon :size="20" />
+                        </button>
+                    </div>
+                </div>
+            </ScrollArea>
+        </div>
+        <!--
         <div>
             <div v-for="thumb in thumbnails" alt="">
                 <p>{{ thumb.type }}</p>
@@ -83,15 +108,23 @@
             </div>
         </div> -->
 
-    <!-- <div v-if="uploadedFiles.length > 0">
-            <p class="my-2 mt-6 text-sm font-medium text-muted-foreground">Uploaded Files</p>
+        <div v-if="uploadedFiles.length > 0">
+            <p class="my-2 mt-6 text-sm font-medium text-muted-foreground">
+                Uploaded Files
+            </p>
             <div class="space-y-2 pr-3">
-                <div v-for="file in uploadedFiles" :key="file.lastModified"
-                    class="group flex justify-between gap-2 overflow-hidden rounded-lg border border-slate-100 pr-2 transition-all hover:border-slate-300 hover:pr-0">
+                <div
+                    v-for="file in uploadedFiles"
+                    :key="file.lastModified"
+                    class="group flex justify-between gap-2 overflow-hidden rounded-lg border border-slate-100 pr-2 transition-all hover:border-slate-300 hover:pr-0"
+                >
                     <div class="flex flex-1 items-center p-2">
                         <div class="text-white">
-                            <component :is="getFileIconAndColor(file).icon" :size="40"
-                                :class="getFileIconAndColor(file).fillColor" />
+                            <component
+                                :is="getFileIconAndColor(file).icon"
+                                :size="40"
+                                :class="getFileIconAndColor(file).fillColor"
+                            />
                         </div>
                         <div class="ml-2 w-full space-y-1">
                             <div class="flex justify-between text-sm">
@@ -101,14 +134,16 @@
                             </div>
                         </div>
                     </div>
-                    <button @click="removeFile(file)"
-                        class="hidden items-center justify-center bg-red-500 px-2 text-white transition-all group-hover:flex">
+                    <button
+                        @click="removeFile(file)"
+                        class="hidden items-center justify-center bg-red-500 px-2 text-white transition-all group-hover:flex"
+                    >
                         <XCircleIcon :size="20" />
                     </button>
                 </div>
             </div>
-        </div> -->
-  </div>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -126,6 +161,7 @@ import {
 import { useDropzone } from "vue3-dropzone";
 import { Progress } from "@/Components/ui/progress";
 import { ScrollArea } from "@/Components/ui/scroll-area";
+import { router } from "@inertiajs/vue3";
 
 interface FileUploadProgress {
     progress: number;
@@ -173,6 +209,48 @@ const filesToUpload = ref<FileUploadProgress[]>([]);
 
 const emit = defineEmits(["uploadedFilesChange"]);
 const reader = new FileReader();
+
+async function chunkFileAndUpload(file: File) {
+    try {
+        if (file.size > 100 * 1024 * 1024) {
+            throw new Error("The file must be less than 100 MB");
+        }
+
+        const chunkSize = 1024 * 1024 * 4;
+        const chunks = Math.ceil(file.size / chunkSize);
+
+        for (let i = 0; i < chunks; i++) {
+            const start = i * chunkSize;
+            const end = Math.min(file.size, start + chunkSize);
+            const chunk = file.slice(start, end);
+
+            const formData = new FormData();
+            formData.append("file", chunk, file.name);
+            formData.append(
+                "is_last_chunk",
+                i === chunks - 1 ? "true" : "false",
+            );
+            await axios.post(route("uploads.chunk"), formData);
+        }
+        router.reload();
+    } catch (e: any) {
+        alert(e.message ?? "Failed!");
+    }
+}
+
+function handleFileUpload(event: Event) {
+    event.preventDefault();
+
+    const target = event.target as HTMLInputElement;
+    const files = target.files;
+    if (!files) {
+        return;
+    }
+
+    const file = files[0];
+
+    chunkFileAndUpload(file);
+}
 
 reader.onload = (event) => {
     if (event.target?.DONE) {
@@ -266,14 +344,10 @@ const uploadImageToCloudinary = async (
     onUploadProgress: (progressEvent: AxiosProgressEvent) => void,
     cancelSource: CancelTokenSource,
 ) => {
-    return axios.post(
-        "https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload",
-        formData,
-        {
-            onUploadProgress,
-            cancelToken: cancelSource.token,
-        },
-    );
+    return axios.post(route("test-upload.advance"), formData, {
+        onUploadProgress,
+        cancelToken: cancelSource.token,
+    });
 };
 
 const removeFile = (file: File) => {
@@ -296,7 +370,7 @@ const onDrop = async (acceptedFiles: File[]) => {
         }),
     ];
 
-    uploadedFiles.value = [...uploadedFiles.value, ...acceptedFiles];
+    // uploadedFiles.value = [...uploadedFiles.value, ...acceptedFiles];
 
     emit("uploadedFilesChange", uploadedFiles); // cloudinary upload
 

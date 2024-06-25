@@ -9,7 +9,7 @@ defineProps<{
 <template>
     <div class="flex w-full flex-col items-center justify-center gap-y-6">
         <h2
-            class="bg-orange-paper-rip relative mx-10 inline-block h-full w-fit flex-col items-center justify-center bg-[length:100%_100%] bg-center bg-no-repeat px-4 py-8 text-center text-lg font-bold uppercase text-[#1F4387]"
+            class="bg-orange-paper-rip relative inline-block h-full w-fit flex-col items-center justify-center overflow-visible bg-[length:100%_100%] bg-center bg-no-repeat p-10 text-center text-lg font-bold uppercase text-[#1F4387] md:text-xl lg:text-2xl"
         >
             {{ title }}
         </h2>

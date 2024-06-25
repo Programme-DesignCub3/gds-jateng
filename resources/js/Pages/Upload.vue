@@ -6,20 +6,20 @@ import { Textarea } from "@/Components/ui/textarea";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import FileUpload from "@/Components/ui/custom/FileUpload.vue";
 import { ScrollArea } from "@/Components/ui/scroll-area";
-import { Head, useForm, router } from "@inertiajs/vue3";
+import { Head, useForm } from "@inertiajs/vue3";
 import { VideoOffIcon } from "lucide-vue-next";
+import VideoUploadChunk from "@/Components/ui/custom/VideoUploadChunk.vue";
+import { ref } from "vue";
 
-const form = useForm({
-    files: null,
-});
+const form = useForm({});
+const videoFile = ref<File | null>(null);
+const videoPlayer = ref<HTMLVideoElement | null>(null);
 
-// ? CHAT-GPT ASSISTED CODE
 const previewVideo = () => {
-    let video = document.getElementById("video-preview") as HTMLVideoElement;
     let reader = new FileReader();
 
-    if (form.files && video) {
-        reader.readAsArrayBuffer(form.files[0]);
+    if (videoFile.value && videoPlayer) {
+        reader.readAsArrayBuffer(videoFile.value);
 
         reader.onload = function (e) {
             // The file reader gives us an ArrayBuffer:
@@ -34,7 +34,11 @@ const previewVideo = () => {
                 // The blob gives us a URL to the video file:
                 let url = window.URL.createObjectURL(videoBlob);
 
-                video.src = url;
+                if (videoPlayer.value) {
+                    videoPlayer.value.src = url;
+                } else {
+                    console.error("videoPlayer is null when trying to set src");
+                }
             } else {
                 console.error("Unexpected buffer type:", buffer);
             }
@@ -42,49 +46,24 @@ const previewVideo = () => {
     }
 };
 
-// ? OLD CODE
-// const previewVideo = () => {
-//     let video = document.getElementById("video-preview") as HTMLVideoElement;
-//     let reader = new FileReader();
-
-//     if (form.files && video) {
-//         reader.readAsArrayBuffer(form.files[0]);
-
-//         reader.onload = function (e) {
-//             // The file reader gives us an ArrayBuffer:
-//             let buffer = e.target?.result;
-
-//             // We have to convert the buffer to a blob:
-//             let videoBlob = new Blob([new Uint8Array(buffer)], {
-//                 type: "video/mp4",
-//             });
-
-//             // The blob gives us a URL to the video file:
-//             let url = window.URL.createObjectURL(videoBlob);
-
-//             video.src = url;
-//         };
-//     }
-// };
-
-const handleVideoUpload = (files: any) => {
-    form.files = files;
+const handleVideoInput = (file: File) => {
+    videoFile.value = file;
     previewVideo();
 };
 
 function submit() {
-    form.post("/test-upload");
+    form.post("/test-upload/basic");
 }
 
-let removeRemoveEventListener = router.on("before", (event) => {
-    if (form.isDirty) {
-        const confirmation = confirm("Submission belum dikirim, pergi aja ?");
-        if (confirmation) {
-            removeRemoveEventListener();
-        }
-        return confirmation;
-    }
-});
+// let removeRemoveEventListener = router.on("before", (event) => {
+//     if (form.isDirty) {
+//         const confirmation = confirm("Submission belum dikirim, pergi aja ?");
+//         if (confirmation) {
+//             removeRemoveEventListener();
+//         }
+//         return confirmation;
+//     }
+// });
 </script>
 
 <template>
@@ -104,6 +83,7 @@ let removeRemoveEventListener = router.on("before", (event) => {
                             class="relative flex-col items-start gap-8 md:flex"
                         >
                             <form
+                                @submit.prevent="submit"
                                 class="grid w-full items-start gap-6 overflow-auto p-2 lg:p-4"
                             >
                                 <fieldset
@@ -116,9 +96,9 @@ let removeRemoveEventListener = router.on("before", (event) => {
                                     </legend>
                                     <div class="grid gap-3">
                                         <Label>Upload File</Label>
-                                        <FileUpload
+                                        <VideoUploadChunk
                                             @uploaded-files-change="
-                                                handleVideoUpload
+                                                handleVideoInput
                                             "
                                         />
                                     </div>
@@ -164,6 +144,8 @@ let removeRemoveEventListener = router.on("before", (event) => {
                                         />
                                     </div>
                                 </fieldset>
+
+                                <button type="submit">Submit</button>
                             </form>
                         </div>
                     </ScrollArea>
@@ -175,19 +157,20 @@ let removeRemoveEventListener = router.on("before", (event) => {
                         <Badge
                             variant="outline"
                             class="absolute right-8 top-10 bg-muted opacity-50"
-                            v-show="form.files"
+                            v-show="videoFile"
                         >
                             Video Preview
                         </Badge>
                         <video
                             draggable="false"
+                            ref="videoPlayer"
                             id="video-preview"
                             class="aspect-video w-full rounded-lg"
                             controls
-                            v-show="form.files"
+                            v-show="videoFile"
                         />
                         <div
-                            v-if="!form.files"
+                            v-if="!videoFile"
                             class="grid aspect-video w-full items-center justify-center"
                         >
                             <div class="text-center text-muted-foreground">
