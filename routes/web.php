@@ -29,13 +29,15 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/test-upload/basic', function () {
-    return Inertia::render('Upload');
-})->name('test-upload.create.basic');
-
 Route::get('/test-upload', function () {
     return Inertia::render('Upload');
 })->name('test-upload.create');
+
+Route::get('/test-upload/basic', function () {
+
+    return Inertia::render('Upload');
+})->name('test-upload.create.basic');
+
 
 Route::post('/test-upload/basic', function (Request $request) {
     if ($request->hasfile('files')) {

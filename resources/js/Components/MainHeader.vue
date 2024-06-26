@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+import GoodChallengeLogo from "@/Components/GoodChallengeLogo.vue";
 import { cn } from "@/lib/utils";
 
 withDefaults(
@@ -32,9 +33,7 @@ withDefaults(
             class="absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 flex-col justify-center gap-y-4 p-6 text-center sm:p-12 md:p-16"
         >
             <ApplicationLogo />
-            <div class="mx-auto w-3/4">
-                <img draggable="false" src="/assets/images/GDS.svg" alt="" />
-            </div>
+            <GoodChallengeLogo class="mx-auto w-3/4" />
 
             <p v-if="showJatengText" class="mt-4 text-xl font-bold">
                 Jawa Tengah

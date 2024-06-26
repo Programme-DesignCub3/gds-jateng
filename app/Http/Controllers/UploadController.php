@@ -88,6 +88,7 @@ class UploadController extends Controller
     {
 
         $extension = $file->getClientOriginalExtension();
+
         if (!$extension) {
             $extension = 'mp4';
         }

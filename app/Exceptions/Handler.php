@@ -25,15 +25,15 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->reportable(function (Throwable $e) {
-            $e->respond(function (Response $response) {
-                if ($response->getStatusCode() === 419) {
-                    return back()->with([
-                        'message' => 'The page expired, please try again.',
-                    ]);
-                }
+            // $e->respond(function (Response $response) {
+            //     if ($response->getStatusCode() === 419) {
+            //         return back()->with([
+            //             'message' => 'The page expired, please try again.',
+            //         ]);
+            //     }
 
-                return $response;
-            });
+            //     return $response;
+            // });
         });
     }
 }

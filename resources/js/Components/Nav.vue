@@ -25,6 +25,7 @@ import NavLink from "./NavLink.vue";
 import { Link } from "@inertiajs/vue3";
 import { VisuallyHidden } from "radix-vue";
 import { getInitials } from "@/lib/utils";
+import GoodChallengeLogo from "./GoodChallengeLogo.vue";
 
 defineProps<{
     fixedNav: boolean;
@@ -37,11 +38,12 @@ defineProps<{
         :class="{ sticky: !fixedNav, 'fixed w-full': fixedNav }"
     >
         <div
-            class="container flex h-16 items-center justify-between bg-background px-4 sm:h-auto md:px-6 lg:gap-20"
+            class="container flex h-16 grid-cols-[37%_1fr_37%] items-center justify-between bg-background px-4 text-xs sm:h-auto md:grid md:px-6 lg:gap-4 lg:text-lg"
         >
             <nav
-                class="hidden flex-col items-center justify-between gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:w-full lg:gap-6"
+                class="hidden grid-cols-3 content-center items-center justify-between justify-items-center gap-6 font-medium md:grid md:gap-5 lg:w-full lg:gap-6"
             >
+                <div></div>
                 <!-- nav item | desktop -->
                 <NavLink
                     :active="route().current('home')"
@@ -57,8 +59,6 @@ defineProps<{
                     Test upload
                     <!-- Tentang Kompetisi -->
                 </NavLink>
-
-                <NavLink href="#"> Gallery Video </NavLink>
             </nav>
 
             <!-- mobile nav -->
@@ -90,6 +90,9 @@ defineProps<{
                             </SheetDescription>
                         </SheetHeader>
                     </VisuallyHidden>
+
+                    <GoodChallengeLogo class="mx-auto my-4 mb-12 w-4/5" />
+
                     <nav class="grid gap-6 text-lg font-medium">
                         <Link
                             :href="route('home')"
@@ -103,12 +106,7 @@ defineProps<{
                         >
                             Test upload
                         </Link>
-                        <Link
-                            href="#"
-                            class="text-muted-foreground hover:text-foreground"
-                        >
-                            Gallery Video
-                        </Link>
+
                         <Link
                             :href="route('competition.index')"
                             class="text-muted-foreground hover:text-foreground"
@@ -127,14 +125,14 @@ defineProps<{
 
             <!-- Logo -->
             <div
-                class="shrink-0 basis-40 py-2 transition-transform duration-300 ease-in-out hover:-rotate-2 hover:scale-110 lg:basis-80"
+                class="shrink-0 basis-40 py-2 transition-transform duration-300 ease-in-out hover:-rotate-2 hover:scale-110 md:basis-20 lg:basis-80"
             >
                 <ApplicationLogo />
             </div>
 
             <!-- nav item | desktop -->
             <nav
-                class="flex flex-col items-center justify-between gap-6 text-lg font-medium md:flex-row md:items-center md:gap-5 md:text-sm lg:w-full lg:gap-6"
+                class="flex grid-cols-3 content-center items-center justify-between justify-items-center gap-6 font-medium md:grid md:gap-5 lg:w-full lg:gap-6"
             >
                 <NavLink
                     :active="route().current('competition.*')"
@@ -202,7 +200,7 @@ defineProps<{
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                <Button v-else>
+                <Button v-else as-child>
                     <Link :href="route('login')"> Join </Link>
                 </Button>
             </nav>
