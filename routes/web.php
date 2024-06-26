@@ -64,6 +64,7 @@ Route::post('/test-upload/basic', function (Request $request) {
     return Inertia::render('Upload');
 })->name('test-upload.basic');
 
+Route::put('/upload-filepond', [UploadController::class, 'uploadFilepond'])->name('test-upload.uploadFilepond');
 Route::post('/upload-advanced', [UploadController::class, 'upload'])->name('test-upload.advance');
 
 Route::get('/kompetisi', function () {

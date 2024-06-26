@@ -9,7 +9,9 @@ use Pion\Laravel\ChunkUpload\Exceptions\UploadMissingFileException;
 use Pion\Laravel\ChunkUpload\Handler\ContentRangeUploadHandler;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
+use RahulHaque\Filepond\Facades\Filepond;
 
 class UploadController extends Controller
 {
@@ -57,65 +59,176 @@ class UploadController extends Controller
         ]);
     }
 
-    protected function storeFile(Request $request, UploadedFile $file)
+    /**
+     * Handles the file upload with filepond
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     * @throws UploadMissingFileException
+     * @throws UploadFailedException
+     */
+    public function uploadFilepond(Request $request)
     {
-        $request->user()->submission()->create([
-            'file_path' => $file->storeAs('videos', Str::uuid(), 'public')
+        // Single and multiple file validation
+
+        // dd($request);
+
+        $this->validate($request, [
+            // 'user_id' => 'required|number',
+            'videoId' => Rule::filepond([
+                'required',
+                // 'video',
+            ]),
+            'thumbnail' => Rule::filepond([
+                'required',
+                'image',
+            ]),
+            // 'submission_type' => 'required|string|max:255',
+            'judulVideo' => 'required|string|max:255',
+            'linkIg' => 'required|string|max:255',
+            'videoDescription' => 'required',
+
         ]);
-    }
 
-    protected function saveFile(Request $request, UploadedFile $file)
-    {
-        $fileName = $this->createFilename($file);
-        // Group files by mime type
-        $mime = str_replace('/', '-', $file->getMimeType());
-        // Group files by the date (week
-        $dateFolder = date("Y-m-W");
+        // Set filename
+        $videoName = 'video' . auth()->id();
 
-        // Build the file path
-        // $filePath = "upload/user/{$dateFolder}/";
-        $finalPath = storage_path("app/" . 'testUpload');
 
-        // move the file name
-        // $file->storeAs('testUpload', Str::uuid(), 'public');
-        // $file->store('test');
+        // Move the file to permanent storage
+        // Automatic file extension set
+        $fileInfo = Filepond::field($request->videoId)
+            ->moveTo('videoFile/' . $videoName);
 
-        $file->move($finalPath, $fileName);
+        // dd($fileInfo);
+        // [
+        //     "id" => 1,
+        //     "dirname" => "avatars",
+        //     "basename" => "avatar-1.png",
+        //     "extension" => "png",
+        //     "filename" => "avatar-1",
+        //     "location" => "avatars/avatar-1.png",
+        //     "url" => "http://localhost/storage/avatars/avatar-1.png",
+        // ];
 
-        $request->user()->submission()->create([
-            'user_id' => Auth::id(),
-            'file_path' => '/testUpload/' . $fileName,
+        $thumbnailName = 'thumbnail-' . auth()->id();
+
+        $fileInfos = Filepond::field($request->thumbnail)
+            ->moveTo('thumbnail/' . $thumbnailName);
+
+        // dd($fileInfos);
+        // [
+        //     [
+        //         "id" => 1,
+        //         "dirname" => "galleries",
+        //         "basename" => "gallery-1-1.png",
+        //         "extension" => "png",
+        //         "filename" => "gallery-1-1",
+        //         "location" => "galleries/gallery-1-1.png",
+        //         "url" => "http://localhost/storage/galleries/gallery-1-1.png",
+        //     ],
+        //     [
+        //         "id" => 2,
+        //         "dirname" => "galleries",
+        //         "basename" => "gallery-1-2.png",
+        //         "extension" => "png",
+        //         "filename" => "gallery-1-2",
+        //         "location" => "galleries/gallery-1-2.png",
+        //         "url" => "http://localhost/storage/galleries/gallery-1-2.png",
+        //     ],
+        //     [
+        //         "id" => 3,
+        //         "dirname" => "galleries",
+        //         "basename" => "gallery-1-3.png",
+        //         "extension" => "png",
+        //         "filename" => "gallery-1-3",
+        //         "location" => "galleries/gallery-1-3.png",
+        //         "url" => "http://localhost/storage/galleries/gallery-1-3.png",
+        //     ],
+        // ]
+
+
+        auth()->user()->submission()->create([
+            'user_id' => $request->user()->id,
+            'file_path' => $fileInfos['location'],
             'submission_type' => 'test sub type',
-            'submission_name' => $request->header('video-title'),
-            'submission_desc' => $request->header('video-desc'),
+            'submission_name' => $request->judulVideo,
+            'submission_desc' => $request->videoDescription,
             // 'submission_name'=> $request->header('video_title'),
         ]);
 
-        // return response()->json([
-        //     'path' => $filePath,
-        //     'name' => $fileName,
-        //     'mime_type' => $mime
-        // ]);
+        // Do your chores and done
+        session()->flash('flash', [
+            'bannerStyle' => 'success',
+            // 'banner' => 'Profile information updated successfully!',
+        ]);
+
+        return redirect()->back();
     }
 
-    /**
-     * Create unique filename for uploaded file
-     * @param UploadedFile $file
-     * @return string
-     */
-    protected function createFilename(UploadedFile $file)
-    {
 
-        $extension = $file->getClientOriginalExtension();
 
-        if (!$extension) {
-            $extension = 'mp4';
-        }
-        $filename = str_replace("." . $extension, "", $file->getClientOriginalName()); // Filename without extension
 
-        // Add timestamp hash to name of the file
-        $filename .= "_" . md5(time()) . "." . $extension;
+    // protected function storeFile(Request $request, UploadedFile $file)
+    // {
+    //     $request->user()->submission()->create([
+    //         'file_path' => $file->storeAs('videos', Str::uuid(), 'public')
+    //     ]);
+    // }
 
-        return $filename;
-    }
+    // protected function saveFile(Request $request, UploadedFile $file)
+    // {
+    //     $fileName = $this->createFilename($file);
+    //     // Group files by mime type
+    //     $mime = str_replace('/', '-', $file->getMimeType());
+    //     // Group files by the date (week
+    //     $dateFolder = date("Y-m-W");
+
+    //     // Build the file path
+    //     // $filePath = "upload/user/{$dateFolder}/";
+    //     $finalPath = storage_path("app/" . 'testUpload');
+
+    //     // move the file name
+    //     // $file->storeAs('testUpload', Str::uuid(), 'public');
+    //     // $file->store('test');
+
+    //     $file->move($finalPath, $fileName);
+
+    //     $request->user()->submission()->create([
+    //         'user_id' => Auth::id(),
+    //         'file_path' => '/testUpload/' . $fileName,
+    //         'submission_type' => 'test sub type',
+    //         'submission_name' => $request->header('video-title'),
+    //         'submission_desc' => $request->header('video-desc'),
+    //         // 'submission_name'=> $request->header('video_title'),
+    //     ]);
+
+    //     // return response()->json([
+    //     //     'path' => $filePath,
+    //     //     'name' => $fileName,
+    //     //     'mime_type' => $mime
+    //     // ]);
+    // }
+
+    // /**
+    //  * Create unique filename for uploaded file
+    //  * @param UploadedFile $file
+    //  * @return string
+    //  */
+    // protected function createFilename(UploadedFile $file)
+    // {
+
+    //     $extension = $file->getClientOriginalExtension();
+
+    //     if (!$extension) {
+    //         $extension = 'mp4';
+    //     }
+    //     $filename = str_replace("." . $extension, "", $file->getClientOriginalName()); // Filename without extension
+
+    //     // Add timestamp hash to name of the file
+    //     $filename .= "_" . md5(time()) . "." . $extension;
+
+    //     return $filename;
+    // }
 }
