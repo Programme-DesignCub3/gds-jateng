@@ -104,7 +104,7 @@ const submit = () => {
                 <InputLabel for="phone_no" value="Nomor Telepon" />
                 <div class="relative w-full max-w-sm items-center">
                     <Input
-                        id="search"
+                        id="phone_no"
                         type="text"
                         @keydown="isNumberKey"
                         v-model="form.phone_no"

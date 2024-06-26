@@ -75,10 +75,12 @@ class UserResource extends Resource
                 TextColumn::make('email'),
                 TextColumn::make('is_school_account')
                     ->label('Jenis akun')
-                // ->
-                // ->badge()
-                // ->color()
-
+                    ->formatStateUsing(fn (string $state): string => $state ? 'Sekolah' : "Pribadi")
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        '0' => 'warning',
+                        '1' => 'success',
+                    })
 
             ])
             ->filters([

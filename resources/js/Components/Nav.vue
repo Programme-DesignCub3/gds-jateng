@@ -52,13 +52,12 @@ defineProps<{
                     Home
                 </NavLink>
 
-                <NavLink
-                    :active="route().current('test-upload.create')"
-                    :href="route('test-upload.create')"
+                <Link
+                    :href="route('competition.index')"
+                    class="text-muted-foreground hover:text-foreground"
                 >
-                    Test upload
-                    <!-- Tentang Kompetisi -->
-                </NavLink>
+                    Kompetisi
+                </Link>
             </nav>
 
             <!-- mobile nav -->
@@ -100,19 +99,7 @@ defineProps<{
                         >
                             Home
                         </Link>
-                        <Link
-                            :href="route('test-upload.create')"
-                            class="text-muted-foreground hover:text-foreground"
-                        >
-                            Test upload
-                        </Link>
 
-                        <Link
-                            :href="route('competition.index')"
-                            class="text-muted-foreground hover:text-foreground"
-                        >
-                            Kompetisi
-                        </Link>
                         <Link
                             :href="route('announcement')"
                             class="text-muted-foreground hover:text-foreground"
@@ -135,16 +122,9 @@ defineProps<{
                 class="flex grid-cols-3 content-center items-center justify-between justify-items-center gap-6 font-medium md:grid md:gap-5 lg:w-full lg:gap-6"
             >
                 <NavLink
-                    :active="route().current('competition.*')"
-                    class="hidden md:inline-block"
-                    :href="route('competition.index')"
-                >
-                    Kompetisi
-                </NavLink>
-
-                <NavLink
                     class="hidden md:inline-block"
                     :href="route('announcement')"
+                    :active="route().current('announcement')"
                 >
                     Pengumuman
                 </NavLink>
@@ -157,10 +137,7 @@ defineProps<{
                             class="rounded-full"
                         >
                             <Avatar>
-                                <AvatarImage
-                                    src=""
-                                    alt="Bumpyy the unmotivated"
-                                />
+                                <AvatarImage src="" alt="Profile picture" />
                                 <AvatarFallback class="uppercase">
                                     {{
                                         getInitials($page.props.auth.user.name)

@@ -40,19 +40,28 @@ Route::get('/test-upload/basic', function () {
 
 
 Route::post('/test-upload/basic', function (Request $request) {
-    if ($request->hasfile('files')) {
+    if ($request->hasfile('file')) {
 
-        foreach ($request->file('files') as $file) {
-            if ($file->isValid()) {
-                dd($file);
-                $file->store('testUpload');
-            }
+        $file = $request->file('file');
+        $thumbnail = $request->file('thumbnail');
+        if ($file->isValid()) {
+            $file_path = $file->store('testUpload/' . $request->user()->id);
+            $thumbnail->store('/testUpload/' . $request->user()->id);
+
+            $request->user()->submission()->create([
+                'user_id' => $request->user()->id,
+                'file_path' => $file_path,
+                'submission_type' => 'test sub type',
+                'submission_name' => $request->judulVideo,
+                'submission_desc' => $request->videoDescription,
+                // 'submission_name'=> $request->header('video_title'),
+            ]);
         }
     } else {
         echo 'Gagal';
     }
 
-    // return Inertia::render('Test',);
+    return Inertia::render('Upload');
 })->name('test-upload.basic');
 
 Route::post('/upload-advanced', [UploadController::class, 'upload'])->name('test-upload.advance');

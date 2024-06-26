@@ -3,8 +3,9 @@
 namespace App\Filament\Resources\SubmissionResource\Pages;
 
 use App\Filament\Resources\SubmissionResource;
-use Filament\Actions;
+use Filament\Actions\Action;
 use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Support\Facades\Storage;
 
 class ViewSubmission extends ViewRecord
 {
@@ -13,7 +14,14 @@ class ViewSubmission extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\EditAction::make(),
+
+            Action::make('download')
+                ->action(
+                    fn ($record) => Storage::disk('public')
+                        ->download($record->file_path)
+                )
+                ->icon('heroicon-o-arrow-down-on-square'),
+
         ];
     }
 }

@@ -14,7 +14,15 @@ import { createUpload, type UpChunk } from "@mux/upchunk";
 import FilepondUpload from "@/Components/ui/custom/FilepondUpload.vue";
 
 const page = usePage();
-const form = useForm({
+const form = useForm<{
+    file: null | File;
+    thumbnail: null | File;
+    judulVideo: string;
+    linkIg: "";
+    videoDescription: "";
+}>({
+    file: null,
+    thumbnail: null,
     judulVideo: "",
     linkIg: "",
     videoDescription: "",
@@ -99,62 +107,71 @@ const previewVideo = (file: File | null) => {
     }
 };
 
-watch(videoFile, (newValue) => {
-    // console.log(newValue);
-
-    state.file = newValue;
-    previewVideo(newValue);
-});
+watch(
+    () => form.file,
+    (newValue) => {
+        state.file = newValue;
+        previewVideo(newValue);
+    },
+);
 
 const submit = () => {
-    if (state.file) {
-        state.file = state.file;
-    }
-
-    if (!state.file) {
-        return;
-    }
-
-    // ! not ideal but work
-    state.uploader = createUpload({
-        endpoint: route("test-upload.advance"),
-        headers: {
-            "X-CSRF-TOKEN": page.props.csrf_token as string,
-            "video-title": form.judulVideo,
-            "video-desc": form.videoDescription,
-            "link-ig": form.linkIg,
+    form.post("/test-upload/basic", {
+        onError: (errors) => {
+            console.log("error nih bos : " + errors);
         },
-
-        method: "POST",
-        file: state.file,
-        chunkSize: 15 * 1024,
-    });
-
-    state.uploader.on("attempt", () => {
-        state.error = null;
-        state.uploading = true;
-    });
-
-    state.uploader.on("progress", (p) => {
-        state.progress = p.detail;
-    });
-
-    state.uploader.on("success", (e) => {
-        console.log("success event: ", e);
-
-        if (state.reset) {
-            // state.reset();
-            // router.reload({
-            //     only: ["files"],
-            // });
-        }
-        form.post("/test-upload/basic");
-    });
-
-    state.uploader.on("error", (error) => {
-        state.error = error.detail.message;
     });
 };
+
+// const submit = () => {
+//     if (state.file) {
+//         state.file = state.file;
+//     }
+
+//     if (!state.file) {
+//         return;
+//     }
+
+//     // ! not ideal but work
+//     state.uploader = createUpload({
+//         endpoint: route("test-upload.advance"),
+//         headers: {
+//             "X-CSRF-TOKEN": page.props.csrf_token as string,
+//             "video-title": form.judulVideo,
+//             "video-desc": form.videoDescription,
+//             "link-ig": form.linkIg,
+//         },
+
+//         method: "POST",
+//         file: state.file,
+//         chunkSize: 15 * 1024,
+//     });
+
+//     state.uploader.on("attempt", () => {
+//         state.error = null;
+//         state.uploading = true;
+//     });
+
+//     state.uploader.on("progress", (p) => {
+//         state.progress = p.detail;
+//     });
+
+//     state.uploader.on("success", (e) => {
+//         console.log("success event: ", e);
+
+//         if (state.reset) {
+//             // state.reset();
+//             // router.reload({
+//             //     only: ["files"],
+//             // });
+//         }
+//         form.post("/test-upload/basic");
+//     });
+
+//     state.uploader.on("error", (error) => {
+//         state.error = error.detail.message;
+//     });
+// };
 
 // let removeRemoveEventListener = router.on("before", (event) => {
 //     if (form.isDirty) {
@@ -198,13 +215,15 @@ const submit = () => {
                                     <div class="grid gap-3">
                                         <Label>Upload File</Label>
                                         <FilepondUpload
+                                            max-file-size="250MB"
                                             accepted-file-types="video/mp4"
-                                            v-model="videoFile"
+                                            v-model="form.file"
                                         />
+
                                         <!-- <VideoUpload v-model="videoFile" /> -->
                                         <!-- upload progress -->
                                         <div
-                                            v-if="state.uploading"
+                                            v-if="form.progress"
                                             class="space-y-2"
                                         >
                                             <div
@@ -214,7 +233,8 @@ const submit = () => {
                                                     class="h-full bg-blue-500 transition-all duration-200"
                                                     v-bind:style="{
                                                         width:
-                                                            state.progress +
+                                                            form.progress
+                                                                .percentage +
                                                             '%',
                                                     }"
                                                 ></div>
@@ -225,42 +245,11 @@ const submit = () => {
                                             >
                                                 <div
                                                     class="flex items-center space-x-2"
-                                                >
-                                                    <button
-                                                        class="text-sm text-indigo-500"
-                                                        v-if="
-                                                            !state.uploader
-                                                                ?.paused
-                                                        "
-                                                        v-on:click="
-                                                            state.uploader?.pause()
-                                                        "
-                                                    >
-                                                        Pause
-                                                    </button>
-                                                    <button
-                                                        class="text-sm text-indigo-500"
-                                                        v-if="
-                                                            state.uploader
-                                                                ?.paused
-                                                        "
-                                                        v-on:click="
-                                                            state.uploader?.resume()
-                                                        "
-                                                    >
-                                                        Resume
-                                                    </button>
-
-                                                    <button
-                                                        class="text-sm text-indigo-500"
-                                                        v-on:click="cancel"
-                                                    >
-                                                        Cancel
-                                                    </button>
-                                                </div>
+                                                ></div>
                                                 <div class="text-sm">
                                                     {{
-                                                        state.formattedProgress
+                                                        form.progress
+                                                            .percentage
                                                     }}%
                                                 </div>
                                             </div>
@@ -305,6 +294,11 @@ const submit = () => {
                                         <Label for="role"
                                             >Upload Thumbnail video</Label
                                         >
+                                        <FilepondUpload
+                                            max-file-size="5MB"
+                                            accepted-file-types="image/jpeg, image/png"
+                                            v-model="form.thumbnail"
+                                        />
                                     </div>
                                     <div class="grid gap-3">
                                         <Label for="description"
