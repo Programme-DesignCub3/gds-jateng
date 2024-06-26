@@ -2,18 +2,21 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Models\User;
+use Closure;
 use Filament\Forms;
+use App\Models\User;
+use Filament\Tables;
 use Filament\Forms\Form;
-use Filament\Infolists\Components\TextEntry;
+use Filament\Tables\Table;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Infolists\Components\TextEntry;
+use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\UserResource\RelationManagers;
+use Cheesegrits\FilamentPhoneNumbers\Infolists\Components\PhoneNumberEntry;
 
 class UserResource extends Resource
 {
@@ -24,7 +27,35 @@ class UserResource extends Resource
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist->schema([
+
             TextEntry::make('name')
+                ->icon('heroicon-o-user-circle'),
+
+            TextEntry::make('email')
+                ->icon('heroicon-o-envelope'),
+
+            TextEntry::make('instagram_account')
+                ->icon('heroicon-o-camera'),
+
+            TextEntry::make('address')
+                ->icon('heroicon-o-home')
+                ->hidden(fn ($record): bool => $record->is_school_account),
+
+            TextEntry::make('school_name')
+                ->icon('heroicon-o-home')
+                ->hidden(fn ($record): bool => !$record->is_school_account),
+
+            TextEntry::make('area')
+                ->icon('heroicon-o-home')
+                ->hidden(fn ($record): bool => !$record->is_school_account),
+
+            TextEntry::make('position')
+                ->icon('heroicon-o-home')
+                ->hidden(fn ($record): bool => !$record->is_school_account),
+
+            PhoneNumberEntry::make('phone_no')
+                ->icon('heroicon-o-phone')
+
         ]);
     }
 
@@ -40,7 +71,15 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name'),
+                TextColumn::make('email'),
+                TextColumn::make('is_school_account')
+                    ->label('Jenis akun')
+                // ->
+                // ->badge()
+                // ->color()
+
+
             ])
             ->filters([
                 //

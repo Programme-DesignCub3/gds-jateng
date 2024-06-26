@@ -43,9 +43,9 @@ defineProps<{
             <nav
                 class="hidden grid-cols-3 content-center items-center justify-between justify-items-center gap-6 font-medium md:grid md:gap-5 lg:w-full lg:gap-6"
             >
-                <div></div>
                 <!-- nav item | desktop -->
                 <NavLink
+                    class="col-start-2"
                     :active="route().current('home')"
                     :href="route('home')"
                 >

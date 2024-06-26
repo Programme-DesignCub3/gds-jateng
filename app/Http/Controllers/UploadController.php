@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 use Pion\Laravel\ChunkUpload\Exceptions\UploadMissingFileException;
 use Pion\Laravel\ChunkUpload\Handler\ContentRangeUploadHandler;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
@@ -42,7 +43,8 @@ class UploadController extends Controller
         if ($save->isFinished()) {
             // save the file and return any response you need, current example uses `move` function. If you are
             // not using move, you need to manually delete the file by unlink($save->getFile()->getPathname())
-            return $this->saveFile($save->getFile());
+            return $this->saveFile($request, $save->getFile());
+            // $this->storeFile($request, $save->getFile());
         }
 
         // we are in chunk mode, lets send the current progress
@@ -54,7 +56,15 @@ class UploadController extends Controller
             'status' => true
         ]);
     }
-    protected function saveFile(UploadedFile $file)
+
+    protected function storeFile(Request $request, UploadedFile $file)
+    {
+        $request->user()->submission()->create([
+            'file_path' => $file->storeAs('videos', Str::uuid(), 'public')
+        ]);
+    }
+
+    protected function saveFile(Request $request, UploadedFile $file)
     {
         $fileName = $this->createFilename($file);
         // Group files by mime type
@@ -71,6 +81,15 @@ class UploadController extends Controller
         // $file->store('test');
 
         $file->move($finalPath, $fileName);
+
+        $request->user()->submission()->create([
+            'user_id' => Auth::id(),
+            'file_path' => '/testUpload/' . $fileName,
+            'submission_type' => 'test sub type',
+            'submission_name' => $request->header('video-title'),
+            'submission_desc' => $request->header('video-desc'),
+            // 'submission_name'=> $request->header('video_title'),
+        ]);
 
         // return response()->json([
         //     'path' => $filePath,
