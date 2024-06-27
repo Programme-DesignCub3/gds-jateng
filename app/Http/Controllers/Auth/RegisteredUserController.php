@@ -42,7 +42,6 @@ class RegisteredUserController extends Controller
             'phone_no' => ['required', 'phone:ID'],
             'is_school_account' => ['required', 'boolean'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'competition' => [new Enum(CompetitionList::class)]
         ];
 
 
@@ -73,7 +72,7 @@ class RegisteredUserController extends Controller
             'address' => $request->address,
             'phone_no' => $request->phone_no,
             'is_school_account' => $request->is_school_account,
-            'competition' => $request->competition,
+            // 'competition' => $request->competition,
             'position' => $request->position,
         ]);
 

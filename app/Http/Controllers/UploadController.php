@@ -202,6 +202,7 @@ class UploadController extends Controller
                     'submission_name' => $request->judulVideo,
                     'submission_type' => $request->competition,
                     'submission_desc' => $request->videoDescription,
+
                 ]);
             }
             return Inertia::render('SubmissionSuccess');
