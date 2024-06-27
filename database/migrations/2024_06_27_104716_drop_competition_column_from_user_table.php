@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('submissions', function (Blueprint $table) {
-            $table->string('submission_desc');
+        Schema::table('user', function (Blueprint $table) {
+            $table->dropColumn('competition');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('submissions', function (Blueprint $table) {
-            $table->dropColumn('submission_desc');
+        Schema::table('user', function (Blueprint $table) {
+            $table->string('competition');
         });
     }
 };
