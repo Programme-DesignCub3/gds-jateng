@@ -1,64 +1,52 @@
 <script setup lang="ts">
-import "filepond/dist/filepond.min.css";
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
-
 import { Badge } from "@/Components/ui/badge";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { Textarea } from "@/Components/ui/textarea";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { ScrollArea } from "@/Components/ui/scroll-area";
-import { Head, useForm } from "@inertiajs/vue3";
+import { Head, router, useForm, usePage } from "@inertiajs/vue3";
 import { VideoOffIcon } from "lucide-vue-next";
-import { watch, ref } from "vue";
-import FilepondUpload from "@/Components/ui/custom/FilepondUpload.vue";
+import { ref } from "vue";
 
-import InputError from "@/Components/InputError.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/Components/ui/select";
+// Import filepond
+import vueFilePond, { setOptions } from "vue-filepond";
 
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/Components/ui/alert-dialog";
+// Import filepond plugins
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
 
+// Import filepond styles
+import "filepond/dist/filepond.min.css";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
+
+import type {
+    FilePond,
+    FilePondErrorDescription,
+    FilePondFile,
+} from "filepond";
+
+const showVideoPreview = ref(false);
+
+const page = usePage();
 const form = useForm<{
-    file: null | File;
-    thumbnail: null | File;
+    video: string | null;
+    thumbnail: string | null;
     judulVideo: string;
-    competition: string;
-    linkIg: "";
-    videoDescription: "";
+    linkIg: string;
+    videoDescription: string;
 }>({
-    file: null,
+    video: null,
     thumbnail: null,
     judulVideo: "",
     linkIg: "",
-    competition: "",
     videoDescription: "",
 });
-const videoPlayer = ref<HTMLVideoElement | null>(null);
 
-const initialState = {
-    file: null,
-    uploader: null,
-    progress: 0,
-    uploading: false,
-    error: null,
-};
+const filepondVideoInput = ref<FilePond | null>(null); // Reference the input to clear the files later
+const filepondThumbnailInput = ref<FilePond | null>(null); // Reference the input to clear the files later
+const videoPlayer = ref<HTMLVideoElement | null>(null);
 
 const previewVideo = (file: File | null) => {
     let reader = new FileReader();
@@ -100,20 +88,116 @@ const previewVideo = (file: File | null) => {
     }
 };
 
-watch(
-    () => form.file,
-    (newValue) => {
-        previewVideo(newValue);
-    },
+async function processFiles() {
+    const videoProcessed = await filepondVideoInput.value?.processFile();
+    const thumbnailProcessed =
+        await filepondThumbnailInput.value?.processFile();
+    if (videoProcessed?.serverId) {
+        console.log("videoProcessed");
+        console.log(videoProcessed);
+
+        form.video = videoProcessed?.serverId;
+    }
+    if (thumbnailProcessed?.serverId) {
+        console.log(thumbnailProcessed);
+
+        form.thumbnail = thumbnailProcessed?.serverId;
+    }
+    return videoProcessed?.serverId && thumbnailProcessed?.serverId;
+}
+
+async function startFormSubmission() {
+    const filesProcessed = await processFiles();
+    if (filesProcessed) {
+        form.put(route("test-upload.uploadFilepond"), {
+            onSuccess: () => {
+                console.log("upload success");
+
+                if (filepondVideoInput.value) {
+                    filepondVideoInput.value.removeFiles();
+                }
+                if (filepondThumbnailInput.value) {
+                    filepondThumbnailInput.value.removeFiles();
+                }
+            },
+        });
+    } else {
+        // Handle the case where files are not processed correctly
+        console.error("File processing failed");
+    }
+}
+
+// Create FilePond component
+const FilePondInput = vueFilePond(
+    FilePondPluginFileValidateType,
+    FilePondPluginFileValidateSize,
+    FilePondPluginImagePreview,
 );
 
-const submit = () => {
-    form.post("/test-upload/basic", {
-        onError: (errors) => {
-            console.log("error nih bos : " + errors);
+// Set global options on filepond init
+const handleFilePondInit = () => {
+    setOptions({
+        credits: false,
+        allowMultiple: false,
+        instantUpload: false,
+        allowProcess: false,
+        server: {
+            url: "/filepond",
+            headers: {
+                "X-CSRF-TOKEN": page.props.csrf_token as string,
+            },
         },
     });
 };
+
+// Set the server id from response
+const handleFilePondVideoProcess = (
+    error: FilePondErrorDescription | null,
+    file: FilePondFile,
+) => {
+    form.video = file.serverId;
+};
+
+const handleFilePondVideoAddFile = (
+    error: FilePondErrorDescription | null,
+    file: FilePondFile,
+) => {
+    previewVideo(file.file as File);
+    showVideoPreview.value = true;
+};
+
+// Remove the server id on file remove
+const handleFilePondVideoRemoveFile = (
+    error: FilePondErrorDescription | null,
+    file: FilePondFile,
+) => {
+    form.video = null;
+    previewVideo(null);
+    showVideoPreview.value = false;
+};
+
+// Set the server id from response
+const handleFilePondThumbnailProcess = (
+    error: FilePondErrorDescription | null,
+    file: FilePondFile,
+) => {
+    form.thumbnail = file.serverId;
+};
+// Remove the server id on file remove
+const handleFilePondThumbnailRemoveFile = (
+    error: FilePondErrorDescription | null,
+    file: FilePondFile,
+) => {
+    form.thumbnail = null;
+};
+
+// const submit = () => {
+//     form.post("/test-upload/basic", {
+//         onError: (errors) => {
+//             console.log("error nih bos : " + errors);
+//         },
+//     });
+// };
 </script>
 
 <template>
@@ -133,7 +217,7 @@ const submit = () => {
                             class="relative flex-col items-start gap-8 md:flex"
                         >
                             <form
-                                @submit.prevent="submit"
+                                @submit.prevent="startFormSubmission"
                                 class="grid w-full items-start gap-6 overflow-auto p-2 lg:p-4"
                             >
                                 <fieldset
@@ -146,13 +230,26 @@ const submit = () => {
                                     </legend>
                                     <div class="grid gap-3">
                                         <Label>Upload File</Label>
-                                        <FilepondUpload
+                                        <FilePondInput
+                                            name="video"
+                                            credits="false"
                                             max-file-size="250MB"
-                                            accepted-file-types="video/mp4"
-                                            v-model="form.file"
+                                            ref="filepondVideoInput"
+                                            chunk-upload="true"
+                                            accepted-file-types="video/*"
+                                            @init="handleFilePondInit"
+                                            @processfile="
+                                                handleFilePondVideoProcess
+                                            "
+                                            @addfile="
+                                                handleFilePondVideoAddFile
+                                            "
+                                            @removefile="
+                                                handleFilePondVideoRemoveFile
+                                            "
                                         />
 
-                                        <!-- <VideoUpload v-model="videoFile" /> -->
+                                        <!-- <VideoUpload v-model=video" /> -->
                                         <!-- upload progress -->
                                         <div
                                             v-if="form.progress"
@@ -196,39 +293,6 @@ const submit = () => {
                                             placeholder="ex: GDSCHOOLICIOUS_NAMA SEKOLAH_KOTA ASAL"
                                         />
                                     </div>
-                                    <div>
-                                        <InputLabel
-                                            for="competition"
-                                            value="Kompetisi yang Diikuti"
-                                        />
-                                        <Select v-model="form.competition">
-                                            <SelectTrigger>
-                                                <SelectValue
-                                                    placeholder="Pilih kompetisi"
-                                                />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="mascot"
-                                                    >Mascot Design</SelectItem
-                                                >
-                                                <SelectItem value="cheerleading"
-                                                    >Cheerleading
-                                                    Competition</SelectItem
-                                                >
-                                                <SelectItem value="chant"
-                                                    >Chant
-                                                    Competition</SelectItem
-                                                >
-                                                <SelectItem value="kolaborasa"
-                                                    >Kolaborasa</SelectItem
-                                                >
-                                            </SelectContent>
-                                        </Select>
-                                        <InputError
-                                            class="mt-2"
-                                            :message="form.errors.competition"
-                                        />
-                                    </div>
                                     <div class="grid gap-3">
                                         <Label for="instagram_reels"
                                             >link URL Instagram Reels :</Label
@@ -252,10 +316,20 @@ const submit = () => {
                                         <Label for="role"
                                             >Upload Thumbnail video</Label
                                         >
-                                        <FilepondUpload
-                                            max-file-size="5MB"
+
+                                        <FilePondInput
+                                            name="thumbnail"
+                                            credits="false"
+                                            max-file-size="2MB"
+                                            ref="filepondThumbnailInput"
                                             accepted-file-types="image/jpeg, image/png"
-                                            v-model="form.thumbnail"
+                                            @init="handleFilePondInit"
+                                            @processfile="
+                                                handleFilePondThumbnailProcess
+                                            "
+                                            @removefile="
+                                                handleFilePondThumbnailRemoveFile
+                                            "
                                         />
                                     </div>
                                     <div class="grid gap-3">
@@ -281,7 +355,7 @@ const submit = () => {
                         class="relative flex w-full max-w-[100vw] flex-col items-center justify-center rounded-md bg-muted/50 p-2 ring-2 ring-primary lg:col-span-2 lg:p-4"
                     >
                         <div
-                            v-show="form.file"
+                            v-show="showVideoPreview"
                             class="relative aspect-video w-full rounded-lg"
                         >
                             <Badge
@@ -299,7 +373,7 @@ const submit = () => {
                             />
                         </div>
                         <div
-                            v-if="!form.file"
+                            v-if="!showVideoPreview"
                             class="grid aspect-video w-full items-center justify-center"
                         >
                             <div class="text-center text-muted-foreground">
@@ -311,23 +385,5 @@ const submit = () => {
                 </main>
             </div>
         </div>
-
-        <AlertDialog>
-            <AlertDialogContent>
-                <AlertDialogHeader>
-                    <AlertDialogTitle
-                        >Are you absolutely sure?</AlertDialogTitle
-                    >
-                    <AlertDialogDescription>
-                        This action cannot be undone. This will permanently send
-                        the submission
-                    </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction>Continue</AlertDialogAction>
-                </AlertDialogFooter>
-            </AlertDialogContent>
-        </AlertDialog>
     </AppLayout>
 </template>

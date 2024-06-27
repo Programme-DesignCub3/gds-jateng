@@ -7,7 +7,14 @@
         <div
             class="container mb-8 flex flex-col items-center justify-center gap-y-8"
         >
-            <CompetitionCard v-for="i in 4" :key="i" />
+            <CompetitionCard
+                v-for="competition in competitionList"
+                :title="competition.title"
+                :imageUrl="`/assets/images/competition/overall/${competition.route}.jpg`"
+                :shortDesc="competition.shortDesc"
+                :route="competition.route"
+                :key="competition.title"
+            />
         </div>
     </AppLayout>
 </template>
@@ -16,6 +23,14 @@
 import MainHeader from "@/Components/MainHeader.vue";
 import CompetitionCard from "@/Components/CompetitionCard.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
+
+defineProps<{
+    competitionList: {
+        title: string;
+        shortDesc: string;
+        route: string;
+    }[];
+}>();
 </script>
 
 <style scoped></style>

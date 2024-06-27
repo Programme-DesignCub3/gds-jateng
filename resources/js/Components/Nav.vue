@@ -52,12 +52,13 @@ defineProps<{
                     Home
                 </NavLink>
 
-                <Link
+                <NavLink
                     :href="route('competition.index')"
+                    :active="route().current('competition.*')"
                     class="text-muted-foreground hover:text-foreground"
                 >
                     Kompetisi
-                </Link>
+                </NavLink>
             </nav>
 
             <!-- mobile nav -->
@@ -90,7 +91,7 @@ defineProps<{
                         </SheetHeader>
                     </VisuallyHidden>
 
-                    <GoodChallengeLogo class="mx-auto my-4 mb-12 w-4/5" />
+                    <GoodChallengeLogo class="mx-auto my-4 mb-12 w-4/5 px-8" />
 
                     <nav class="grid gap-6 text-lg font-medium">
                         <Link
@@ -98,6 +99,13 @@ defineProps<{
                             class="hover:text-foreground"
                         >
                             Home
+                        </Link>
+
+                        <Link
+                            :href="route('competition.index')"
+                            class="text-muted-foreground hover:text-foreground"
+                        >
+                            Kompetisi
                         </Link>
 
                         <Link
@@ -149,12 +157,7 @@ defineProps<{
                     </DropdownMenuTrigger>
                     <DropdownMenuContent class="w-56">
                         <DropdownMenuGroup>
-                            <DropdownMenuItem as-child>
-                                <Link :href="route('dashboard')">
-                                    <User class="mr-2 h-4 w-4" />
-                                    <span>Dashboard</span>
-                                </Link>
-                            </DropdownMenuItem>
+                            <DropdownMenuItem as-child> </DropdownMenuItem>
                             <DropdownMenuItem as-child>
                                 <Link :href="route('profile.edit')">
                                     <Settings2 class="mr-2 h-4 w-4" />

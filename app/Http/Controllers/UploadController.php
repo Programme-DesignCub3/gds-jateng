@@ -10,6 +10,7 @@ use Pion\Laravel\ChunkUpload\Handler\ContentRangeUploadHandler;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 use RahulHaque\Filepond\Facades\Filepond;
 
@@ -77,7 +78,7 @@ class UploadController extends Controller
 
         $this->validate($request, [
             // 'user_id' => 'required|number',
-            'videoId' => Rule::filepond([
+            'video' => Rule::filepond([
                 'required',
                 // 'video',
             ]),
@@ -167,68 +168,102 @@ class UploadController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * Handles the file upload with inertia form
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     * @throws UploadMissingFileException
+     * @throws UploadFailedException
+     */
+    public function uploadInertia(Request $request)
+    {
+        if ($request->hasfile('file')) {
+
+            $file = $request->file('file');
+            $thumbnail = $request->file('thumbnail');
+            if ($file->isValid()) {
+                $file_path = $file->store('testUpload/' . $request->user()->id);
+                $thumbnail->store('/testUpload/' . $request->user()->id);
+
+                $request->user()->submission()->create([
+                    'user_id' => $request->user()->id,
+                    'file_path' => $file_path,
+                    'submission_type' => 'test sub type',
+                    'submission_name' => $request->judulVideo,
+                    'submission_desc' => $request->videoDescription,
+                ]);
+            }
+        } else {
+            echo 'Gagal';
+        }
+
+        return Inertia::render('Upload');
+    }
 
 
 
-    // protected function storeFile(Request $request, UploadedFile $file)
-    // {
-    //     $request->user()->submission()->create([
-    //         'file_path' => $file->storeAs('videos', Str::uuid(), 'public')
-    //     ]);
-    // }
+    protected function storeFile(Request $request, UploadedFile $file)
+    {
+        $request->user()->submission()->create([
+            'file_path' => $file->storeAs('videos', Str::uuid(), 'public')
+        ]);
+    }
 
-    // protected function saveFile(Request $request, UploadedFile $file)
-    // {
-    //     $fileName = $this->createFilename($file);
-    //     // Group files by mime type
-    //     $mime = str_replace('/', '-', $file->getMimeType());
-    //     // Group files by the date (week
-    //     $dateFolder = date("Y-m-W");
+    protected function saveFile(Request $request, UploadedFile $file)
+    {
+        $fileName = $this->createFilename($file);
+        // Group files by mime type
+        $mime = str_replace('/', '-', $file->getMimeType());
+        // Group files by the date (week
+        $dateFolder = date("Y-m-W");
 
-    //     // Build the file path
-    //     // $filePath = "upload/user/{$dateFolder}/";
-    //     $finalPath = storage_path("app/" . 'testUpload');
+        // Build the file path
+        // $filePath = "upload/user/{$dateFolder}/";
+        $finalPath = storage_path("app/" . 'testUpload');
 
-    //     // move the file name
-    //     // $file->storeAs('testUpload', Str::uuid(), 'public');
-    //     // $file->store('test');
+        // move the file name
+        // $file->storeAs('testUpload', Str::uuid(), 'public');
+        // $file->store('test');
 
-    //     $file->move($finalPath, $fileName);
+        $file->move($finalPath, $fileName);
 
-    //     $request->user()->submission()->create([
-    //         'user_id' => Auth::id(),
-    //         'file_path' => '/testUpload/' . $fileName,
-    //         'submission_type' => 'test sub type',
-    //         'submission_name' => $request->header('video-title'),
-    //         'submission_desc' => $request->header('video-desc'),
-    //         // 'submission_name'=> $request->header('video_title'),
-    //     ]);
+        $request->user()->submission()->create([
+            'user_id' => Auth::id(),
+            'file_path' => '/testUpload/' . $fileName,
+            'submission_type' => 'test sub type',
+            'submission_name' => $request->header('video-title'),
+            'submission_desc' => $request->header('video-desc'),
+            // 'submission_name'=> $request->header('video_title'),
+        ]);
 
-    //     // return response()->json([
-    //     //     'path' => $filePath,
-    //     //     'name' => $fileName,
-    //     //     'mime_type' => $mime
-    //     // ]);
-    // }
+        // return response()->json([
+        //     'path' => $filePath,
+        //     'name' => $fileName,
+        //     'mime_type' => $mime
+        // ]);
+    }
 
-    // /**
-    //  * Create unique filename for uploaded file
-    //  * @param UploadedFile $file
-    //  * @return string
-    //  */
-    // protected function createFilename(UploadedFile $file)
-    // {
+    /**
+     * Create unique filename for uploaded file
+     * @param UploadedFile $file
+     * @return string
+     */
+    protected function createFilename(UploadedFile $file)
+    {
 
-    //     $extension = $file->getClientOriginalExtension();
+        $extension = $file->getClientOriginalExtension();
 
-    //     if (!$extension) {
-    //         $extension = 'mp4';
-    //     }
-    //     $filename = str_replace("." . $extension, "", $file->getClientOriginalName()); // Filename without extension
+        if (!$extension) {
+            $extension = 'mp4';
+        }
+        $filename = str_replace("." . $extension, "", $file->getClientOriginalName()); // Filename without extension
 
-    //     // Add timestamp hash to name of the file
-    //     $filename .= "_" . md5(time()) . "." . $extension;
+        // Add timestamp hash to name of the file
+        $filename .= "_" . md5(time()) . "." . $extension;
 
-    //     return $filename;
-    // }
+        return $filename;
+    }
 }

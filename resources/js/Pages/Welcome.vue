@@ -8,33 +8,32 @@
         />
 
         <div class="container max-w-3xl pb-28 text-center">
-            <div class="mb-4">
+            <div class="flex flex-col gap-6">
+                <p>Siap untuk bikin gebrakan dan tunjukin kemampuanmu?</p>
                 <p>
-                    Good Day Good Challenge menjadi sebuah wadah kreatifitas
-                    untuk siswa - siswi SMA yang turut memeriahkan DBL
-                    Competition
+                    Ikuti berbagai kompetisi Good Challenge dari Good Day
+                    Schoolicious sebagai wadah dari semua ide dan kreativitas mu
+                    dengan rasa sportivitas yang tinggi!Untuk kamu yang suka
+                    nyanyi untuk cover lagu, kamu bisa ikut Kolaborasa
+                    Competition. Dan buat sekolahmu yang keren, kamu bisa ikuti
+                    Cheerleader Competition, Mascot Design Competition dan
+                    Supporter Chant Competition.
                 </p>
                 <p>
-                    Dengan membawa Rasa Sportifitas dari berbagai rangkai
-                    Kegiatan Kopi Good Day Schoolicious.
+                    Good Challenge memiliki cerita di balik tantangan atau
+                    kompetisi yang memberikan dampak atau pengalaman positif
+                    yang bisa jadi experience dan memorable moment di masa muda
+                    mu dengan rasa sportivitas yang tertuang di setiap karya
+                    para finalis Good Day Schoolicious 2024
                 </p>
-            </div>
-            <div>
-                <p>
-                    Akan ada kompetisi kolaborsa untuk kamu yang mempunyai hobby
-                    Cover Lagu.
-                </p>
-                <p>
-                    Dan juga ada Kompetisi Cheerleader, Mascot Design dan Chant
-                    Supporter untuk ajang kolaborasi sekolahmu
-                </p>
+                <p>Daripada kamu Gamon,. mending ikutan kompetisi Yuk !!</p>
             </div>
 
             <PrimaryButton as-child class="mt-20" v-if="!$page.props.auth.user">
                 <Link :href="route('register')">Join Now</Link>
             </PrimaryButton>
             <PrimaryButton as-child class="mt-20" v-else>
-                <Link :href="route('register')">Submission</Link>
+                <Link :href="route('competition.index')">Submission</Link>
             </PrimaryButton>
         </div>
     </AppLayout>

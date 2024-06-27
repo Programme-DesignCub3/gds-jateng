@@ -1,36 +1,45 @@
 <template>
     <AppLayout>
         <Head title="Detail Kompetensi" />
-        <CompetitionDetailHeader
-            >Cheerleading Competition</CompetitionDetailHeader
-        >
+        <CompetitionDetailHeader>{{ data.title }}</CompetitionDetailHeader>
 
         <div
             class="container my-8 mb-8 mt-14 flex flex-col items-center justify-center gap-y-8 md:mt-12 md:w-4/5"
         >
-            <div class="text-center font-raleway">
-                <p v-for="i in 2" :key="i">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Provident distinctio atque ducimus nobis quidem unde?
-                    Voluptatum, eius praesentium soluta aliquam dolor, quae
-                    perferendis maxime veritatis vero a quasi mollitia
-                    aspernatur.
-                </p>
-            </div>
+            <div
+                class="text-center font-raleway"
+                v-html="data.description"
+            ></div>
         </div>
 
         <div class="my-20">
+            <!-- Prize -->
             <CompetitionContentCard
+                position="left"
+                type="Hadiah"
+                name=""
+                :shortDesc="data.prize.desc"
+                imageUrl=""
+            />
+
+            <!-- Juri -->
+            <CompetitionContentCard
+                v-for="(jury, i) in data.jury"
+                :key="jury.name"
                 :position="i % 2 === 0 ? 'right' : 'left'"
-                v-for="i in 4"
-                :key="i"
+                :type="jury.type"
+                :pengalaman="jury.pengalaman"
+                :name="jury.name"
+                :akun-ig="jury.akun_ig"
+                :shortDesc="jury.desc"
+                :imageUrl="jury.image"
             />
         </div>
 
         <div class="container mb-20 flex w-fit flex-col gap-4">
             <PrimaryButton>Download rules</PrimaryButton>
             <PrimaryButton as-child>
-                <Link :href="route('test-upload.create')">Submit</Link>
+                <Link :href="route('submission.create')">Submit</Link>
             </PrimaryButton>
         </div>
     </AppLayout>
@@ -42,6 +51,25 @@ import CompetitionDetailHeader from "@/Components/CompetitionDetailHeader.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { Head, Link } from "@inertiajs/vue3";
+
+defineProps<{
+    data: {
+        title: string;
+        description: string;
+        prize: {
+            imageUrl: string;
+            desc: string;
+        };
+        jury: {
+            name: string;
+            desc: string;
+            type: string;
+            image: string;
+            pengalaman: string[];
+            akun_ig: string;
+        }[];
+    };
+}>();
 </script>
 
 <style scoped></style>
