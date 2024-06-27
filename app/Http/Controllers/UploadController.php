@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
@@ -182,20 +183,28 @@ class UploadController extends Controller
     {
         if ($request->hasfile('file')) {
 
-            $file = $request->file('file');
+            $video_file = $request->file('file');
             $thumbnail = $request->file('thumbnail');
-            if ($file->isValid()) {
-                $file_path = $file->store('testUpload/' . $request->user()->id);
-                $thumbnail->store('/testUpload/' . $request->user()->id);
+            $video_extension = $request->file('file')->extension();
+            $thumbnail_extension = $request->file('thumbnail')->extension();
+            if ($video_file->isValid() && $thumbnail->isValid()) {
+
+                // dd(Auth::user()->id());
+                // NAME FORMAT : namasekolah - typesubmission - timestamp
+                $filename = Auth::user()->id . ' - ' . $request->competition . ' - ' .
+                    Carbon::now()->timestamp;
+                $video_file_path = $video_file->storeAs('testUpload/' . Auth::user()->id, $filename . '.' . $video_extension);
+                $thumbnail->storeAs('testUpload/' . Auth::user()->id, $filename . '_thumb.' . $thumbnail_extension);
 
                 $request->user()->submission()->create([
                     'user_id' => $request->user()->id,
-                    'file_path' => $file_path,
-                    'submission_type' => 'test sub type',
+                    'file_path' => $video_file_path,
                     'submission_name' => $request->judulVideo,
+                    'submission_type' => $request->competition,
                     'submission_desc' => $request->videoDescription,
                 ]);
             }
+            return Inertia::render('SubmissionSuccess');
         } else {
             echo 'Gagal';
         }

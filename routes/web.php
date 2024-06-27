@@ -35,11 +35,15 @@ Route::get('/submission', function () {
     if (!auth()->user()) {
         return redirect()->route('login');
     }
+    if (auth()->user()->submission) {
+        # code...
+        return Inertia::render('SubmissionDone');
+    }
 
     return Inertia::render('Upload');
 })->name('submission.create');
 
-Route::post('/submission', [UploadController::class, 'uploadInertia'])->name('test-upload.basic');
+Route::post('/submission', [UploadController::class, 'uploadInertia'])->name('submission.store');
 
 // Route::get('/submission', function () {
 //     return Inertia::render('Upload');
@@ -47,6 +51,8 @@ Route::post('/submission', [UploadController::class, 'uploadInertia'])->name('te
 
 // Route::put('/upload-filepond', [UploadController::class, 'uploadFilepond'])->name('test-upload.uploadFilepond');
 // Route::post('/upload-advanced', [UploadController::class, 'upload'])->name('test-upload.advance');
+
+
 
 Route::get('/kompetisi', [CompetitionController::class, 'index'])
     ->name('competition.index');

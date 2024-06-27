@@ -16,8 +16,8 @@
             <!-- Prize -->
             <CompetitionContentCard
                 position="left"
-                type="Hadiah"
-                name=""
+                type=""
+                name="Hadiah"
                 :shortDesc="data.prize.desc"
                 imageUrl=""
             />
@@ -39,7 +39,9 @@
         <div class="container mb-20 flex w-fit flex-col gap-4">
             <PrimaryButton>Download rules</PrimaryButton>
             <PrimaryButton as-child>
-                <Link :href="route('submission.create')">Submit</Link>
+                <Link class="text-center" :href="route('submission.create')"
+                    >Submit</Link
+                >
             </PrimaryButton>
         </div>
     </AppLayout>

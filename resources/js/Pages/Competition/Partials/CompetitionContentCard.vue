@@ -32,18 +32,19 @@ withDefaults(
             >
                 <h2
                     class="text-xl font-bold text-[#1F4387] md:text-2xl lg:text-4xl"
+                    v-if="name"
                 >
                     {{ name }}
                 </h2>
-                <p class="font-bold md:text-xl lg:text-2xl">{{ type }}</p>
-                <div
+                <p class="font-bold md:text-xl lg:text-2xl" v-if="type">
+                    {{ type }}
+                </p>
+                <p
                     v-if="shortDesc"
                     class="font-raleway text-xs font-bold md:text-sm lg:text-base"
                 >
-                    <p>
-                        {{ shortDesc }}
-                    </p>
-                </div>
+                    {{ shortDesc }}
+                </p>
 
                 <ul
                     v-if="pengalaman"

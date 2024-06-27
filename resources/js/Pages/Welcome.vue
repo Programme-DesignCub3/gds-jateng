@@ -29,11 +29,16 @@
                 <p>Daripada kamu Gamon,. mending ikutan kompetisi Yuk !!</p>
             </div>
 
-            <PrimaryButton as-child class="mt-20" v-if="!$page.props.auth.user">
-                <Link :href="route('register')">Join Now</Link>
-            </PrimaryButton>
-            <PrimaryButton as-child class="mt-20" v-else>
-                <Link :href="route('competition.index')">Submission</Link>
+            <PrimaryButton as-child class="mt-20">
+                <Link
+                    :href="
+                        $page.props.auth.user
+                            ? route('competition.index')
+                            : route('register')
+                    "
+                >
+                    {{ $page.props.auth.user ? "Submission" : "Join Now" }}
+                </Link>
             </PrimaryButton>
         </div>
     </AppLayout>
