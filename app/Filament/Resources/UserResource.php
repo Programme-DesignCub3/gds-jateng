@@ -37,11 +37,11 @@ class UserResource extends Resource
             TextEntry::make('address')
                 ->hidden(fn ($record): bool => $record->is_school_account),
             TextEntry::make('school_name')
-                ->hidden(fn ($record): bool => $record->is_school_account),
+                ->hidden(fn ($record): bool => !$record->is_school_account),
             TextEntry::make('area')
-                ->hidden(fn ($record): bool => $record->is_school_account),
+                ->hidden(fn ($record): bool => !$record->is_school_account),
             TextEntry::make('position')
-                ->hidden(fn ($record): bool => $record->is_school_account),
+                ->hidden(fn ($record): bool => !$record->is_school_account),
             PhoneNumberEntry::make('phone_no')
 
         ]);
