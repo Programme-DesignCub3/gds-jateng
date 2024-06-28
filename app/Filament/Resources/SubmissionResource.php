@@ -104,7 +104,7 @@ class SubmissionResource extends Resource
                 TernaryFilter::make('user')
                     ->relationship('user', 'is_school_account')
 
-                    ->label('Jenis AKun')
+                    ->label('Jenis Akun')
                     // ->attribute('status_id')
                     ->placeholder('Pilih jenis akun')
                     ->trueLabel('Sekolah')

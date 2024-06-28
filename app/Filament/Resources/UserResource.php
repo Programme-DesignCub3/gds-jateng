@@ -42,6 +42,14 @@ class UserResource extends Resource
                 ->hidden(fn ($record): bool => !$record->is_school_account),
             TextEntry::make('position')
                 ->hidden(fn ($record): bool => !$record->is_school_account),
+            TextEntry::make('is_school_account')
+                ->label('Jenis akun')
+                ->formatStateUsing(fn (string $state): string => $state ? 'Sekolah' : "Pribadi")
+                ->badge()
+                ->color(fn (string $state): string => match ($state) {
+                    '0' => 'warning',
+                    '1' => 'success',
+                }),
             PhoneNumberEntry::make('phone_no')
 
         ]);
