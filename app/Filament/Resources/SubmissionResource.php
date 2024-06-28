@@ -54,9 +54,9 @@ class SubmissionResource extends Resource
                 ->disk('submission'),
             TextEntry::make('file_path')
                 ->label('video')
-                ->url(fn ($state): string => asset('storage/') . $state)
+                ->url(fn ($state): string => asset('storage') . '/' . $state)
                 ->openUrlInNewTab()
-                ->formatStateUsing(fn (string $state): string => asset('storage/') . $state)
+                ->formatStateUsing(fn (string $state): string => asset('storage') . '/' . $state)
         ]);
     }
 
