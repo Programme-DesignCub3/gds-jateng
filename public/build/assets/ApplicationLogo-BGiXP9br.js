@@ -1,0 +1,1 @@
+import{_ as o}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o as c,c as e}from"./app-C6NTbKeU.js";const s={},t={draggable:"false",src:"/assets/images/logo.png",alt:"Goodday Schoolicious logo"};function a(r,n){return c(),e("img",t)}const l=o(s,[["render",a]]);export{l as A};

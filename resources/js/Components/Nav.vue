@@ -102,7 +102,7 @@ defineProps<{
             </Link>
             l
             <Link
-              :href="route('competition.*')"
+              :href="route('competition')"
               :active="route().current('competition.*')"
               class="text-muted-foreground hover:text-foreground"
             >
@@ -130,7 +130,7 @@ defineProps<{
           }"
         />
         <GoodChallengeLogo
-          class="absolute top-1/2 -translate-y-1/2 px-12 w-full transition-all duration-500"
+          class="absolute top-1/2 -translate-y-1/2 px-6 md:px-12 w-full transition-all duration-500"
           :class="{
             'scale-100 opacity-1000': !useGdsLogo,
             'scale-0 opacity-0 rotate-180': useGdsLogo,
