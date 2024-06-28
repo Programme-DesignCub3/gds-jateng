@@ -191,7 +191,7 @@ class UploadController extends Controller
 
         if ($request->hasfile('file') && $request->hasfile('file')) {
 
-            $validated_request = $request->validate([
+            $request->validate([
                 'file' =>
                 [
                     'required',
@@ -212,14 +212,23 @@ class UploadController extends Controller
 
             $video_file = $request->file('file');
             $thumbnail = $request->file('thumbnail');
+
             $video_extension = $request->file('file')->extension();
+
             $thumbnail_extension = $request->file('thumbnail')->extension();
+
             if ($video_file->isValid() && $thumbnail->isValid()) {
 
                 // NAME FORMAT : namasekolah - typesubmission - timestamp
-                $filename = Auth::user()->id . '_' . $request->competition . '_' . Carbon::now()->timestamp;
-                $video_file_path = $video_file->storeAs('submission/' . Auth::user()->id, $filename . '.' . $video_extension, 'public');
-                $thumbnail_file_path = $thumbnail->storeAs('submission/' . Auth::user()->id, $filename . '_thumb.' . $thumbnail_extension, 'public');
+                $tipe_user = auth()->user()->is_school_account;
+                $name_sekolah = $tipe_user ? '' : "";
+                $filename = auth()->user()->id . '_' .  $request->competition . $request->judulVideo . '_' . Carbon::now()->timestamp;
+
+                $video_file_path =
+                    $video_file->storeAs('submission/' . auth()->user()->id, $filename . '.' . $video_extension, 'public');
+
+                $thumbnail_file_path =
+                    $thumbnail->storeAs('submission/' . auth()->user()->id, $filename . '_thumb.' . $thumbnail_extension, 'public');
 
                 $request->user()->submission()->create([
                     'user_id' => $request->user()->id,
@@ -228,6 +237,7 @@ class UploadController extends Controller
                     'submission_name' => $request->judulVideo,
                     'submission_type' => $request->competition,
                     'submission_desc' => $request->videoDescription,
+                    'ig_reel' => $request->linkIg
                 ]);
             }
             return Inertia::render('SubmissionDone');

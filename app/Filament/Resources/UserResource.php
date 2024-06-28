@@ -11,12 +11,15 @@ use Filament\Tables\Table;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Infolists\Components\TextEntry;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
 use Cheesegrits\FilamentPhoneNumbers\Infolists\Components\PhoneNumberEntry;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\TernaryFilter;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class UserResource extends Resource
 {
@@ -28,33 +31,18 @@ class UserResource extends Resource
     {
         return $infolist->schema([
 
-            TextEntry::make('name')
-                ->icon('heroicon-o-user-circle'),
-
-            TextEntry::make('email')
-                ->icon('heroicon-o-envelope'),
-
-            TextEntry::make('instagram_account')
-                ->icon('heroicon-o-camera'),
-
+            TextEntry::make('name'),
+            TextEntry::make('email'),
+            TextEntry::make('instagram_account'),
             TextEntry::make('address')
-                ->icon('heroicon-o-home')
                 ->hidden(fn ($record): bool => $record->is_school_account),
-
             TextEntry::make('school_name')
-                ->icon('heroicon-o-home')
-                ->hidden(fn ($record): bool => !$record->is_school_account),
-
+                ->hidden(fn ($record): bool => $record->is_school_account),
             TextEntry::make('area')
-                ->icon('heroicon-o-home')
-                ->hidden(fn ($record): bool => !$record->is_school_account),
-
+                ->hidden(fn ($record): bool => $record->is_school_account),
             TextEntry::make('position')
-                ->icon('heroicon-o-home')
-                ->hidden(fn ($record): bool => !$record->is_school_account),
-
+                ->hidden(fn ($record): bool => $record->is_school_account),
             PhoneNumberEntry::make('phone_no')
-                ->icon('heroicon-o-phone')
 
         ]);
     }
@@ -71,8 +59,9 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('email'),
+                TextColumn::make('name')->searchable(),
+                TextColumn::make('email')->searchable(),
+                TextColumn::make('address'),
                 TextColumn::make('is_school_account')
                     ->label('Jenis akun')
                     ->formatStateUsing(fn (string $state): string => $state ? 'Sekolah' : "Pribadi")
@@ -84,7 +73,16 @@ class UserResource extends Resource
 
             ])
             ->filters([
-                //
+                TernaryFilter::make('is_school_account')
+                    ->label('Jenis AKun')
+                    // ->attribute('status_id')
+                    ->placeholder('Pilih jenis akun')
+                    ->trueLabel('Sekolah')
+                    ->falseLabel('Pribadi')
+                // ->queries(
+                //     true: fn (Builder $query) => $query->withTrashed(),
+                //     false: fn (Builder $query) => $query->onlyTrashed(),
+                // )
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -99,9 +97,7 @@ class UserResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

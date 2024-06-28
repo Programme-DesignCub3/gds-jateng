@@ -96,24 +96,25 @@ defineProps<{
                     <nav class="grid gap-6 text-lg font-medium">
                         <Link
                             :href="route('home')"
+                            :active="route().current('home')"
                             class="hover:text-foreground"
                         >
                             Home
                         </Link>
 
                         <Link
-                            :href="route('competition.index')"
+                            :href="route('competition.*')"
+                            :active="route().current('competition.*')"
                             class="text-muted-foreground hover:text-foreground"
                         >
                             Kompetisi
                         </Link>
 
-                        <Link
-                            :href="route('announcement')"
-                            class="text-muted-foreground hover:text-foreground"
+                        <p
+                            class="cursor-not-allowed text-muted-foreground hover:text-foreground"
                         >
                             Pengumuman
-                        </Link>
+                        </p>
                     </nav>
                 </SheetContent>
             </Sheet>
@@ -129,13 +130,11 @@ defineProps<{
             <nav
                 class="flex grid-cols-3 content-center items-center justify-between justify-items-center gap-6 font-medium md:grid md:gap-5 lg:w-full lg:gap-6"
             >
-                <NavLink
-                    class="hidden md:inline-block"
-                    :href="route('announcement')"
-                    :active="route().current('announcement')"
+                <p
+                    class="hidden cursor-not-allowed text-muted-foreground md:inline-block"
                 >
                     Pengumuman
-                </NavLink>
+                </p>
 
                 <DropdownMenu v-if="$page.props.auth.user">
                     <DropdownMenuTrigger as-child>
