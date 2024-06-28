@@ -102,7 +102,7 @@ defineProps<{
             </Link>
             l
             <Link
-              :href="route('competition')"
+              :href="route('competition.index')"
               :active="route().current('competition.*')"
               class="text-muted-foreground hover:text-foreground"
             >
