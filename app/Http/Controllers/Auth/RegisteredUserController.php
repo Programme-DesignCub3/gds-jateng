@@ -44,8 +44,6 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
 
-
-
         if ($is_school_account) {
             // school account
             $rule = array_merge($base_rule, [

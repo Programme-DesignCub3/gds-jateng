@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CompetitionList;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -11,6 +12,8 @@ use Pion\Laravel\ChunkUpload\Handler\ContentRangeUploadHandler;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\Rules\File;
 use Inertia\Inertia;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 use RahulHaque\Filepond\Facades\Filepond;
@@ -186,7 +189,26 @@ class UploadController extends Controller
             return redirect()->back();
         }
 
-        if ($request->hasfile('file')) {
+        if ($request->hasfile('file') && $request->hasfile('file')) {
+
+            $validated_request = $request->validate([
+                'file' =>
+                [
+                    'required',
+                    File::types(['mp4', 'mov', 'mkv'])
+                        ->max(250 * 1024),
+                ],
+                'thumbnail' =>
+                [
+                    'required',
+                    File::types(['jpeg', 'jpg', 'png'])
+                        ->max(3 * 1024),
+                ],
+                'judulVideo' => ['required', 'string', 'max:255'],
+                'linkIg' => ['required', 'string'],
+                'competition' => [new Enum(CompetitionList::class)],
+                'videoDescription' => ['required', 'string']
+            ]);
 
             $video_file = $request->file('file');
             $thumbnail = $request->file('thumbnail');
@@ -194,20 +216,18 @@ class UploadController extends Controller
             $thumbnail_extension = $request->file('thumbnail')->extension();
             if ($video_file->isValid() && $thumbnail->isValid()) {
 
-                // dd(Auth::user()->id());
                 // NAME FORMAT : namasekolah - typesubmission - timestamp
-                $filename = Auth::user()->id . ' - ' . $request->competition . ' - ' .
-                    Carbon::now()->timestamp;
-                $video_file_path = $video_file->storeAs('testUpload/' . Auth::user()->id, $filename . '.' . $video_extension);
-                $thumbnail->storeAs('testUpload/' . Auth::user()->id, $filename . '_thumb.' . $thumbnail_extension);
+                $filename = Auth::user()->id . '_' . $request->competition . '_' . Carbon::now()->timestamp;
+                $video_file_path = $video_file->storeAs('submission/' . Auth::user()->id, $filename . '.' . $video_extension, 'public');
+                $thumbnail_file_path = $thumbnail->storeAs('submission/' . Auth::user()->id, $filename . '_thumb.' . $thumbnail_extension, 'public');
 
                 $request->user()->submission()->create([
                     'user_id' => $request->user()->id,
                     'file_path' => $video_file_path,
+                    'thumbnail_path' => $thumbnail_file_path,
                     'submission_name' => $request->judulVideo,
                     'submission_type' => $request->competition,
                     'submission_desc' => $request->videoDescription,
-
                 ]);
             }
             return Inertia::render('SubmissionDone');

@@ -9,17 +9,18 @@
                 <img
                     src="/assets/images/submission/illust.png"
                     alt=""
+                    draggable="false"
                     class="max-md:scale-125"
                 />
                 <!-- rip paper -->
                 <div
                     class="relative -mt-14 flex h-full min-w-fit flex-col items-center justify-center bg-orange-paper-rip bg-[length:100%_100%] bg-center bg-no-repeat py-12 md:-mt-28"
                 >
-                    <p
+                    <h1
                         class="inline-block w-4/5 text-center font-bold uppercase tracking-widest text-white sm:text-lg md:text-2xl xl:text-4xl"
                     >
                         SUBMISSION SUDAH TERKIRIM
-                    </p>
+                    </h1>
                 </div>
             </div>
         </div>

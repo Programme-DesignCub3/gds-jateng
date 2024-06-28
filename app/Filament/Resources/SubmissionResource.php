@@ -2,11 +2,13 @@
 
 namespace App\Filament\Resources;
 
+use AnourValar\EloquentSerialize\Tests\Models\Post;
 use App\Filament\Resources\SubmissionResource\Pages;
 use App\Filament\Resources\SubmissionResource\RelationManagers;
 use App\Models\Submission;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
@@ -30,8 +32,13 @@ class SubmissionResource extends Resource
                 ->icon('heroicon-o-user-circle'),
             TextEntry::make('submission_type')
                 ->icon('heroicon-o-user-circle'),
-            // TextEntry::make('file_path')
-            //     ->icon('heroicon-o-user-circle'),
+            ImageEntry::make('thumbnail_path')->disk('submission'),
+            TextEntry::make('file_path')
+                ->label('video')
+                ->url(fn ($state): string => asset('') . $state)
+                ->openUrlInNewTab()
+                ->formatStateUsing(fn (string $state): string => asset('') . $state)
+                ->icon('heroicon-o-user-circle'),
 
         ]);
     }
@@ -51,7 +58,6 @@ class SubmissionResource extends Resource
                 TextColumn::make('submission_name'),
                 TextColumn::make('submission_type'),
                 TextColumn::make('user.name'),
-
             ])
             ->filters([
                 //

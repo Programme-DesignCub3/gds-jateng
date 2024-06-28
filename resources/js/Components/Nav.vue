@@ -168,13 +168,14 @@ defineProps<{
 
                         <DropdownMenuSeparator />
 
-                        <DropdownMenuItem>
-                            <LogOutIcon class="mr-2 h-4 w-4" />
+                        <DropdownMenuItem as-child>
                             <Link
+                                class="inline-flex w-full items-center"
                                 :href="route('logout')"
                                 method="post"
                                 as="button"
                             >
+                                <LogOutIcon class="mr-2 h-4 w-4" />
                                 <span>Logout</span>
                             </Link>
                         </DropdownMenuItem>

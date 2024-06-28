@@ -193,12 +193,13 @@ const submit = () => {
                         :instant-upload="false"
                         :allow-multiple="false"
                         credits="false"
-                        accepted-file-types="video/*"
+                        accepted-file-types="video/mp4, video/mkv, video/mov"
                         max-file-size="250MB"
                         @addfile="handleFilePondVideoFileAdd"
                         @init="handleFilePondInit"
                         @removefile="handleFilePondVideoRemoveFile"
                     />
+                    <InputError class="mt-2" :message="form.errors.file" />
 
                     <!-- editor / preview  -->
                     <div v-show="form.file">
@@ -248,14 +249,17 @@ const submit = () => {
                     </div>
                     <Input
                         v-model="form.linkIg"
+                        required
                         id="instagram_reels"
                         placeholder="ex: https://www.instagram.com/reel/C68td6fyyzsM/?hl=en"
                     />
+                    <InputError class="mt-2" :message="form.errors.linkIg" />
                 </div>
 
                 <div>
                     <InputLabel
                         for="competition"
+                        required
                         value="Kompetisi yang Diikuti"
                     />
                     <Select v-model="form.competition">
@@ -287,8 +291,13 @@ const submit = () => {
                     <Label for="judul">Judul</Label>
                     <Input
                         id="judul"
+                        required
                         v-model="form.judulVideo"
                         placeholder="ex: GDSCHOOLICIOUS_NAMA SEKOLAH_KOTA ASAL"
+                    />
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.judulVideo"
                     />
                 </div>
 
@@ -302,19 +311,23 @@ const submit = () => {
                         :instant-upload="false"
                         :allow-multiple="false"
                         credits="false"
+                        required
                         @addfile="handleFilePondThumbnailFileAdd"
                         @init="handleFilePondInit"
                         @removefile="handleFilePondThumbnailRemoveFile"
                     />
+                    <InputError class="mt-2" :message="form.errors.thumbnail" />
                 </div>
                 <div class="grid gap-3">
                     <Label for="description">Description</Label>
                     <Textarea
                         id="description"
+                        required
                         v-model="form.videoDescription"
                         placeholder="ex: Temukan Harmoni indah dalam lagu 'Rasa di Ujung Senda' dengan lirik penuh makna dan melodi yang menenagkan"
                         class="min-h-[9.5rem]"
                     />
+                    <InputError class="mt-2" :message="form.errors.thumbnail" />
                 </div>
 
                 <!-- upload progress -->
@@ -323,7 +336,7 @@ const submit = () => {
                         class="h-3 overflow-hidden rounded bg-gray-100 shadow-inner"
                     >
                         <div
-                            class="h-full bg-blue-500 transition-all duration-200"
+                            class="h-full bg-primary transition-all duration-200"
                             v-bind:style="{
                                 width: form.progress.percentage + '%',
                             }"
