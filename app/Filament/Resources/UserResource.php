@@ -83,14 +83,10 @@ class UserResource extends Resource
             ->filters([
                 TernaryFilter::make('is_school_account')
                     ->label('Jenis AKun')
-                    // ->attribute('status_id')
                     ->placeholder('Pilih jenis akun')
                     ->trueLabel('Sekolah')
                     ->falseLabel('Pribadi')
-                // ->queries(
-                //     true: fn (Builder $query) => $query->withTrashed(),
-                //     false: fn (Builder $query) => $query->onlyTrashed(),
-                // )
+
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
