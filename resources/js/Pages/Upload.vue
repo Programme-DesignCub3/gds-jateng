@@ -327,7 +327,10 @@ const submit = () => {
                         placeholder="ex: Temukan Harmoni indah dalam lagu 'Rasa di Ujung Senda' dengan lirik penuh makna dan melodi yang menenagkan"
                         class="min-h-[9.5rem]"
                     />
-                    <InputError class="mt-2" :message="form.errors.thumbnail" />
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.videoDescription"
+                    />
                 </div>
 
                 <!-- upload progress -->

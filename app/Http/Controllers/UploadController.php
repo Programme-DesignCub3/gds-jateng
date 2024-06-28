@@ -196,13 +196,13 @@ class UploadController extends Controller
                 [
                     'required',
                     File::types(['mp4', 'mov', 'mkv'])
-                        ->max(250 * 1024),
+                        ->max('250mb'),
                 ],
                 'thumbnail' =>
                 [
                     'required',
-                    File::types(['jpeg', 'jpg', 'png'])
-                        ->max(3 * 1024),
+                    File::image()
+                        ->max('3mb'),
                 ],
                 'judulVideo' => ['required', 'string', 'max:255'],
                 'linkIg' => ['required', 'string'],
