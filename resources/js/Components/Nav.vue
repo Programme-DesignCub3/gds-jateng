@@ -100,7 +100,7 @@ defineProps<{
             >
               Home
             </Link>
-            l
+
             <Link
               :href="route('competition.index')"
               :active="route().current('competition.*')"
