@@ -19,7 +19,7 @@ import { Textarea } from "@/Components/ui/textarea";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 import { watch, ref } from "vue";
-import FilepondUpload from "@/Components/ui/custom/FilepondUpload.vue";
+// import FilepondUpload from "@/Components/ui/custom/FilepondUpload.vue";
 
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
@@ -41,7 +41,8 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/Components/ui/alert-dialog";
-import CompetitionDetailHeader from "@/Components/CompetitionDetailHeader.vue";
+import SubmissionHeader from "@/Components/SubmissionHeader.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const form = useForm<{
     file: null | File;
@@ -177,9 +178,8 @@ const submit = () => {
 <template>
     <AppLayout>
         <Head title="Upload test page" />
-        <CompetitionDetailHeader />
-
-        <div class="container mt-60 max-w-xl">
+        <SubmissionHeader />
+        <div class="container mb-10 max-w-xl">
             <form
                 @submit.prevent="submit"
                 class="grid w-full items-start gap-6 overflow-auto p-2 lg:p-4"
@@ -233,37 +233,26 @@ const submit = () => {
                             </div> -->
                         </div>
                     </div>
-
-                    <!-- upload progress -->
-                    <div v-if="form.progress" class="space-y-2">
-                        <div
-                            class="h-3 overflow-hidden rounded bg-gray-100 shadow-inner"
-                        >
-                            <div
-                                class="h-full bg-blue-500 transition-all duration-200"
-                                v-bind:style="{
-                                    width: form.progress.percentage + '%',
-                                }"
-                            ></div>
-                        </div>
-
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-2"></div>
-                            <div class="text-sm">
-                                {{ form.progress.percentage }}%
-                            </div>
-                        </div>
-                    </div>
-                    <!-- upload progress end -->
                 </div>
-                <div class="grid gap-3">
-                    <Label for="judul">Judul</Label>
+
+                <div class="gap-3">
+                    <div>
+                        <Label for="instagram_reels"
+                            >link URL Instagram Reels :</Label
+                        >
+                        <p
+                            class="mt-1 text-xs text-muted-foreground dark:text-red-400"
+                        >
+                            Video We Are Ready for Schoolicious
+                        </p>
+                    </div>
                     <Input
-                        id="judul"
-                        v-model="form.judulVideo"
-                        placeholder="ex: GDSCHOOLICIOUS_NAMA SEKOLAH_KOTA ASAL"
+                        v-model="form.linkIg"
+                        id="instagram_reels"
+                        placeholder="ex: https://www.instagram.com/reel/C68td6fyyzsM/?hl=en"
                     />
                 </div>
+
                 <div>
                     <InputLabel
                         for="competition"
@@ -293,47 +282,69 @@ const submit = () => {
                         :message="form.errors.competition"
                     />
                 </div>
-                <div class="grid gap-3">
-                    <Label for="instagram_reels"
-                        >link URL Instagram Reels :</Label
-                    >
+
+                <div class="gap-3">
+                    <Label for="judul">Judul</Label>
                     <Input
-                        v-model="form.linkIg"
-                        id="instagram_reels"
-                        placeholder="ex: https://www.instagram.com/reel/C68td6fyyzsM/?hl=en"
+                        id="judul"
+                        v-model="form.judulVideo"
+                        placeholder="ex: GDSCHOOLICIOUS_NAMA SEKOLAH_KOTA ASAL"
                     />
                 </div>
-                <fieldset class="grid gap-6 rounded-lg border p-4">
-                    <legend class="-ml-1 px-1 text-sm font-medium">
-                        Additional info
-                    </legend>
-                    <div class="grid gap-3">
-                        <Label for="role">Upload Thumbnail video</Label>
-                        <FilePond
-                            name="test"
-                            max-file-size="3MB"
-                            accepted-file-types="image/jpeg, image/png, image/jpg"
-                            label-idle="Drop files here..."
-                            :instant-upload="false"
-                            :allow-multiple="false"
-                            credits="false"
-                            @addfile="handleFilePondThumbnailFileAdd"
-                            @init="handleFilePondInit"
-                            @removefile="handleFilePondThumbnailRemoveFile"
-                        />
-                    </div>
-                    <div class="grid gap-3">
-                        <Label for="description">Description</Label>
-                        <Textarea
-                            id="description"
-                            v-model="form.videoDescription"
-                            placeholder="ex: Temukan Harmoni indah dalam lagu 'Rasa di Ujung Senda' dengan lirik penuh makna dan melodi yang menenagkan"
-                            class="min-h-[9.5rem]"
-                        />
-                    </div>
-                </fieldset>
 
-                <button type="submit">Submit</button>
+                <div class="gap-3">
+                    <Label for="role">Upload Thumbnail video</Label>
+                    <FilePond
+                        name="test"
+                        max-file-size="3MB"
+                        accepted-file-types="image/jpeg, image/png, image/jpg"
+                        label-idle="Drop files here..."
+                        :instant-upload="false"
+                        :allow-multiple="false"
+                        credits="false"
+                        @addfile="handleFilePondThumbnailFileAdd"
+                        @init="handleFilePondInit"
+                        @removefile="handleFilePondThumbnailRemoveFile"
+                    />
+                </div>
+                <div class="grid gap-3">
+                    <Label for="description">Description</Label>
+                    <Textarea
+                        id="description"
+                        v-model="form.videoDescription"
+                        placeholder="ex: Temukan Harmoni indah dalam lagu 'Rasa di Ujung Senda' dengan lirik penuh makna dan melodi yang menenagkan"
+                        class="min-h-[9.5rem]"
+                    />
+                </div>
+
+                <!-- upload progress -->
+                <div v-if="form.progress" class="space-y-2">
+                    <div
+                        class="h-3 overflow-hidden rounded bg-gray-100 shadow-inner"
+                    >
+                        <div
+                            class="h-full bg-blue-500 transition-all duration-200"
+                            v-bind:style="{
+                                width: form.progress.percentage + '%',
+                            }"
+                        ></div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2"></div>
+                        <div class="text-sm">
+                            {{ form.progress.percentage }}%
+                        </div>
+                    </div>
+                </div>
+                <!-- upload progress end -->
+                <PrimaryButton
+                    :class="{ 'opacity-25': form.processing }"
+                    :disabled="form.processing"
+                    class="ml-auto w-fit"
+                    type="submit"
+                    >Submit</PrimaryButton
+                >
             </form>
         </div>
 

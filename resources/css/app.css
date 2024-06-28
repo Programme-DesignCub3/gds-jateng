@@ -82,4 +82,12 @@
         /* background-size: 50%; */
         /* background-size: 100%; */
     }
+
+    .filepond--root {
+        cursor: pointer;
+    }
+
+    .filepond--list-scroller {
+        cursor: default;
+    }
 }

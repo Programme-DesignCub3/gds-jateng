@@ -181,6 +181,11 @@ class UploadController extends Controller
      */
     public function uploadInertia(Request $request)
     {
+
+        if (auth()->user()->submission) {
+            return redirect()->back();
+        }
+
         if ($request->hasfile('file')) {
 
             $video_file = $request->file('file');
@@ -205,7 +210,7 @@ class UploadController extends Controller
 
                 ]);
             }
-            return Inertia::render('SubmissionSuccess');
+            return Inertia::render('SubmissionDone');
         } else {
             echo 'Gagal';
         }

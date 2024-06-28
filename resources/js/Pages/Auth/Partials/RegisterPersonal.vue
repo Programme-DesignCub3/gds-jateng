@@ -82,7 +82,7 @@ const submit = () => {
                     required
                     autocomplete="alamat"
                 />
-                <InputError class="mt-2" :message="form.errors.name" />
+                <InputError class="mt-2" :message="form.errors.address" />
             </div>
 
             <!-- Akun Instagram -->
@@ -96,7 +96,10 @@ const submit = () => {
                     required
                     autocomplete="instagram_account"
                 />
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError
+                    class="mt-2"
+                    :message="form.errors.instagram_account"
+                />
             </div>
 
             <!-- no telephon -->

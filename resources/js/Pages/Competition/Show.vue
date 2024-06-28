@@ -1,6 +1,6 @@
 <template>
     <AppLayout>
-        <Head title="Detail Kompetensi" />
+        <Head :title="data.title" />
         <CompetitionDetailHeader>{{ data.title }}</CompetitionDetailHeader>
 
         <div

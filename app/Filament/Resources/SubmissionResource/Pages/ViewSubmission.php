@@ -15,12 +15,12 @@ class ViewSubmission extends ViewRecord
     {
         return [
 
-            Action::make('download')
-                ->action(
-                    fn ($record) => Storage::disk('public')
-                        ->download($record->file_path)
-                )
-                ->icon('heroicon-o-arrow-down-on-square'),
+            // Action::make('download')
+            //     ->action(
+            //         fn ($record) => Storage::disk('public')
+            //             ->download($record->file_path)
+            //     )
+            //     ->icon('heroicon-o-arrow-down-on-square'),
 
         ];
     }

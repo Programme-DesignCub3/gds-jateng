@@ -1,4 +1,5 @@
 <template>
+    <Head title="Kompetisi" />
     <AppLayout>
         <MainHeader
             bgImage="/assets/images/home.svg"
@@ -23,6 +24,7 @@
 import MainHeader from "@/Components/MainHeader.vue";
 import CompetitionCard from "@/Components/CompetitionCard.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
+import { Head } from "@inertiajs/vue3";
 
 defineProps<{
     competitionList: {

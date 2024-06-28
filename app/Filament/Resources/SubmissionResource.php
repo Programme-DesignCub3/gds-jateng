@@ -58,12 +58,12 @@ class SubmissionResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\Action::make('download')
-                    //
-                    // ->url(fn ($record) => 'https://goodday-schoolicious-jateng.test/storage/' . $record->file_path)
-                    // ->openUrlInNewTab()
-                    ->icon('heroicon-o-arrow-down-on-square'),
-                // Tables\Actions\EditAction::make(),
+                // Tables\Actions\Action::make('download')
+                //     //
+                //     // ->url(fn ($record) => 'https://goodday-schoolicious-jateng.test/storage/' . $record->file_path)
+                //     // ->openUrlInNewTab()
+                //     ->icon('heroicon-o-arrow-down-on-square'),
+                // // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
