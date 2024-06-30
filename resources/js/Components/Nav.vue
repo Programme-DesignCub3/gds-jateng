@@ -95,8 +95,10 @@ defineProps<{
           <nav class="grid gap-6 text-lg font-medium">
             <Link
               :href="route('home')"
-              :active="route().current('home')"
               class="hover:text-foreground"
+              :class="{
+                'text-muted-foreground ': !route().current('home'),
+              }"
             >
               Home
             </Link>
@@ -104,7 +106,10 @@ defineProps<{
             <Link
               :href="route('competition.index')"
               :active="route().current('competition.*')"
-              class="text-muted-foreground hover:text-foreground"
+              class="hover:text-foreground"
+              :class="{
+                'text-muted-foreground ': !route().current('competition.*'),
+              }"
             >
               Kompetisi
             </Link>
@@ -125,14 +130,12 @@ defineProps<{
         <ApplicationLogo
           class="transition-all duration-500"
           :class="{
-            'scale-100 opacity-100': useGdsLogo,
             'scale-0 -rotate-180 opacity-0': !useGdsLogo,
           }"
         />
         <GoodChallengeLogo
           class="absolute top-1/2 -translate-y-1/2 px-6 md:px-12 w-full transition-all duration-500"
           :class="{
-            'scale-100 opacity-1000': !useGdsLogo,
             'scale-0 opacity-0 rotate-180': useGdsLogo,
           }"
         />

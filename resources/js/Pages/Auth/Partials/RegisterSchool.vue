@@ -48,26 +48,12 @@ const form = useForm<{
   password_confirmation: "",
 });
 
-const handlePhoneInput = (e: KeyboardEvent) => {
-  isNumberKey(e);
-
-  var sanitizedPhoneNo = form.phone_no;
-  while (sanitizedPhoneNo.charAt(0) === "0") {
-    sanitizedPhoneNo = sanitizedPhoneNo.substring(1);
-  }
-
-  form.transform((data) => ({
-    ...data,
-    phone_no: sanitizedPhoneNo,
-  }));
-};
-
 const submit = () => {
   form
-    .transform((data) => ({
-      ...data,
-      phone_no: "+62" + data.phone_no,
-    }))
+    // .transform((data) => ({
+    //   ...data,
+    //   phone_no: "+62" + data.phone_no,
+    // }))
     .post(route("register"), {
       onFinish: () => {
         form.reset("password", "password_confirmation");
@@ -160,12 +146,12 @@ const submit = () => {
       </div>
 
       <!-- no telephon with icon-->
-      <div>
+      <!-- <div>
         <InputLabel for="phone_no" value="Nomor Telepon" />
         <div class="relative w-full max-w-sm items-center">
           <Input
             id="phone_no"
-            type="text"
+            type="tel"
             @keydown="handlePhoneInput"
             v-model="form.phone_no"
             required
@@ -178,32 +164,27 @@ const submit = () => {
           </span>
         </div>
         <InputError class="mt-2" :message="form.errors.phone_no" />
-      </div>
+      </div> -->
 
       <!-- no telephon -->
-      <!-- <div>
-                <InputLabel for="phone_no" value="Nomor Telepon" />
-                <div>
-                    <TextInput
-                        id="phone_no"
-                        type="text"
-                        class="mt-1 block w-full"
-                        v-model="form.phone_no"
-                        placeholder="+6282312553331"
-                        required
-                        autocomplete="phone_no"
-                    />
-                    <p
-                        class="mt-1 text-xs text-muted-foreground dark:text-red-400"
-                    >
-                        *Nomor telepon perwakilan
-                    </p>
-                </div>
-                <InputError
-                    class="mt-2"
-                    :message="form.errors.instagram_account"
-                />
-            </div> -->
+      <div>
+        <InputLabel for="phone_no" value="Nomor Telepon" />
+        <div>
+          <TextInput
+            id="phone_no"
+            type="tel"
+            class="mt-1 block w-full"
+            v-model="form.phone_no"
+            placeholder="082312553331"
+            required
+            autocomplete="phone_no"
+          />
+          <p class="mt-1 text-xs text-muted-foreground dark:text-red-400">
+            *Nomor telepon perwakilan
+          </p>
+        </div>
+        <InputError class="mt-2" :message="form.errors.instagram_account" />
+      </div>
 
       <!-- email -->
       <div class="mt-4">
