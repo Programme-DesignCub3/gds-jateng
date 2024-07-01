@@ -129,6 +129,7 @@ const submit = () => {
           id="phone_no"
           type="tel"
           class="mt-1 block w-full"
+          @keydown="isNumberKey"
           v-model="form.phone_no"
           placeholder="082312553331"
           required
