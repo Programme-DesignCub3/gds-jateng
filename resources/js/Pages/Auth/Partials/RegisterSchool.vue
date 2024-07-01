@@ -175,7 +175,7 @@ const submit = () => {
             type="tel"
             class="mt-1 block w-full"
             v-model="form.phone_no"
-            placeholder="082312553331"
+            placeholder="ex: 082312553331"
             @keydown="isNumberKey"
             required
             autocomplete="phone_no"
