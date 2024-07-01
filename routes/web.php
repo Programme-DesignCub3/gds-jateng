@@ -30,20 +30,7 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/submission', function () {
 
-    if (!auth()->user()) {
-        return redirect()->route('login');
-    }
-    if (auth()->user()->submission) {
-        # code...
-        return Inertia::render('SubmissionDone');
-    }
-
-    return Inertia::render('Upload');
-})->name('submission.create');
-
-Route::post('/submission', [UploadController::class, 'uploadInertia'])->name('submission.store');
 
 // Route::get('/submission', function () {
 //     return Inertia::render('Upload');
@@ -73,6 +60,18 @@ Route::get('/pengumuman', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/submission', function () {
+        if (auth()->user()->submission) {
+            # code...
+            return Inertia::render('SubmissionDone');
+        }
+
+        return Inertia::render('Upload');
+    })->name('submission.create');
+
+    Route::post('/submission', [UploadController::class, 'uploadInertia'])->name('submission.store');
+
     Route::get(
         '/profile',
         [ProfileController::class, 'edit']
