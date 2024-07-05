@@ -28,18 +28,8 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-})->name('home');
-
-
-
-// Route::get('/submission', function () {
-//     return Inertia::render('Upload');
-// })->name('submission.create.basic');
-
-// Route::put('/upload-filepond', [UploadController::class, 'uploadFilepond'])->name('test-upload.uploadFilepond');
-// Route::post('/upload-advanced', [UploadController::class, 'upload'])->name('test-upload.advance');
-
-
+})
+    ->name('home');
 
 Route::get('/kompetisi', [CompetitionController::class, 'index'])
     ->name('competition.index');
@@ -63,14 +53,17 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/submission', function () {
         if (auth()->user()->submission) {
-            # code...
             return Inertia::render('SubmissionDone');
         }
 
         return Inertia::render('Upload');
     })->name('submission.create');
 
-    Route::post('/submission', [UploadController::class, 'uploadInertia'])->name('submission.store');
+    Route::post('/submission', [UploadController::class, 'store'])->name('submission.store');
+
+    // Route::put('/upload-filepond', [UploadController::class, 'uploadFilepond'])->name('test-upload.uploadFilepond');
+    // Route::post('/upload-advanced', [UploadController::class, 'upload'])->name('test-upload.advance');
+
 
     Route::get(
         '/profile',

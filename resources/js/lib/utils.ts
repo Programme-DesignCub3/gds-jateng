@@ -38,3 +38,26 @@ export function useNumberKeydown() {
         isNumberKey,
     };
 }
+
+export function getCompetitionLabel(key: string): string | undefined {
+    const label = [
+        {
+            key: "mascot-design",
+            label: "Mascot design",
+        },
+        {
+            key: "cheerleading",
+            label: "Cheerleading Competition",
+        },
+        {
+            key: "chants",
+            label: "Chants Competition",
+        },
+        {
+            key: "kolaborasa",
+            label: "Kolaborasa",
+        },
+    ].find((item) => item.key === key);
+
+    return label?.label;
+}

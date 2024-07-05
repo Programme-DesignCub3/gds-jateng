@@ -30,7 +30,7 @@ class ListSubmissions extends ListRecords
             // ->icon('heroicon-m-banknotes')
             ,
             'Chant' => Tab::make()
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('submission_type', CompetitionList::CHANT))
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('submission_type', CompetitionList::CHANTS))
             // ->icon('heroicon-m-scale')
             ,
             'Mascot' => Tab::make()

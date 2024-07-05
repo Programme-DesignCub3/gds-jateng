@@ -25,7 +25,7 @@ const form = useForm<{
   instagram_account: string;
   phone_no: string;
   email: string;
-  //   competition: "kolaborasa" | "chant" | "cheerleading" | "mascot";
+  competition: "kolaborasa";
   password: string;
   password_confirmation: string;
 }>({
@@ -35,7 +35,7 @@ const form = useForm<{
   instagram_account: "",
   phone_no: "",
   email: "",
-  //   competition: "kolaborasa",
+  competition: "kolaborasa",
   password: "",
   password_confirmation: "",
 });
@@ -157,21 +157,18 @@ const submit = () => {
       </div>
 
       <!-- Competition -->
-      <!-- <div>
+      <div>
         <InputLabel for="competition" value="Kompetisi yang Diikuti" />
-        <Select v-model="form.competition">
+        <Select v-model="form.competition" required>
           <SelectTrigger>
             <SelectValue placeholder="Pilih kompetisi" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="mascot">Mascot Design</SelectItem>
-            <SelectItem value="cheerleading">Cheerleading Competition</SelectItem>
-            <SelectItem value="chant">Chant Competition</SelectItem>
             <SelectItem value="kolaborasa">Kolaborasa</SelectItem>
           </SelectContent>
         </Select>
         <InputError class="mt-2" :message="form.errors.competition" />
-      </div> -->
+      </div>
 
       <!-- Password -->
       <div>

@@ -1,6 +1,11 @@
 <template>
     <AppLayout>
         <Head :title="data.title" />
+
+        <BackButton
+            class="fixed left-4 top-20 z-1 md:top-28 lg:left-8 lg:top-40"
+        />
+
         <CompetitionDetailHeader>{{ data.title }}</CompetitionDetailHeader>
 
         <div
@@ -12,14 +17,19 @@
             ></div>
         </div>
 
-        <div class="my-20">
+        <div
+            class="my-20"
+            :class="{
+                'mb-0': !showButtons,
+            }"
+        >
             <!-- Prize -->
             <CompetitionContentCard
                 position="left"
                 type=""
                 name="Hadiah"
                 :shortDesc="data.prize.desc"
-                imageUrl=""
+                :imageUrl="data.prize.imageUrl"
             />
 
             <!-- Juri -->
@@ -36,8 +46,12 @@
             />
         </div>
 
-        <div class="container mb-20 flex w-fit flex-col gap-4">
+        <div
+            class="container mb-20 flex w-fit flex-col gap-4"
+            v-if="showButtons"
+        >
             <PrimaryButton>Download rules</PrimaryButton>
+
             <PrimaryButton as-child>
                 <Link class="text-center" :href="route('submission.create')"
                     >Submit</Link
@@ -48,16 +62,18 @@
 </template>
 
 <script setup lang="ts">
+import BackButton from "@/Components/BackButton.vue";
 import CompetitionContentCard from "./Partials/CompetitionContentCard.vue";
 import CompetitionDetailHeader from "@/Components/CompetitionDetailHeader.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, router, usePage } from "@inertiajs/vue3";
 
 defineProps<{
     data: {
         title: string;
         description: string;
+        slug: string;
         prize: {
             imageUrl: string;
             desc: string;
@@ -71,6 +87,7 @@ defineProps<{
             akun_ig: string;
         }[];
     };
+    showButtons: boolean;
 }>();
 </script>
 

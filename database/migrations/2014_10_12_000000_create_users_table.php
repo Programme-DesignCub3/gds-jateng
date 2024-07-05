@@ -23,9 +23,6 @@ return new class extends Migration
             $table->string('phone_no');
             $table->string('email')->unique();
             $table->boolean('is_school_account');
-
-            // $table->string('competition');
-
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

@@ -18,16 +18,19 @@ withDefaults(
 </script>
 
 <template>
-    <div class="grid min-h-10 grid-cols-2">
+    <div class="grid min-h-10 sm:grid-cols-2">
         <div
-            class="container flex flex-col justify-center px-4 text-center max-md:py-8 md:px-20 xl:px-40"
-            :class="{ 'order-1': position === 'right' }"
+            class="container flex flex-col justify-center px-4 text-center max-md:py-8 max-sm:order-1 md:px-20 xl:px-40"
+            :class="{
+                'sm:order-1 md:pl-10 xl:pl-20': position === 'right',
+                'md:pr-10 xl:pr-20': position === 'left',
+            }"
         >
             <div
-                class="flex h-full flex-col justify-around gap-y-4 text-sm md:max-h-[50%] md:max-w-[80%] md:text-base lg:max-w-[50%]"
+                class="flex h-full flex-col justify-center gap-y-4 text-base lg:my-4 lg:max-w-[80%] lg:text-lg"
                 :class="{
-                    'md:ml-auto': position === 'left',
-                    'md:mr-auto': position === 'right',
+                    'lg:ml-auto': position === 'left',
+                    'lg:mr-auto': position === 'right',
                 }"
             >
                 <h2
@@ -41,10 +44,9 @@ withDefaults(
                 </p>
                 <p
                     v-if="shortDesc"
-                    class="font-raleway text-xs font-bold md:text-sm lg:text-base"
-                >
-                    {{ shortDesc }}
-                </p>
+                    class="font-raleway text-xs font-bold md:text-base lg:text-base"
+                    v-html="shortDesc"
+                ></p>
 
                 <ul
                     v-if="pengalaman"
@@ -57,7 +59,10 @@ withDefaults(
                         {{ item }}
                     </li>
                 </ul>
-                <div v-if="akunIg" class="flex justify-center gap-2">
+                <div
+                    v-if="akunIg"
+                    class="flex items-center justify-center gap-2"
+                >
                     <span class="inline-block">
                         <InstagramIcon class="size-6" />
                     </span>

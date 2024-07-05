@@ -17,9 +17,8 @@ import { useNumberKeydown } from "@/lib/utils";
 
 const { isNumberKey } = useNumberKeydown();
 const areas: { label: string; value: string }[] = [
-  { label: "Banjarnegara", value: "banjarnegara" },
   { label: "Yogyakarta", value: "yogyakarta" },
-  { label: "Purwokerto", value: "purwokerto" },
+  { label: "Semarang", value: "semarang" },
 ];
 
 const form = useForm<{
@@ -31,7 +30,7 @@ const form = useForm<{
   area: string;
   phone_no: string;
   email: string;
-  //   competition: "kolaborasa" | "chant" | "cheerleading" | "mascot";
+  competition: "chants" | "cheerleading" | "mascot-design";
   password: string;
   password_confirmation: string;
 }>({
@@ -43,7 +42,7 @@ const form = useForm<{
   phone_no: "",
   area: "",
   email: "",
-  //   competition: "kolaborasa",
+  competition: "mascot-design",
   password: "",
   password_confirmation: "",
 });
@@ -190,35 +189,37 @@ const submit = () => {
       <!-- email -->
       <div class="mt-4">
         <InputLabel for="email" value="Email" />
-        <TextInput
-          id="email"
-          type="email"
-          class="mt-1 block w-full"
-          v-model="form.email"
-          required
-          autocomplete="username"
-        />
+        <div>
+          <TextInput
+            id="email"
+            type="email"
+            class="mt-1 block w-full"
+            v-model="form.email"
+            required
+            autocomplete="username"
+          />
+          <p class="mt-1 text-xs text-muted-foreground dark:text-red-400">
+            *masukkan email sekolah/perwakilan
+          </p>
+        </div>
         <InputError class="mt-2" :message="form.errors.email" />
       </div>
 
       <!-- Competition -->
-      <!-- <div>
-                <InputLabel for="competition" value="Kompetisi yang Diikuti" />
-                <Select v-model="form.competition">
-                    <SelectTrigger>
-                        <SelectValue placeholder="Pilih kompetisi" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="mascot">Mascot Design</SelectItem>
-                        <SelectItem value="cheerleading"
-                            >Cheerleading Competition</SelectItem
-                        >
-                        <SelectItem value="chant">Chant Competition</SelectItem>
-                        <SelectItem value="kolaborasa">Kolaborasa</SelectItem>
-                    </SelectContent>
-                </Select>
-                <InputError class="mt-2" :message="form.errors.competition" />
-            </div> -->
+      <div>
+        <InputLabel for="competition" value="Kompetisi yang Diikuti" />
+        <Select v-model="form.competition" required>
+          <SelectTrigger>
+            <SelectValue placeholder="Pilih kompetisi" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="mascot-design">Mascot Design</SelectItem>
+            <SelectItem value="cheerleading">Cheerleading Competition</SelectItem>
+            <SelectItem value="chants">Chant Competition</SelectItem>
+          </SelectContent>
+        </Select>
+        <InputError class="mt-2" :message="form.errors.competition" />
+      </div>
 
       <!-- Password -->
       <div>

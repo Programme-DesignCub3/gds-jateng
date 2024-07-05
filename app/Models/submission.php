@@ -17,6 +17,16 @@ class Submission extends Model
      */
     protected $guarded = [];
 
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'files_path' => 'array'
+    ];
+
     /**
      * Get the user that owns the Submission
      *

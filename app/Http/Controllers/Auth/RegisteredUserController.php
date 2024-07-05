@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -49,12 +49,19 @@ class RegisteredUserController extends Controller
             $rule = array_merge($base_rule, [
                 'school_name' => ['required', 'string', 'max:50', 'unique:' . User::class],
                 'position' => ['required', 'string', 'max:50'],
-                'area' => ['required', 'string', 'max:150']
+                'area' => ['required', 'string', 'max:150'],
+                'competition' => [
+                    Rule::Enum(CompetitionList::class)
+                        ->except([CompetitionList::KOLABORASA])
+                ]
             ]);
         } else {
             // personal account
             $rule = array_merge($base_rule, [
-                'address' => ['required', 'string', 'max:255']
+                'address' => ['required', 'string', 'max:255'], 'competition' => [
+                    Rule::Enum(CompetitionList::class)
+                        ->only([CompetitionList::KOLABORASA])
+                ]
             ]);
         }
 
@@ -70,7 +77,7 @@ class RegisteredUserController extends Controller
             'address' => $request->address,
             'phone_no' => $request->phone_no,
             'is_school_account' => $request->is_school_account,
-            // 'competition' => $request->competition,
+            'competition' => $request->competition,
             'position' => $request->position,
         ]);
 

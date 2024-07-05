@@ -20,7 +20,7 @@ const selectedRegistration = ref<TRegistrationType>("sekolah");
 </script>
 
 <template>
-    <AppLayout>
+    <AppLayout fixed-nav>
         <div class="relative">
             <p
                 class="absolute left-0 top-[10%] bg-white px-20 py-2 text-lg shadow-lg after:absolute after:right-0 after:top-1/2 after:inline-block after:size-8 after:-translate-y-1/2 after:translate-x-1/2 after:rotate-45 after:bg-white"
