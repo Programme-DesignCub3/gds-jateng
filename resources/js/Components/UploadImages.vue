@@ -149,12 +149,6 @@ const submit = () => {
                     @removefile="handleFilePondImagesRemoveFile"
                 />
                 <InputError class="mt-2" :message="form.errors.files" />
-                <ul>
-                    <li v-for="file in form.files">
-                        {{ file.id }}
-                        {{ file.filename }}
-                    </li>
-                </ul>
             </div>
 
             <div class="gap-3">
@@ -174,7 +168,7 @@ const submit = () => {
             <div class="gap-3">
                 <div>
                     <Label for="instagram_reels"
-                        >link U RL Instagram Reels :</Label
+                        >link URL Instagram Reels :</Label
                     >
                     <p
                         class="mt-1 text-xs text-muted-foreground dark:text-red-400"

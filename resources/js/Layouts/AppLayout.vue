@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CsButton from "@/Components/CsButton.vue";
 import Nav from "@/Components/Nav.vue";
 import { useForwardProps } from "radix-vue";
 
@@ -12,6 +13,8 @@ const forwarded = useForwardProps(props);
     <Nav v-bind="forwarded" />
 
     <slot />
+
+    <CsButton />
 </template>
 
 <style lang="scss" scoped></style>
