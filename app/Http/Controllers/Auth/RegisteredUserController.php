@@ -41,13 +41,13 @@ class RegisteredUserController extends Controller
             'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
             'phone_no' => ['required', 'phone:ID'],
             'is_school_account' => ['required', 'boolean'],
+            'school_name' => ['required', 'string', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
 
         if ($is_school_account) {
             // school account
             $rule = array_merge($base_rule, [
-                'school_name' => ['required', 'string', 'max:50', 'unique:' . User::class],
                 'position' => ['required', 'string', 'max:50'],
                 'area' => ['required', 'string', 'max:150'],
                 'competition' => [
@@ -58,7 +58,8 @@ class RegisteredUserController extends Controller
         } else {
             // personal account
             $rule = array_merge($base_rule, [
-                'address' => ['required', 'string', 'max:255'], 'competition' => [
+                'address' => ['required', 'string', 'max:255'],
+                'competition' => [
                     Rule::Enum(CompetitionList::class)
                         ->only([CompetitionList::KOLABORASA])
                 ]

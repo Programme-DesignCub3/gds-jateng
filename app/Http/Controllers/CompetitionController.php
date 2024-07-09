@@ -85,6 +85,16 @@ class CompetitionController extends Controller
                             // ],
                             'akun_ig' => '@woketoon'
                         ]
+                    ],
+
+
+                    'rules' => [
+                        'file_url' => '',
+                        'list' => [
+                            'foto yang di upload maksimal 3mb dalam bentuk JPEG atau PDF (2 foto : tampak depan dan belakang)',
+                            'foto yang di upload harus terlihat jelas',
+                            'foto thumbnail yang di upload maksimal 3mb dan seluruh peserta harus terlihat jelas'
+                        ]
                     ]
                 ];
                 break;
@@ -116,6 +126,15 @@ class CompetitionController extends Controller
                             //     'Judge UKSW LABCUP Cheers, dll',
                             // ],
                             'akun_ig' => '@sufendipras'
+                        ]
+                    ],
+                    'rules' => [
+                        'file_url' => '',
+                        'list' => [
+                            'format video rekaman mp4 dengan format video 16:9 (landscape)',
+                            'memiliki resolusi video minimal 720 pixel',
+                            'video yang di upload maksimal 250mb dan berjumlah1 video tanpa edi',
+                            'foto thumbnail yang di upload maksimal 3mb dan seluruh peserta harus terlihat jelas'
                         ]
                     ]
                 ];
@@ -149,7 +168,17 @@ class CompetitionController extends Controller
                             // ],
                             'akun_ig' => '@sufendipras'
                         ]
+                    ],
+                    'rules' => [
+                        'file_url' => '',
+                        'list' => [
+                            'format video rekaman mp4 dengan format video 16:9 (landscape)',
+                            'memiliki resolusi video minimal 720 pixel',
+                            'video yang di upload maksimal 250mb dan berjumlah1 video tanpa edi',
+                            'foto thumbnail yang di upload maksimal 3mb dan seluruh peserta harus terlihat jelas'
+                        ]
                     ]
+
                 ];
                 break;
             case 'kolaborasa':
@@ -193,6 +222,15 @@ class CompetitionController extends Controller
                             //     'Guru yamaha Music'
                             // ],
                             'akun_ig' => '@farizal Sidik'
+                        ]
+                    ],
+                    'rules' => [
+                        'file_url' => '',
+                        'list' => [
+                            'format video rekaman mp4 dengan format video 16:9 (landscape)',
+                            'memiliki resolusi video minimal 720 pixel',
+                            'video yang di upload maksimal 250mb dan berjumlah1 video tanpa edi',
+                            'foto thumbnail yang di upload maksimal 3mb dan seluruh peserta harus terlihat jelas'
                         ]
                     ]
                 ];

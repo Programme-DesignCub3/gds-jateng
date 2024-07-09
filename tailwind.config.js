@@ -85,6 +85,7 @@ export default {
                 sm: "calc(var(--radius) - 4px)",
             },
             fontFamily: {
+                helvetica: ["Helvetica", ...defaultTheme.fontFamily.sans],
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
                 syne: ["Syne", ...defaultTheme.fontFamily.sans],
                 raleway: ["Raleway", ...defaultTheme.fontFamily.sans],
