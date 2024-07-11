@@ -89,7 +89,7 @@ class CompetitionController extends Controller
 
 
                     'rules' => [
-                        'file_url' => '',
+                        'file_url' => asset('rules/Rules Desain Maskot.pdf'),
                         'list' => [
                             'foto yang di upload maksimal 3mb dalam bentuk JPEG atau PDF (2 foto : tampak depan dan belakang)',
                             'foto yang di upload harus terlihat jelas',
@@ -129,7 +129,7 @@ class CompetitionController extends Controller
                         ]
                     ],
                     'rules' => [
-                        'file_url' => '',
+                        'file_url' => asset('rules/Rules Cheerleader.pdf'),
                         'list' => [
                             'format video rekaman mp4 dengan format video 16:9 (landscape)',
                             'memiliki resolusi video minimal 720 pixel',
@@ -170,7 +170,7 @@ class CompetitionController extends Controller
                         ]
                     ],
                     'rules' => [
-                        'file_url' => '',
+                        'file_url' => asset('rules/Rules Chant Supporter.pdf'),
                         'list' => [
                             'format video rekaman mp4 dengan format video 16:9 (landscape)',
                             'memiliki resolusi video minimal 720 pixel',
@@ -225,11 +225,11 @@ class CompetitionController extends Controller
                         ]
                     ],
                     'rules' => [
-                        'file_url' => '',
+                        'file_url' => asset('rules/Rules Kolaborasa.pdf'),
                         'list' => [
-                            'format video rekaman mp4 dengan format video 16:9 (landscape)',
+                            'format video rekaman mp4 dengan format video 9:16 (portrait)',
                             'memiliki resolusi video minimal 720 pixel',
-                            'video yang di upload maksimal 250mb dan berjumlah1 video tanpa edi',
+                            'video yang di upload maksimal 250mb dan berjumlah1 video tanpa edit',
                             'foto thumbnail yang di upload maksimal 3mb dan seluruh peserta harus terlihat jelas'
                         ]
                     ]

@@ -41,7 +41,7 @@
       />
     </div>
     <ul
-      class="container mb-20 flex flex-col w-fit list-disc gap-4"
+      class="container mb-20 flex flex-col mt-8 w-fit list-disc gap-4"
       v-if="data.rules.list.length"
     >
       <h2 class="text-4xl text-center font-bold">Rules</h2>
@@ -49,7 +49,9 @@
       <li v-for="item in data.rules.list">{{ item }}</li>
     </ul>
     <div class="container mb-20 flex w-fit flex-col gap-4" v-if="showButtons">
-      <PrimaryButton>Download rules</PrimaryButton>
+      <PrimaryButton v-if="$page.props.auth.user" as-child>
+        <a :href="data.rules.file_url" target="_blank">Download rules</a>
+      </PrimaryButton>
 
       <PrimaryButton as-child>
         <Link class="text-center" :href="route('submission.create')">Submit</Link>
@@ -64,7 +66,7 @@ import CompetitionContentCard from "./Partials/CompetitionContentCard.vue";
 import CompetitionDetailHeader from "@/Components/CompetitionDetailHeader.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { Head, Link, router, usePage } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 
 defineProps<{
   data: {
