@@ -65,10 +65,13 @@ class CompetitionController extends Controller
                         'desc' => 'Tunjukkan penampilan terbaikmu dan dapatkan hadiah official merchandise Good Day, produk Good Day dan uang tunai!
                     <ul>
                      <li>
-                        Juara 1 : (akan diupdate secepatnya disini)
+                        Juara 1 : Rp 1.750.000
                      </li>
                      <li>
-                         Juara 2 : (akan diupdate secepatnya disini)
+                         Juara 2 : Rp 1.000.000
+                     </li>
+                     <li>
+                         Juara Favorit : Rp 750.000
                      </li>
                     </ul>'
                     ],
@@ -108,11 +111,15 @@ class CompetitionController extends Controller
                         'desc' => 'Tunjukkan penampilan terbaikmu dan dapatkan hadiah official merchandise Good Day, produk Good Day dan uang tunai!
                         <ul>
                             <li>
-                                Juara 1 : (akan diupdate secepatnya disini)
+                                Juara 1 : Rp 1.750.000
                             </li>
                             <li>
-                                Juara 2 : (akan diupdate secepatnya disini)
+                                Juara 2 : Rp 1.000.000
                             </li>
+                            <li>
+                                Juara Favorit : Rp 750.000
+                            </li>
+
                         </ul>'
                     ],
                     'jury' => [
@@ -149,10 +156,13 @@ class CompetitionController extends Controller
                         'desc' => 'Tunjukkan penampilan terbaikmu dan dapatkan hadiah official merchandise Good Day, produk Good Day dan uang tunai!
                         <ul>
                             <li>
-                                Juara 1 : (akan diupdate secepatnya disini)
+                                Juara 1 : Rp 1.750.000
                             </li>
                             <li>
-                                Juara 2 : (akan diupdate secepatnya disini)
+                                Juara 2 : Rp 1.000.000
+                            </li>
+                            <li>
+                                Juara Favorit : Rp 750.000
                             </li>
                         </ul>'
                     ],
@@ -193,10 +203,13 @@ class CompetitionController extends Controller
                         'desc' => 'Tunjukkan penampilan terbaikmu dan dapatkan hadiah official merchandise Good Day, produk Good Day dan uang tunai!
                         <ul>
                             <li>
-                                Juara 1 : (akan diupdate secepatnya disini)
+                                Juara 1 : Rp 1.750.000
                             </li>
                             <li>
-                                Juara 2 : (akan diupdate secepatnya disini)
+                                Juara 2 : Rp 1.250.000
+                            </li>
+                            <li>
+                                Juara Favorit : Rp 1.000.000
                             </li>
                         </ul>'
                     ],
