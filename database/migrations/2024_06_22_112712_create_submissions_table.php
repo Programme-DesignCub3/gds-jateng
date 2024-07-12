@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignIdFor(App\Models\User::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(App\Models\User::class)->constrained();
+            // ->onDelete('cascade');
             $table->string('submission_name');
             $table->string('submission_type');
             $table->string('file_path');

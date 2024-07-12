@@ -20,10 +20,25 @@
     @routes
     @vite(['resources/js/app.ts', "resources/js/Pages/{$page['component']}.vue"])
     @inertiaHead
+
 </head>
 
 <body class="relative font-helvetica antialiased lg:text-lg">
     @inertia
+
+    @production
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-EQNB7RPZ5Y"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'G-EQNB7RPZ5Y');
+        </script>
+    @endproduction
 </body>
 
 </html>

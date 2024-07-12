@@ -1,7 +1,7 @@
 import "../css/app.css";
 import "./bootstrap";
 
-import { createInertiaApp } from "@inertiajs/vue3";
+import { createInertiaApp, router } from "@inertiajs/vue3";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { createApp, h, type DefineComponent } from "vue";
 
@@ -40,4 +40,20 @@ createInertiaApp({
     progress: {
         color: "#4B5563",
     },
+});
+
+/**
+ * Track Page and Send to Google Analytic
+ * */
+
+router.on("navigate", (event) => {
+    // @ts-expect-error
+    gtag("js", new Date());
+    // @ts-expect-error
+    gtag("config", "G-XXX");
+    // @ts-expect-error
+    gtag("event", "page_view", {
+        page_location: event.detail.page.url,
+        page_title: document.title,
+    });
 });
