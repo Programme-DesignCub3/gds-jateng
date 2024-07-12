@@ -55,7 +55,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'competition' => CompetitionList::class
+        'competition' => CompetitionList::class,
+        'is_school_account' => 'boolean'
     ];
 
 

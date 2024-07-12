@@ -67,7 +67,7 @@ const user = usePage().props.auth.user;
 
               <div
                 class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-                v-if="user.is_school_account"
+                v-if="user.is_school_account == true"
               >
                 <dt class="text-sm font-medium text-gray-500">School area</dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
@@ -77,7 +77,7 @@ const user = usePage().props.auth.user;
 
               <div
                 class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-                v-if="user.is_school_account"
+                v-if="user.is_school_account == true"
               >
                 <dt class="text-sm font-medium text-gray-500">Position</dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
