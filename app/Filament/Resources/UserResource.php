@@ -46,12 +46,9 @@ class UserResource extends Resource
                 ->label('Jenis akun')
                 ->formatStateUsing(fn (string $state): string => $state ? 'Sekolah' : "Pribadi")
                 ->badge()
-                ->color(fn (string $state): string => match ($state) {
-                    '0' => 'warning',
-                    '1' => 'success',
-                }),
+                ->color(fn (string $state): string => $state ? 'success' : "warning"),
+            TextEntry::make('competition'),
             PhoneNumberEntry::make('phone_no')
-
         ]);
     }
 
@@ -74,10 +71,8 @@ class UserResource extends Resource
                     ->label('Jenis akun')
                     ->formatStateUsing(fn (string $state): string => $state ? 'Sekolah' : "Pribadi")
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        '0' => 'warning',
-                        '1' => 'success',
-                    })
+                    ->color(fn (string $state): string => $state ? 'success' : "warning"),
+                TextColumn::make('competition')
 
             ])
             ->filters([
