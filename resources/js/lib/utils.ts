@@ -47,7 +47,7 @@ export function getCompetitionLabel(key: string): string | undefined {
         },
         {
             key: "cheerleading",
-            label: "Cheerleading Competition",
+            label: "Cheers & Dancing Competition",
         },
         {
             key: "chants",

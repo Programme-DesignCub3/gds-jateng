@@ -24,8 +24,8 @@ class CompetitionController extends Controller
                 'route' => "mascot-design",
             ],
             [
-                'title' => "Cheerleading Competition",
-                'shortDesc' => "Berikan semangatmu dengan tim kebanggaanmu! Tunjukkan aksi paling spektakuler di Lomba Cheerleading 2024! Ayo bawa semangat dan sorak-sorai ke level yang lebih tinggi dan jadi bintang di panggung cheerleading ini.",
+                'title' => "Cheers & Dancing Competition",
+                'shortDesc' => "Berikan semangatmu dengan tim kebanggaanmu! Tunjukkan aksi paling spektakuler di Lomba Cheers and Dancing 2024! Ayo bawa semangat dan sorak-sorai ke level yang lebih tinggi dan jadi bintang di panggung ini.",
                 'route' => "cheerleading",
             ],
             [
@@ -103,9 +103,9 @@ class CompetitionController extends Controller
                 break;
             case 'cheerleading':
                 $data = [
-                    'title' => 'Cheerleading Competition ',
+                    'title' => 'Cheers & Dancing Competition',
                     'slug' => 'cheerleading',
-                    'description' => 'Cheerleading itu nggak cuma tentang sorak-sorai dan gerakan keren, tapi juga tentang semangat, kerjasama tim, dan energi yang membara. Inilah kesempatankamu dan tim kamu untuk menunjukkan semangat sportivitas serta kreativitas yang kompak.',
+                    'description' => 'Cheers and dancing itu nggak cuma tentang sorak-sorai dan Gerakan keren, tapi juga tentang semangat, Kerjasama tim dan energi yang membara. Inilah kesempatankamu dan tim kamu untuk menunjukkan semangat sportivitas serta kreativitas yang kompak',
                     'prize' => [
                         'imageUrl' => '/assets/images/competition/' . $slug . '/prize.png',
                         'desc' => 'Tunjukkan penampilan terbaikmu dan dapatkan hadiah official merchandise Good Day, produk Good Day dan uang tunai!

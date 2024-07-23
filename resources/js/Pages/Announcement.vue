@@ -14,7 +14,7 @@ import { Head } from "@inertiajs/vue3";
         v-for="competition in [
           'kolaborasa',
           'chant competition',
-          'cheerleading competition',
+          'Cheers & Dancing',
           'mascot design',
         ]"
         :key="competition"

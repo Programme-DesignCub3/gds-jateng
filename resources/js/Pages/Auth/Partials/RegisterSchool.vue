@@ -29,7 +29,7 @@ const form = useForm<{
   area: string;
   phone_no: string;
   email: string;
-  competition: "chants" | "cheerleading" | "mascot-design" | null;
+  competition: string | undefined;
   password: string;
   password_confirmation: string;
 }>({
@@ -41,7 +41,7 @@ const form = useForm<{
   phone_no: "",
   area: "",
   email: "",
-  competition: null,
+  competition: undefined,
   password: "",
   password_confirmation: "",
 });
@@ -197,7 +197,7 @@ const submit = () => {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="mascot-design">Mascot Design</SelectItem>
-            <SelectItem value="cheerleading">Cheerleading Competition</SelectItem>
+            <SelectItem value="cheerleading">Cheers & dancing</SelectItem>
             <SelectItem value="chants">Chant Competition</SelectItem>
           </SelectContent>
         </Select>

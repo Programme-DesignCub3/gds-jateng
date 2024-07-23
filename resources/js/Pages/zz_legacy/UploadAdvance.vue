@@ -175,9 +175,7 @@ const submit = () => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="mascot">Mascot Design</SelectItem>
-                        <SelectItem value="cheerleading"
-                          >Cheerleading Competition</SelectItem
-                        >
+                        <SelectItem value="cheerleading">Cheers & Dancing</SelectItem>
                         <SelectItem value="chants">Chant Competition</SelectItem>
                         <SelectItem value="kolaborasa">Kolaborasa</SelectItem>
                       </SelectContent>
