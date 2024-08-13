@@ -21,9 +21,7 @@ use RahulHaque\Filepond\Facades\Filepond;
 class UploadController extends Controller
 {
 
-    public function create()
-    {
-    }
+    public function create() {}
 
     /**
      * Handles the file upload with inertia form
@@ -121,7 +119,8 @@ class UploadController extends Controller
                         'required',
                         [
                             'images.*' => 'required|mimes:jpg,jpeg,png|max:3000'
-                        ], [
+                        ],
+                        [
                             'images.*.required' => 'Please upload an image',
                             'images.*.mimes' => 'Only jpeg and png images are allowed',
                             'images.*.max' => 'Sorry! Maximum allowed size for an image is 3MB',
