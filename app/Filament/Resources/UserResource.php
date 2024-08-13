@@ -35,18 +35,18 @@ class UserResource extends Resource
             TextEntry::make('email'),
             TextEntry::make('instagram_account'),
             TextEntry::make('address')
-                ->hidden(fn ($record): bool => $record->is_school_account),
+                ->hidden(fn($record): bool => $record->is_school_account),
             TextEntry::make('school_name')
-                ->hidden(fn ($record): bool => !$record->is_school_account),
+                ->hidden(fn($record): bool => !$record->is_school_account),
             TextEntry::make('area')
-                ->hidden(fn ($record): bool => !$record->is_school_account),
+                ->hidden(fn($record): bool => !$record->is_school_account),
             TextEntry::make('position')
-                ->hidden(fn ($record): bool => !$record->is_school_account),
+                ->hidden(fn($record): bool => !$record->is_school_account),
             TextEntry::make('is_school_account')
                 ->label('Jenis akun')
-                ->formatStateUsing(fn (string $state): string => $state ? 'Sekolah' : "Pribadi")
+                ->formatStateUsing(fn(string $state): string => $state ? 'Sekolah' : "Pribadi")
                 ->badge()
-                ->color(fn (string $state): string => $state ? 'success' : "warning"),
+                ->color(fn(string $state): string => $state ? 'success' : "warning"),
             TextEntry::make('competition'),
             PhoneNumberEntry::make('phone_no')
         ]);
@@ -66,12 +66,12 @@ class UserResource extends Resource
             ->columns([
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('email')->searchable(),
-                TextColumn::make('address'),
+                // TextColumn::make('address'),
                 TextColumn::make('is_school_account')
                     ->label('Jenis akun')
-                    ->formatStateUsing(fn (string $state): string => $state ? 'Sekolah' : "Pribadi")
+                    ->formatStateUsing(fn(string $state): string => $state ? 'Sekolah' : "Pribadi")
                     ->badge()
-                    ->color(fn (string $state): string => $state ? 'success' : "warning"),
+                    ->color(fn(string $state): string => $state ? 'success' : "warning"),
                 TextColumn::make('competition')
 
             ])

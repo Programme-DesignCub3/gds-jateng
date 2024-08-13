@@ -34,19 +34,20 @@ class SubmissionResource extends Resource
         return $infolist->schema([
             TextEntry::make('submission_name'),
             TextEntry::make('submission_type'),
+            TextEntry::make('submission_desc'),
             TextEntry::make('user.name')
                 ->label('pengirim'),
             TextEntry::make('user.is_school_account')
                 ->label('Jenis akun user')
-                ->formatStateUsing(fn (string $state): string => $state ? 'Sekolah' : "Pribadi")
+                ->formatStateUsing(fn(string $state): string => $state ? 'Sekolah' : "Pribadi")
                 ->badge()
-                ->color(fn (string $state): string => $state ? 'success' : "warning"),
+                ->color(fn(string $state): string => $state ? 'success' : "warning"),
             TextEntry::make('user.school_name')
-                ->hidden(fn ($record): bool => $record->user['is_school_account'] === 0)
+                ->hidden(fn($record): bool => $record->user['is_school_account'] === 0)
                 ->label('nama sekolah'),
             TextEntry::make('ig_reel')
                 ->label('Instagram Reels')
-                ->url(fn ($state): string => $state)
+                ->url(fn($state): string => $state)
                 ->openUrlInNewTab(),
             ImageEntry::make('thumbnail_path')
                 ->label('thumbnail')
@@ -56,13 +57,13 @@ class SubmissionResource extends Resource
                 ->label('Submission file')
                 ->schema([
                     ImageEntry::make('')
-                        ->hidden(fn ($record): bool => $record->submission_type !== CompetitionList::MASCOT->value)
+                        ->hidden(fn($record): bool => $record->submission_type !== CompetitionList::MASCOT->value)
                         ->disk('submission'),
                     TextEntry::make('')
                         // ->hidden(fn ($record): bool => $record->submission_type === CompetitionList::MASCOT->value)
-                        ->url(fn ($state): string => asset('storage') . '/' . $state)
+                        ->url(fn($state): string => asset('storage') . '/' . $state)
                         ->openUrlInNewTab()
-                        ->formatStateUsing(fn (string $state): string => asset('storage') . '/' . $state)
+                        ->formatStateUsing(fn(string $state): string => asset('storage') . '/' . $state)
                 ])
         ]);
     }
@@ -89,12 +90,12 @@ class SubmissionResource extends Resource
                     ->searchable(),
                 TextColumn::make('user.is_school_account')
                     ->label('Jenis akun user')
-                    ->formatStateUsing(fn (string $state): string => $state ? 'Sekolah' : "Pribadi")
+                    ->formatStateUsing(fn(string $state): string => $state ? 'Sekolah' : "Pribadi")
                     ->badge()
-                    ->color(fn (string $state): string => $state ? 'success' : "warning"),
+                    ->color(fn(string $state): string => $state ? 'success' : "warning"),
                 TextColumn::make('user.school_name')
                     ->default('-')
-                    ->hidden(fn ($livewire) => $livewire->getTableFilterState('user')['value'] === '0')
+                    ->hidden(fn($livewire) => $livewire->getTableFilterState('user')['value'] === '0')
                     ->label('nama sekolah')
                     ->searchable(
                         isIndividual: true,
