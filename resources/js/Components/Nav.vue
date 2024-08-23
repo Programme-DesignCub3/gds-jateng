@@ -114,9 +114,16 @@ defineProps<{
               Kompetisi
             </Link>
 
-            <p class="cursor-not-allowed text-muted-foreground hover:text-foreground">
+            <Link
+              :href="route('announcement')"
+              :active="route().current('announcement')"
+              class="hover:text-foreground"
+              :class="{
+                'text-muted-foreground': !route().current('announcement'),
+              }"
+            >
               Pengumuman
-            </p>
+            </Link>
           </nav>
         </SheetContent>
       </Sheet>
@@ -145,9 +152,15 @@ defineProps<{
       <nav
         class="flex grid-cols-3 content-center items-center justify-between justify-items-center gap-6 font-medium md:grid md:gap-5 lg:w-full lg:gap-6"
       >
-        <p class="hidden cursor-not-allowed text-muted-foreground md:inline-block">
-          Pengumuman
-        </p>
+        <Link
+          :href="route('announcement')"
+          class="hover:text-foreground md:inline-block hidden"
+          :class="{
+            'text-muted-foreground': !route().current('announcement'),
+          }"
+        >
+          Announcement
+        </Link>
 
         <DropdownMenu v-if="$page.props.auth.user">
           <DropdownMenuTrigger as-child>

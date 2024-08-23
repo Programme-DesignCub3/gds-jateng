@@ -25,7 +25,7 @@
                 class="relative flex h-full min-w-fit flex-col items-center justify-center bg-[length:90%] bg-center bg-no-repeat py-2 sm:bg-[length:100%]"
             >
                 <p
-                    class="sm:text-1xl mb-32 inline-block w-[47%] text-center text-xl font-bold uppercase tracking-widest text-white md:text-4xl xl:text-5xl"
+                    class="sm:text-1xl mb-32 inline-block text-center text-xl font-bold uppercase tracking-widest text-white max-md:px-20 md:w-[47%] md:text-4xl xl:text-5xl"
                 >
                     Congratulation to the finalist!
                 </p>

@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import AnnouncementCard from "@/Components/AnnouncementCard.vue";
+import type { TFinalist, TFinalistList } from "@/lib/types";
 
 defineProps<{
   title?: string;
+  finalistList: TFinalist[];
 }>();
 </script>
 
@@ -14,9 +16,16 @@ defineProps<{
       {{ title }}
     </h2>
     <div
-      class="grid w-full grid-cols-4 gap-x-2 gap-y-4 text-center md:gap-x-4 md:gap-y-8"
+      class="grid w-full grid-cols-3 gap-x-2 gap-y-4 text-center md:gap-x-4 md:gap-y-8"
     >
-      <AnnouncementCard v-for="i in 8" :key="i"> lorem ipsum {{ i }} </AnnouncementCard>
+      <AnnouncementCard
+        v-for="(finalist, index) in finalistList"
+        :key="index"
+        :name="finalist.name"
+        :schoolName="finalist.school_name"
+        :thumbnail="finalist.thumbnail"
+      >
+      </AnnouncementCard>
     </div>
   </div>
 </template>
