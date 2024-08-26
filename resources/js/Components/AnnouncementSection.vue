@@ -18,7 +18,7 @@ defineProps<{
             {{ title }}
         </h2>
         <div
-            class="grid w-full grid-cols-2 gap-x-2 gap-y-4 text-center md:grid-cols-3 md:gap-x-4 md:gap-y-8"
+            class="grid w-full grid-cols-2 gap-x-2 gap-y-4 text-center md:grid-cols-3 md:gap-x-4 md:gap-y-8 lg:grid-cols-4"
         >
             <AnnouncementCard
                 v-for="(finalist, index) in finalistList"
