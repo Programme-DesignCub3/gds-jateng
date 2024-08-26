@@ -106,7 +106,7 @@ Route::get('/pengumuman', function () {
             ],
         ],
         [
-            'competition' => 'chats',
+            'competition' => 'chants',
             'label' => 'CHANTS SUPPORTER',
             'list' => [
                 [
@@ -213,11 +213,11 @@ Route::get('/pengumuman', function () {
                     'name' => 'Latifa Faza Maulida',
                     'thumbnail' => asset('assets/finalist/yogyakarta/cheers/2.png'),
                 ],
-                [
-                    'school_name' => 'SMAN1 BANTUL',
-                    'name' => 'Alda',
-                    'thumbnail' => asset('assets/finalist/yogyakarta/cheers/3.jpg'),
-                ],
+                // [
+                //     'school_name' => 'SMAN1 BANTUL',
+                //     'name' => 'Alda',
+                //     'thumbnail' => asset('assets/finalist/yogyakarta/cheers/3.jpg'),
+                // ],
                 [
                     'school_name' => 'SMAN 11 YOGYAKARTA',
                     'name' => 'Maria Saputri Meilind Jaladri',
