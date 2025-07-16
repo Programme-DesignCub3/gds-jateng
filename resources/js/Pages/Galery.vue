@@ -152,11 +152,11 @@ onMounted(() => {
     <h1 class="xl:text-6xl lg:text-5xl text-4xl py-12 font-bold text-[#1d4588] text-center">
         Video Galery <span class="lg:font-extralight font-normal"> <br class="block sm:hidden"> Good Challenge</span>
       </h1>
-    <div class="relative z-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-12 md:gap-x-6 xl:gap-y-24 md:gap-y-12 gap-y-6 w-[82%] mx-auto">
+    <div class="relative z-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 items-stretch xl:gap-x-12 md:gap-x-6 xl:gap-y-24 md:gap-y-12 gap-y-6 w-[82%] mx-auto">
       <div v-for="(galery, i) in props.galeries" :key="i" class="relative group">
         <div class="absolute xl:top-4 top-2 xl:left-4 left-2 w-full h-full bg-[#1d4588] rounded-[2rem] z-0"></div>
         <div
-          class="relative bg-white rounded-[2rem] overflow-hidden z-1 border-4 border-[#1d4588] cursor-pointer transition-transform duration-300 hover:-translate-y-2 hover:-translate-x-2"
+          class="relative bg-white rounded-[2rem] overflow-hidden z-1 border-4 border-[#1d4588] cursor-pointer transition-transform duration-300 hover:translate-y-2 hover:translate-x-2 h-full flex flex-col"
           @click.stop="openPopup(i)">
           <div class="relative w-full xl:h-64 h-52">
             <div

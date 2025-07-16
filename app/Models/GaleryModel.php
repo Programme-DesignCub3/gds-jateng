@@ -21,8 +21,6 @@ class GaleryModel extends Model
 
     public function getThumbnailUrlAttribute(): ?string
     {
-        return $this->thumbnail ? asset('storage/galery/thumbnails/' . $this->thumbnail) : null;
+        return $this->thumbnail ? asset('storage/' . $this->thumbnail) : null;
     }
-
-
 }
