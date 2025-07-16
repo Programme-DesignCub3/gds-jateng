@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('galery', function (Blueprint $table) {
             $table->id();
-            $table->string('embed_link'); 
+            $table->text('embed_link'); 
             $table->string('nama_sekolah'); 
+            $table->string('thumbnail'); 
             $table->string('wilayah'); 
             $table->string('provinsi'); 
             $table->date('tanggal');
