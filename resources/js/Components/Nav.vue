@@ -45,7 +45,7 @@ defineProps<{
     :class="{ sticky: !fixedNav, 'fixed w-full': fixedNav }"
   >
     <div
-      class="container flex h-16 grid-cols-[37%_1fr_37%] items-center justify-between bg-background px-4 sm:h-auto md:grid md:px-6 lg:gap-4 lg:text-lg"
+      class="container z-20 flex h-16 grid-cols-[37%_1fr_37%] items-center justify-between bg-background px-4 sm:h-auto md:grid md:px-6 lg:gap-4 lg:text-lg"
     >
       <nav
         class="hidden grid-cols-3 content-center items-center justify-between justify-items-center gap-6 font-medium md:grid md:gap-5 lg:w-full lg:gap-6"
@@ -124,6 +124,17 @@ defineProps<{
             >
               Pengumuman
             </Link>
+
+            <Link
+              :href="route('galery')"
+              :active="route().current('galery')"
+              class="hover:text-foreground"
+              :class="{
+                'text-muted-foreground': !route().current('galery'),
+              }"
+            >
+              Galery
+            </Link>
           </nav>
         </SheetContent>
       </Sheet>
@@ -161,6 +172,17 @@ defineProps<{
         >
           Announcement
         </Link>
+
+        <Link
+          :href="route('galery')"
+          class="hover:text-foreground md:inline-block hidden"
+          :class="{
+            'text-muted-foreground': !route().current('galery'),
+          }"
+        >
+          Galery
+        </Link>
+
 
         <DropdownMenu v-if="$page.props.auth.user">
           <DropdownMenuTrigger as-child>

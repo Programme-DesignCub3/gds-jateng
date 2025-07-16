@@ -24,7 +24,7 @@ export default {
                 login: "url('/assets/images/login.svg')",
                 boy: "url('/assets/images/illust_boy.svg')",
                 girl: "url('/assets/images/illust_girl.svg')",
-                "announcement-illust-etc":
+                "announcement-illust-etc":  
                     "url('/assets/images/announcement_illust_etc.svg')",
                 "competition-boy":
                     "url('/assets/images/competition_illust_boy.svg')",
@@ -39,6 +39,8 @@ export default {
                     "url('/assets/images/paper_rip_orange.svg')",
                 "competition-juri-overlay":
                     "url('/assets/images/circle_overlay.png')",
+                "galery-pattern"
+                    : "url('/assets/images/bg_galery.png')",
             },
             screens: {
                 xs: "375px",

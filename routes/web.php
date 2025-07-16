@@ -316,4 +316,6 @@ Route::middleware('auth')->group(function () {
         ->name('profile.destroy');
 });
 
+Route::get('/galery', [\App\Http\Controllers\GaleryController::class, 'index'])->name('galery');
+
 require __DIR__ . '/auth.php';
