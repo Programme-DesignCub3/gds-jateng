@@ -55,10 +55,9 @@ class GaleryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('embed_link')
-                    ->label('Embed Link')
-                    ->limit(30)
-                    ->tooltip(fn ($record) => $record->embed_link),
+                Tables\Columns\TextColumn::make('no')
+                    ->label('No')
+                    ->rowIndex(),
                 Tables\Columns\TextColumn::make('nama_sekolah')
                     ->label('Nama Sekolah'),
                 Tables\Columns\TextColumn::make('wilayah')
