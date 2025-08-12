@@ -19,6 +19,7 @@ class GaleryController extends Controller
                 'provinsi' => $item->provinsi,
                 'tanggal' => $item->tanggal,
                 'thumbnail' => $item->thumbnail_url, 
+                'lokasi' => $item->lokasi,
             ];
         });
 

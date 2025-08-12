@@ -16,6 +16,7 @@ class GaleryModel extends Model
         'wilayah',
         'provinsi',
         'tanggal',
+        'lokasi',
         'thumbnail'
     ];
 

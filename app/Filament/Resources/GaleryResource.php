@@ -48,6 +48,13 @@ class GaleryResource extends Resource
                 Forms\Components\DatePicker::make('tanggal')
                     ->label('Tanggal')
                     ->required(),
+                Forms\Components\Select::make('lokasi')
+                    ->label('Region')
+                    ->options([
+                        'yogyakarta' => 'Yogyakarta',
+                        'semarang' => 'Semarang',
+                    ])
+                    ->required(),
             ]);
     }
 
