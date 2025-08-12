@@ -41,18 +41,18 @@ defineProps<{
 
 <template>
   <header
-    class="top-0 z-10 border-b bg-white"
+    class="top-0 z-10 border-b bg-primary"
     :class="{ sticky: !fixedNav, 'fixed w-full': fixedNav }"
   >
     <div
-      class="container z-20 flex h-16 grid-cols-[37%_1fr_37%] items-center justify-between bg-background px-4 sm:h-auto md:grid md:px-6 lg:gap-4 lg:text-lg"
+      class="container bg-primary z-30 flex h-16 grid-cols-[37%_1fr_37%] items-center justify-between  px-4 sm:h-auto md:grid md:px-6 lg:gap-4 lg:text-lg"
     >
       <nav
         class="hidden grid-cols-3 content-center items-center justify-between justify-items-center gap-6 font-medium md:grid md:gap-5 lg:w-full lg:gap-6"
       >
         <!-- nav item | desktop -->
         <NavLink
-          class="col-start-2"
+          class="col-start-2 text-white hover:text-white"
           :active="route().current('home')"
           :href="route('home')"
         >
@@ -61,8 +61,8 @@ defineProps<{
 
         <NavLink
           :href="route('competition.index')"
-          :active="route().current('competition.*')"
-          class="text-muted-foreground hover:text-foreground"
+          :active="route().current('competition')"
+          class="text-white hover:text-white"
         >
           Kompetisi
         </NavLink>
@@ -163,25 +163,23 @@ defineProps<{
       <nav
         class="flex grid-cols-3 content-center items-center justify-between justify-items-center gap-6 font-medium md:grid md:gap-5 lg:w-full lg:gap-6"
       >
-        <Link
+        <NavLink
           :href="route('announcement')"
-          class="hover:text-foreground md:inline-block hidden"
-          :class="{
-            'text-muted-foreground': !route().current('announcement'),
-          }"
+          class="hover:text-white text-white md:inline-block hidden"
+          :active="route().current('announcement')"
         >
           Announcement
-        </Link>
+        </NavLink>
 
-        <Link
+        <NavLink
           :href="route('galery')"
-          class="hover:text-foreground md:inline-block hidden"
+          class="hover:text-white text-wihite md:inline-block hidden"
           :class="{
-            'text-muted-foreground': !route().current('galery'),
+            'text-white': !route().current('galery'),
           }"
         >
           Galery
-        </Link>
+        </NavLink>
 
 
         <DropdownMenu v-if="$page.props.auth.user">
@@ -223,9 +221,14 @@ defineProps<{
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button v-else as-child>
-          <Link :href="route('login')"> Join </Link>
-        </Button>
+        <div v-else as-child >
+          <Link 
+            :href="route('login')" 
+            class="bg-primary text-white rounded-lg shadow-sm shadow-black px-4 py-2 hover:bg-secondary hover:text-black text-sm"
+          >
+            Join
+          </Link>
+        </div>
       </nav>
     </div>
   </header>

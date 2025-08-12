@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompetitionController;
+use App\Http\Controllers\NewCompetitionController;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,7 @@ use Pion\Laravel\ChunkUpload\Exceptions\UploadMissingFileException;
 |
 */
 
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -28,13 +30,12 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-})
-    ->name('home');
+})->name('home');
 
-Route::get('/kompetisi', [CompetitionController::class, 'index'])
+Route::get('/kompetisi', [NewCompetitionController::class, 'index'])
     ->name('competition.index');
 
-Route::get('/kompetisi/{title}', [CompetitionController::class, 'show'])
+Route::get('/kompetisi/{title}', [NewCompetitionController::class, 'show'])
     ->name('competition.show');
 
 Route::get('/pengumuman', function () {

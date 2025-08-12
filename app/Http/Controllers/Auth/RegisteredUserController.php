@@ -33,53 +33,28 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $is_school_account = $request->input('is_school_account');
-        // dd($request->competition, newEnum(CompetitionList::class));
-        $base_rule = [
-            'name' => 'required|string|max:255',
-            'instagram_account' => 'required|string|max:50',
-            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
-            'phone_no' => ['required', 'phone:ID'],
-            'is_school_account' => ['required', 'boolean'],
+        $rules = [
+            'name' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
+            'instagram_account' => ['required', 'string', 'max:255'],
+            'phone_no' => ['required', 'string', 'max:20'], // Bisa kamu tambahkan validasi nomor telepon
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'school_name' => ['required', 'string', 'max:255'],
+            'competition' => ['required', Rule::enum(CompetitionList::class)],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
 
-        if ($is_school_account) {
-            // school account
-            $rule = array_merge($base_rule, [
-                'position' => ['required', 'string', 'max:50'],
-                'area' => ['required', 'string', 'max:150'],
-                'competition' => [
-                    Rule::Enum(CompetitionList::class)
-                        ->except([CompetitionList::KOLABORASA])
-                ]
-            ]);
-        } else {
-            // personal account
-            $rule = array_merge($base_rule, [
-                'address' => ['required', 'string', 'max:255'],
-                'competition' => [
-                    Rule::Enum(CompetitionList::class)
-                        ->only([CompetitionList::KOLABORASA])
-                ]
-            ]);
-        }
-
-        $validated_request = $request->validate($rule);
+        $validated = $request->validate($rules);
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'instagram_account' => $request->instagram_account,
-            'school_name' => $request->school_name,
-            'area' => $request->area,
-            'address' => $request->address,
-            'phone_no' => $request->phone_no,
-            'is_school_account' => $request->is_school_account,
-            'competition' => $request->competition,
-            'position' => $request->position,
+            'name' => $validated['name'],
+            'address' => $validated['address'],
+            'instagram_account' => $validated['instagram_account'],
+            'phone_no' => $validated['phone_no'],
+            'email' => $validated['email'],
+            'school_name' => $validated['school_name'],
+            'competition' => $validated['competition'],
+            'password' => Hash::make($validated['password']),
         ]);
 
         event(new Registered($user));
@@ -88,4 +63,5 @@ class RegisteredUserController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+
 }

@@ -20,8 +20,13 @@ export default {
             },
         },
         extend: {
+            colors: {
+                primary: '#E1202C',
+                secondary: '#fff9f0',
+                tertiary: '#ebebec',
+            },
             backgroundImage: {
-                login: "url('/assets/images/login.svg')",
+                login: "url('/assets/images/new/icon-login.png')",
                 boy: "url('/assets/images/illust_boy.svg')",
                 girl: "url('/assets/images/illust_girl.svg')",
                 "announcement-illust-etc":  
@@ -44,6 +49,7 @@ export default {
             },
             screens: {
                 xs: "375px",
+                "3xl": "1920px",
             },
             zIndex: { 1: "1" },
             colors: {

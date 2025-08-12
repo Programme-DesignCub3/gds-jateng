@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import AnnouncementHeader from "@/Components/AnnouncementHeader.vue";
 import AnnouncementSection from "@/Components/AnnouncementSection.vue";
+import AnnouncementTitle from "@/Components/AnnouncementTitle.vue";
+import IconBackgroundDetail from "@/Components/IconBackgroundDetail.vue";
 import { Alert, AlertDescription, AlertTitle } from "@/Components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/Components/ui/tabs";
 import AppLayout from "@/Layouts/AppLayout.vue";
@@ -20,15 +22,35 @@ defineProps<{
 <template>
   <Head title="Pengumuman" />
   <AppLayout>
-    <AnnouncementHeader />
+    <AnnouncementHeader
+        bgImage="/assets/images/new/home.png"
+        class="relative z-0 bg-primary bg-[length:150%] bg-center bg-no-repeat md:bg-[length:125%] lg:bg-[length:115%] xl:bg-[length:110%]"
+      /> 
+            <IconBackgroundDetail class="z-0" />
 
     <div
-      class="container flex flex-col justify-center gap-y-10 py-8 md:gap-y-20"
+      class="container flex flex-col justify-center gap-y-10"
       :class="{
         'items-center': !currentRegion,
       }"
     >
-      <Tabs
+    <div class="py-12 2xl:space-y-[12rem] xl:space-y-[6rem] space-y-[6rem]">
+      <AnnouncementTitle
+        logo="/assets/images/new/announcement/winner-kolaborasa.png"
+        class="w-full h-auto z-0"
+      />
+      <AnnouncementTitle
+        logo="/assets/images/new/announcement/winner-chant.png"
+        class="w-full h-auto z-0"
+      />
+      <AnnouncementTitle
+        logo="/assets/images/new/announcement/winner-dance.png"
+        class="w-full h-auto z-0"
+      />
+    </div>
+      
+
+      <!-- <Tabs
         @update:model-value="(region) => (currentRegion = String(region))"
         default-value=""
         class="flex flex-col items-center justify-center"
@@ -66,7 +88,7 @@ defineProps<{
         <AlertDescription class="text-base">
           Silahkan pilih area yang ingin ditampilkan
         </AlertDescription>
-      </Alert>
+      </Alert> -->
     </div>
   </AppLayout>
 </template>

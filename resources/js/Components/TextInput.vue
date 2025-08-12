@@ -16,5 +16,5 @@ const model = defineModel<string>({ required: true });
 </script>
 
 <template>
-    <Input class="border-gray-300 shadow-sm" v-model="model" ref="input" />
+    <Input class="border-gray-600 bg-transparent shadow-sm" v-model="model" ref="input" />
 </template>

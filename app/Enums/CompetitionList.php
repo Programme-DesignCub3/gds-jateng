@@ -4,8 +4,7 @@ namespace App\Enums;
 
 enum CompetitionList: string
 {
+    case MODERN_DANCE_COMPETITION = 'modern-dance-competition';
+    case CHANT_SUPPORTER_COMPETITION = 'chant-supporter-competition';
     case KOLABORASA = 'kolaborasa';
-    case CHANTS = 'chants';
-    case CHEERLEADING = 'cheerleading';
-    case MASCOT = 'mascot-design';
 }

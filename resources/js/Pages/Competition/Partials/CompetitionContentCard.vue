@@ -34,7 +34,7 @@ withDefaults(
                 }"
             >
                 <h2
-                    class="text-xl font-bold text-[#1F4387] md:text-2xl lg:text-4xl"
+                    class="text-xl font-bold text-[#8b3b1e] md:text-2xl lg:text-4xl"
                     v-if="name"
                 >
                     {{ name }}
@@ -44,7 +44,7 @@ withDefaults(
                 </p>
                 <p
                     v-if="shortDesc"
-                    class="font-raleway text-xs font-bold md:text-base lg:text-base"
+                    class="font-raleway text-xs font-bold md:text-base lg:text-base w-3/4 mx-auto"
                     v-html="shortDesc"
                 ></p>
 
@@ -72,20 +72,16 @@ withDefaults(
         </div>
 
         <div
-            class="competition-detail-pattern flex items-center justify-start bg-[length:25%] max-md:p-4 lg:bg-[length:5%] xl:bg-[length:20%]"
+            class="flex items-center justify-start max-sm:p-12"
             :class="{ 'justify-end': position === 'right' }"
         >
             <div
-                class="relative mx-4 flex aspect-square shrink overflow-hidden rounded-full md:mx-10 md:my-20 md:w-1/2"
+                class="relative mx-4 flex shrink overflow-hidden md:mx-10 md:my-20"
             >
                 <img
                     :src="imageUrl"
                     alt=""
-                    class="w-full object-cover object-center"
-                />
-
-                <span
-                    class="absolute left-0 top-0 size-full w-full bg-competition-juri-overlay bg-contain bg-center bg-no-repeat"
+                    class="w-full h-auto object-cover object-center"
                 />
             </div>
         </div>

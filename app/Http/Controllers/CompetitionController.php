@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\CompetitionList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -46,7 +47,7 @@ class CompetitionController extends Controller
     /**
      * Show the individual competition.
      */
-    public function show(string $slug): Response
+    public function show(string $slug): Response | Redirect
     {
         $user = Auth::user();
 

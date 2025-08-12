@@ -23,7 +23,7 @@
 
 </head>
 
-<body class="relative font-helvetica antialiased lg:text-lg">
+<body class="relative font-helvetica antialiased lg:text-lg bg-[#fff9f0]">
     @inertia
 
     @production

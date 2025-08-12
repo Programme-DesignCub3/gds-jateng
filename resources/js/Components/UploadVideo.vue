@@ -1,24 +1,11 @@
 <script setup lang="ts">
-// Import Vue FilePond
-import vueFilePond, { setOptions } from "vue-filepond";
-
-// Import FilePond plugins
-import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
-import type { FilePondErrorDescription } from "filepond";
-import type { FilePondFile } from "filepond";
-
 import { Badge } from "@/Components/ui/badge";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { Textarea } from "@/Components/ui/textarea";
 import { useForm, usePage } from "@inertiajs/vue3";
-import { watch, ref, computed } from "vue";
-// import FilepondUpload from "@/Components/ui/custom/FilepondUpload.vue";
-
+import { ref, computed, watch } from "vue";
 import InputError from "@/Components/InputError.vue";
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,7 +16,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/Components/ui/alert-dialog";
-import SubmissionHeader from "@/Components/SubmissionHeader.vue";
+import SubmissionHeader from "@/Components/SubmissionHeaderBackup.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { getCompetitionLabel } from "@/lib/utils";
 
@@ -41,8 +28,8 @@ const form = useForm<{
   thumbnail: null | File;
   judulSubmission: string;
   competition: string;
-  linkIg: "";
-  submissionDescription: "";
+  linkIg: string;
+  submissionDescription: string;
 }>({
   file: null,
   thumbnail: null,
@@ -54,100 +41,54 @@ const form = useForm<{
 
 const videoPlayer = ref<HTMLVideoElement | null>(null);
 
-// Create component
-const FilePond = vueFilePond(
-  FilePondPluginFileValidateType,
-  FilePondPluginImagePreview,
-  FilePondPluginFileValidateSize
-);
+const handleVideoChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0] || null;
 
-// Handle video file add event
-const handleFilePondVideoFileAdd = (
-  error: FilePondErrorDescription | null,
-  file: FilePondFile
-) => {
-  if (error) {
-    console.error("Oh no, something went wrong!", error);
-    return;
+  if (file) {
+    if (!["video/mp4", "video/x-matroska", "video/quicktime"].includes(file.type)) {
+      alert("Format file tidak didukung!");
+      target.value = "";
+      return;
+    }
+    if (file.size > 250 * 1024 * 1024) {
+      alert("Ukuran file maksimal 250MB!");
+      target.value = "";
+      return;
+    }
+    form.file = file;
+  } else {
+    form.file = null;
   }
-  form.file = file.file as File;
 };
 
-// Remove the video from form on file remove
-const handleFilePondVideoRemoveFile = (
-  error: FilePondErrorDescription | null,
-  file: FilePondFile
-) => {
-  form.file = null;
-};
+const handleThumbnailChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0] || null;
 
-// Handle thumbnail file add event
-const handleFilePondThumbnailFileAdd = (
-  error: FilePondErrorDescription | null,
-  file: FilePondFile
-) => {
-  if (error) {
-    console.error("Oh no, something went wrong!", error);
-    return;
+  if (file) {
+    if (!["image/jpeg", "image/png", "image/jpg"].includes(file.type)) {
+      alert("Format thumbnail tidak didukung!");
+      target.value = "";
+      return;
+    }
+    if (file.size > 3 * 1024 * 1024) {
+      alert("Ukuran thumbnail maksimal 3MB!");
+      target.value = "";
+      return;
+    }
+    form.thumbnail = file;
+  } else {
+    form.thumbnail = null;
   }
-  form.thumbnail = file.file as File;
-};
-
-// Remove the thumbnail from form on file remove
-const handleFilePondThumbnailRemoveFile = (
-  error: FilePondErrorDescription | null,
-  file: FilePondFile
-) => {
-  form.thumbnail = null;
-};
-
-// Handle FilePond init event
-const handleFilePondInit = () => {
-  setOptions({
-    credits: false,
-    allowMultiple: false,
-    instantUpload: false,
-    allowProcess: false,
-  });
 };
 
 const previewVideo = (file: File | null) => {
-  let reader = new FileReader();
-
-  if (file && videoPlayer) {
-    reader.readAsArrayBuffer(file);
-
-    reader.onload = function (e) {
-      // The file reader gives us an ArrayBuffer:
-      let buffer = e.target?.result;
-
-      if (buffer && buffer instanceof ArrayBuffer) {
-        // We have to convert the buffer to a blob:
-        let videoBlob = new Blob([new Uint8Array(buffer)], {
-          type: "video/mp4",
-        });
-
-        // The blob gives us a URL to the video file:
-        let url = window.URL.createObjectURL(videoBlob);
-
-        if (videoPlayer.value) {
-          videoPlayer.value.src = url;
-        } else {
-          console.error("videoPlayer is null when trying to set src");
-        }
-      } else {
-        console.error("Unexpected buffer type:", buffer);
-      }
-    };
-    return;
-  }
-
-  if (videoPlayer) {
-    if (videoPlayer.value) {
-      videoPlayer.value.src = "";
-    } else {
-      console.error("videoPlayer is null when trying to set src");
-    }
+  if (file && videoPlayer.value) {
+    const url = URL.createObjectURL(file);
+    videoPlayer.value.src = url;
+  } else if (videoPlayer.value) {
+    videoPlayer.value.src = "";
   }
 };
 
@@ -173,36 +114,50 @@ const submit = () => {
       @submit.prevent="submit"
       class="grid w-full items-start gap-6 overflow-auto p-2 lg:p-4"
     >
-      <div class="gap-3">
+      <!-- <div class="gap-3">
         <Label for="competition">Competition : </Label>
         <Badge>{{ getCompetitionLabel(form.competition) }}</Badge>
 
-        <!-- <Input id="competition" required :v-model="form.competition" /> -->
         <InputError class="mt-2" :message="form.errors.competition" />
-      </div>
+      </div> -->
 
       <div class="">
-        <Label>Upload File</Label>
-        <FilePond
-          name="test"
-          ref="pond"
-          label-idle="Drop files here..."
-          :instant-upload="false"
-          :allow-multiple="false"
-          credits="false"
-          :accepted-file-types="['video/mp4', 'video/x-matroska', 'video/quicktime']"
-          max-file-size="250MB"
-          :disabled="form.processing"
-          @addfile="handleFilePondVideoFileAdd"
-          @init="handleFilePondInit"
-          @removefile="handleFilePondVideoRemoveFile"
-        />
+        <div class="flex flex-col gap-2">
+          <Label class="text-lg">Upload File</Label>
+
+          <div class="relative inline-block w-2/6">
+            <div
+              class="absolute -right-1 -bottom-1 w-full h-full rounded-2xl z-0"
+              :class="''"
+              style="background-color: #F7C893;" 
+              aria-hidden="true"
+            ></div>
+
+            <label
+              class="relative z-10 block bg-primary text-white uppercase font-bold text-lg text-center px-6 py-3 rounded-2xl cursor-pointer select-none transition-transform duration-300 hover:translate-y-1 hover:translate-x-1"
+            >
+              Upload
+              <input
+                type="file"
+                class="hidden"
+                accept="video/mp4,video/x-matroska,video/quicktime"
+                @change="handleVideoChange"
+                :disabled="form.processing"
+              />
+            </label>
+          </div>
+
+          <p class="text-sm mt- font-bold" :class="form.file ? 'text-gray-700' : 'text-red-500'">
+            {{ form.file ? form.file.name : 'No file attached.' }}
+          </p>
+        </div>
         <InputError class="mt-2" :message="form.errors.file" />
+
 
         <!-- editor / preview  -->
         <div v-show="form.file">
           <div
-            class="relative flex w-full max-w-[100vw] flex-col items-center justify-center rounded-md bg-muted/50 p-2 ring-2 ring-primary lg:col-span-2 lg:p-4"
+            class="relative flex w-full max-w-[100vw] mt-2 flex-col items-center justify-center rounded-md bg-muted/50 p-2 ring-2 ring-primary lg:col-span-2 lg:p-4"
           >
             <div class="relative aspect-video w-full rounded-lg">
               <Badge
@@ -225,23 +180,20 @@ const submit = () => {
 
       <div class="gap-3">
         <div>
-          <Label for="instagram_reels">link URL Instagram Reels :</Label>
-          <p class="mt-1 text-xs text-muted-foreground dark:text-red-400">
-            Video We Are Ready for Schoolicious
-          </p>
+          <Label for="instagram_reels" class="text-lg">link URL Youtube :</Label>
         </div>
         <Input
           v-model="form.linkIg"
           required
           id="instagram_reels"
-          placeholder="ex: https://www.instagram.com/reel/C68td6fyyzsM/?hl=en"
+          placeholder="ex: https://www.youtube.com/"
           :disabled="form.processing"
         />
         <InputError class="mt-2" :message="form.errors.linkIg" />
       </div>
 
       <div class="gap-3">
-        <Label for="judul">Judul</Label>
+        <Label for="judul" class="text-lg">Judul</Label>
         <Input
           id="judul"
           required
@@ -252,26 +204,42 @@ const submit = () => {
         <InputError class="mt-2" :message="form.errors.judulSubmission" />
       </div>
 
-      <div class="gap-3">
-        <Label for="role">Upload Thumbnail video</Label>
-        <FilePond
-          name="test"
-          max-file-size="3MB"
-          accepted-file-types="image/jpeg, image/png, image/jpg"
-          label-idle="Drop files here..."
-          :instant-upload="false"
-          :allow-multiple="false"
-          credits="false"
-          required
-          :disabled="form.processing"
-          @addfile="handleFilePondThumbnailFileAdd"
-          @init="handleFilePondInit"
-          @removefile="handleFilePondThumbnailRemoveFile"
-        />
+      <div class="flex flex-col gap-2">
+        <Label class="text-lg">Upload Thumbnail Video</Label>
+
+        <div class="relative inline-block w-2/6">
+          <!-- shadow oranye -->
+          <div
+            class="absolute -right-1 -bottom-1 w-full h-full rounded-2xl z-0"
+            style="background-color: #F7C893;"
+            aria-hidden="true"
+          ></div>
+
+          <!-- tombol upload -->
+          <label
+            class="relative z-10 block bg-primary text-white uppercase font-bold text-lg text-center px-6 py-3 rounded-2xl cursor-pointer select-none transition-transform duration-300 hover:translate-y-1 hover:translate-x-1"
+          >
+            Upload
+            <input
+              type="file"
+              class="hidden"
+              accept="image/jpeg,image/png,image/jpg"
+              @change="handleThumbnailChange"
+              :disabled="form.processing"
+            />
+          </label>
+        </div>
+
+        <!-- teks nama file -->
+        <p class="text-sm mt- font-bold" :class="form.thumbnail ? 'text-gray-700' : 'text-red-500'">
+          {{ form.thumbnail ? form.thumbnail.name : 'No file attached.' }}
+        </p>
+
         <InputError class="mt-2" :message="form.errors.thumbnail" />
       </div>
+
       <div class="grid gap-3">
-        <Label for="description">Description</Label>
+        <Label for="description" class="text-lg">Description</Label>
         <Textarea
           id="description"
           required
@@ -300,13 +268,17 @@ const submit = () => {
         </div>
       </div>
       <!-- upload progress end -->
-      <PrimaryButton
+     <div class="flex justify-center">
+      <button
         :class="{ 'opacity-25': form.processing }"
         :disabled="form.processing"
-        class="ml-auto w-fit"
+        class="w-fit items-center bg-primary hover:bg-primary/80 text-white rounded-full px-5 py-2 justify-center"
         type="submit"
-        >Submit</PrimaryButton
       >
+        Submit
+      </button>
+    </div>
+
     </form>
   </div>
 
