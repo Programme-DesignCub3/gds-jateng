@@ -113,17 +113,17 @@ defineProps<{
             >
               Kompetisi
             </Link>
-<!-- 
+
             <Link
               :href="route('announcement')"
               :active="route().current('announcement')"
-              class="hover:text-foreground"
+              class="hover:text-foreground pointer-events-none"
               :class="{
-                'text-muted-foreground': !route().current('announcement'),
+                'text-muted-foreground/60 pointer-events-none': !route().current('announcement'),
               }"
             >
               Pengumuman
-            </Link>  -->
+            </Link> 
 
             <Link
               :href="route('galery')"
@@ -163,13 +163,14 @@ defineProps<{
       <nav
         class="flex grid-cols-3 content-center items-center justify-between justify-items-center gap-6 font-medium md:grid md:gap-5 lg:w-full lg:gap-6"
       >
-        <!-- <NavLink
+        <NavLink
           :href="route('announcement')"
-          class="hover:text-white text-white md:inline-block hidden"
+          class="hover:text-white text-gray-200 md:inline-block hidden pointer-events-none"
           :active="route().current('announcement')"
         >
           Announcement
-        </NavLink> -->
+        </NavLink>
+
 
         <NavLink
           :href="route('galery')"
