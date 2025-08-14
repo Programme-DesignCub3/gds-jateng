@@ -16,9 +16,7 @@
                 {{ title }}
             </h2>
             <div class="flex h-full" v-if="shortDesc">
-                <p class="text-sm md:text-base">
-                    {{ shortDesc }}
-                </p>
+                <p class="text-sm md:text-base" v-html="shortDesc"></p>
             </div>
         </div>
         <div

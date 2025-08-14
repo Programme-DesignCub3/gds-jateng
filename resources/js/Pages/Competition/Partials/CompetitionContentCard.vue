@@ -44,7 +44,7 @@ withDefaults(
                 </p>
                 <p
                     v-if="shortDesc"
-                    class="font-raleway text-xs font-bold md:text-base lg:text-base w-3/4 mx-auto"
+                    class="font-raleway text-xs md:text-base lg:text-base w-3/4 mx-auto"
                     v-html="shortDesc"
                 ></p>
 

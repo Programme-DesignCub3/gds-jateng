@@ -34,7 +34,7 @@ const emit = defineEmits(['close']);
         <!-- Embed -->
         <div class="relative w-full flex flex-col items-center -mt-14 p-6">
           <div
-              class="w-full max-h-[40vh] overflow-y-auto mb-6 rounded-[2rem] bg-primary"
+              class="w-full max-h-[40vh] overflow-auto mb-6 rounded-[2rem] bg-primary video-scroll"
             >
               <div
                 v-html="embed"
@@ -72,5 +72,29 @@ const emit = defineEmits(['close']);
 .popup-fade-leave-from {
   opacity: 1;
   transform: scale(1);
+}
+
+.video-scroll::-webkit-scrollbar {
+  width: 2px; 
+}
+
+.video-scroll::-webkit-scrollbar-track {
+  background: #e5e7eb; 
+  border-radius: 8px;
+}
+
+.video-scroll::-webkit-scrollbar-thumb {
+  background-color: #E1202C; 
+  border-radius: 8px;
+  border: 2px solid #e5e7eb; 
+}
+
+.video-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #062f4f; 
+}
+
+.video-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #E1202C #e5e7eb;
 }
 </style>

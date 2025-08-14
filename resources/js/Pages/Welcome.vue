@@ -5,6 +5,8 @@ import { Head, Link } from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import IconBackgroound from "@/Components/IconBackgroound.vue";
+import IconContent from "@/Components/IconContent.vue";
+import MainHeaderHome from "@/Components/MainHeaderHome.vue";
 
 defineProps<{
   canLogin?: boolean;
@@ -22,19 +24,22 @@ defineProps<{
 
       <!-- MainHeader -->
       <MainHeader
-        showJatengText
-        bgImage="/assets/images/new/home.png"
-        class="relative z-0 bg-primary bg-[length:150%] bg-center bg-no-repeat md:bg-[length:125%] lg:bg-[length:115%] xl:bg-[length:110%]"
-      /> 
+            bgImage="/assets/images/new/home.png"
+            class="relative z-0 bg-primary bg-[length:150%] bg-center bg-no-repeat md:bg-[length:125%] lg:bg-[length:115%] xl:bg-[length:110%] xl:hidden block"
+        /> 
+
+        <MainHeaderHome
+            bgImage="/assets/images/new/home.png"
+            class="relative z-0 bg-primary bg-[length:150%] bg-center bg-no-repeat md:bg-[length:125%] lg:bg-[length:115%] xl:bg-[length:110%] xl:block hidden"
+        /> 
 
       <IconBackgroound />
 
-
       <!-- Konten -->
-      <div class="container relative z-10 md:max-w-6xl sm:max-w-md max-w-sm pb-28 text-center pt-16">
+      <div class="container relative z-10 w-2/3 pb-28 text-center pt-16">
         <div class="flex flex-col gap-6 text-xl">
-          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. <br>
-Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+          <p>Siap-siap, geng! <strong> Good Day Schoolicious Good Challenge 2025 </strong> balik lagi buat kamu anak SMA yang penuh gaya, semangat, dan ide gokil! Dari dance ala K-pop, chant supporter super rame, sampai kolaborasa vokal kekinian, semua bisa kamu ikutin bareng tim kamu. Upload videonya, kumpulin poin, dan meriahkan perjalanan seru bareng Good Day dari sekolah kamu sampai ke Big Bang Event di Jogja! Jangan lupa, ada hadiah keren, guest star kece, dan momen tak terlupakan! Yuk, rayakan masa SMA kamu yang penuh warna, karena #HidupBanyakRasa!
+          </p>
         </div>
 
         <div class="flex justify-center gap-x-4">

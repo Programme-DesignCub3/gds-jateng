@@ -25,7 +25,6 @@ withDefaults(
     "
     :style="bgImage ? { backgroundImage: `url(${bgImage})` } : {}"
     >
-    <IconContainer />
     <!-- GRADIENT FADE -->
     <div class="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-b from-transparent to-[#fff9f0]"></div>
     <!-- LOGO CENTER -->

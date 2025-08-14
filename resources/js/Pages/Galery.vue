@@ -17,6 +17,7 @@ import GaleryPopup from "@/Components/GaleryPopup.vue";
 import IconBackgroundDetail from "@/Components/IconBackgroundDetail.vue";
 import MainHeader from "@/Components/MainHeader.vue";
 import GaleryTitle from "@/Components/GaleryTitle.vue";
+import MainHeaderHome from "@/Components/MainHeaderHome.vue";
 
 interface Galery {
   id: number;
@@ -147,6 +148,13 @@ onMounted(() => {
     }
   });
 });
+
+const hasValidLocation = computed(() => {
+  return props.galeries.some(
+    g => g.lokasi && g.lokasi.trim() !== ""
+  );
+});
+
 </script>
 
 
@@ -154,8 +162,13 @@ onMounted(() => {
   <Head title="Galery" />
   <AppLayout></AppLayout>
   <MainHeader
-    bgImage="/assets/images/new/home.png"
-    class="relative z-0 bg-primary bg-[length:150%] bg-center bg-no-repeat md:bg-[length:125%] lg:bg-[length:115%] xl:bg-[length:110%]"
+            bgImage="/assets/images/new/home.png"
+            class="relative z-0 bg-primary bg-[length:150%] bg-center bg-no-repeat md:bg-[length:125%] lg:bg-[length:115%] xl:bg-[length:110%] xl:hidden block"
+        /> 
+
+  <MainHeaderHome
+      bgImage="/assets/images/new/home.png"
+      class="relative z-0 bg-primary bg-[length:150%] bg-center bg-no-repeat md:bg-[length:125%] lg:bg-[length:115%] xl:bg-[length:110%] xl:block hidden"
   /> 
   <IconBackgroundDetail />
 
@@ -164,8 +177,10 @@ onMounted(() => {
     ref="galeryContainer"
   >
     <!-- Jika tidak ada data -->
-    <div v-if="Object.keys(groupedGaleries).length === 0" class="text-center py-16 w-1/4 mx-auto">
-        <p class="text-black text-xl font-bold border-2 border-primary rounded-lg py-12">Galery Not Found</p>
+    <div v-if="!hasValidLocation" class="text-center py-16 w-1/4 mx-auto">
+      <p class="text-black text-xl font-bold border-2 border-primary rounded-lg py-12">
+        Galery Not Found
+      </p>
     </div>
 
     <!-- Loop tiap lokasi -->
@@ -173,7 +188,7 @@ onMounted(() => {
       <GaleryTitle :logo="getLogoByLocation(lokasi)" class="w-full h-auto py-12" />
 
       <div
-        class="relative z-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 items-stretch w-3/4 mx-auto"
+        class="relative z-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 items-stretch w-2/3 mx-auto"
       >
         <div v-for="(galery, i) in items" :key="galery.id" class="relative group">
           <div

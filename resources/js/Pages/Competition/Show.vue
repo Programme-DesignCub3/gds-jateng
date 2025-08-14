@@ -4,27 +4,25 @@
 
     <BackButton class="fixed left-4 top-20 z-1 md:top-28 lg:left-8 lg:top-40" />
 
-    <MainHeader
-        showJatengText
-        bgImage="/assets/images/new/home.png"
-        class="relative z-0 bg-primary bg-[length:150%] bg-center bg-no-repeat md:bg-[length:125%] lg:bg-[length:115%] xl:bg-[length:110%]"
-    /> 
+    <MainHeaderHome
+            bgImage="/assets/images/new/home.png"
+            class="relative z-0 bg-primary bg-[length:150%] bg-center bg-no-repeat md:bg-[length:125%] lg:bg-[length:115%] xl:bg-[length:110%]"
+        /> 
 
     <IconBackgroundDetail />
-
+    <!-- <IconContent /> -->
     <div
-      class="container mb-8 flex flex-col items-center justify-center gap-y-8 md:w-4/5"
+      class="container flex flex-col items-center justify-center"
     >
-      <img :src="data.logoURL" alt="Logo" class="max-w-full w-[16rem] sm:w-[18rem] md:w-[20rem] lg:w-[24rem] xl:w-[28rem] 2xl:w-[32rem] h-auto" />
+      <img :src="data.logoURL" alt="Logo" class="max-w-full w-auto h-auto max-h-[18rem]" />
     </div>
     <div
-      class="container my-8 mb-8 mt-14 flex flex-col items-center justify-center gap-y-8 md:mt-12 md:w-3/5"
+      class="container my-8 flex flex-col items-center justify-center gap-y-8 md:w-3/5"
     >
-      <div class="text-center text-xl font-raleway font-[500]" v-html="data.description"></div>
+      <div class="text-center text-lg font-raleway font-[500]" v-html="data.description"></div>
     </div>
 
     <div
-      class="my-20"
       :class="{
         'mb-0': !showButtons,
       }"
@@ -50,11 +48,11 @@
       />
     </div>
     <div
-      class="container my-8 mb-8 mt-14 flex flex-col items-center justify-center gap-y-8 md:mt-12 md:w-3/5"
+      class="container my-8 flex flex-col items-center justify-center w-2/3"
     >
           <h2 class="text-4xl text-center font-bold text-[#8b3b1e]">Rules</h2>
 
-      <div class="text-center text-xl font-raleway font-[500]" v-html="data.rules.list"></div>
+      <div class="text-left text-xl font-raleway font-[500]" v-html="data.rules.list"></div>
     </div>
     <div class="container mb-20 flex w-fit flex-col gap-4" v-if="showButtons">
 
@@ -75,6 +73,8 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { Head, Link } from "@inertiajs/vue3";
 import IconBackgroundDetail from "@/Components/IconBackgroundDetail.vue";
+import IconContent from "@/Components/IconContent.vue";
+import MainHeaderHome from "@/Components/MainHeaderHome.vue";
 
 defineProps<{
   data: {
