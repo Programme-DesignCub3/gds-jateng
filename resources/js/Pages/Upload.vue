@@ -18,11 +18,8 @@ import IconBackgroound from "@/Components/IconBackgroound.vue";
             class="relative z-0 bg-primary bg-[length:150%] bg-center bg-no-repeat md:bg-[length:125%] lg:bg-[length:115%] xl:bg-[length:110%]"
             />
             <IconBackgroound />
-            
-            <UploadImages
-                v-if="$page.props.auth.user.competition === 'mascot-design'"
-            />
-            <UploadVideo v-else />
+        
+            <UploadVideo />
         </AppLayout>
     </div>
 </template>
