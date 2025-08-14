@@ -163,50 +163,63 @@ onMounted(() => {
     class="relative xl:pb-[20rem] pb-[8rem] md:px-12 px-6 md:bg-cover object-cover bg-no-repeat bg-[length:100%_100%]"
     ref="galeryContainer"
   >
-    <!-- Loop tiap lokasi -->
-    <div v-for="(items, lokasi) in groupedGaleries" :key="lokasi" class="mb-16">
-  <GaleryTitle :logo="getLogoByLocation(lokasi)" class="w-full h-auto py-12" />
+    <!-- Jika tidak ada data -->
+    <div v-if="Object.keys(groupedGaleries).length === 0" class="text-center py-16 w-1/4 mx-auto">
+        <p class="text-black text-xl font-bold border-2 border-primary rounded-lg py-12">Galery Not Found</p>
+    </div>
 
-  <div class="relative z-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 items-stretch w-3/4 mx-auto">
-    <div v-for="(galery, i) in items" :key="galery.id" class="relative group">
+    <!-- Loop tiap lokasi -->
+    <div v-else v-for="(items, lokasi) in groupedGaleries" :key="lokasi" class="mb-16">
+      <GaleryTitle :logo="getLogoByLocation(lokasi)" class="w-full h-auto py-12" />
+
       <div
-        class="relative bg-white rounded-[2rem] overflow-hidden z-1 border-4 border-primary cursor-pointer transition-transform duration-300 hover:scale-105 h-full flex flex-col"
-        @click.stop="openPopupByLocation(lokasi, i)"
+        class="relative z-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 items-stretch w-3/4 mx-auto"
       >
-        <div class="relative w-full xl:h-64 h-52">
-          <img
-            :src="galery.thumbnail"
-            class="w-full xl:h-64 h-52 p-6 object-cover rounded-[3.5rem]"
-            alt="Video Preview"
-          />
-          <div class="absolute inset-0 flex items-center justify-center">
-            <button class="bg-primary rounded-full p-6 flex items-center justify-center">
-              <img src="/assets/images/play_button.png" alt="Play Button" class="lg:w-8 w-4 lg:h-8 h-4" />
-            </button>
-          </div>
-        </div>
-        <div class="px-6 pb-6 flex items-center justify-between -mt-2">
-          <div>
-            <div class="font-bold xl:text-2xl lg:text-xl text-base text-primary">
-              {{ galery.nama_sekolah }}
+        <div v-for="(galery, i) in items" :key="galery.id" class="relative group">
+          <div
+            class="relative bg-white rounded-[2rem] overflow-hidden z-1 border-4 border-primary cursor-pointer transition-transform duration-300 hover:scale-105 h-full flex flex-col"
+            @click.stop="openPopupByLocation(lokasi, i)"
+          >
+            <div class="relative w-full xl:h-64 h-52">
+              <img
+                :src="galery.thumbnail"
+                class="w-full xl:h-64 h-52 p-6 object-cover rounded-[3.5rem]"
+                alt="Video Preview"
+              />
+              <div class="absolute inset-0 flex items-center justify-center">
+                <button
+                  class="bg-primary rounded-full p-6 flex items-center justify-center"
+                >
+                  <img
+                    src="/assets/images/play_button.png"
+                    alt="Play Button"
+                    class="lg:w-8 w-4 lg:h-8 h-4"
+                  />
+                </button>
+              </div>
             </div>
-            <div class="xl:text-lg text-sm text-primary italic">
-              {{ galery.wilayah }}, {{ galery.provinsi }}
-            </div>
-            <div class="flex items-center mt-1 pt-3">
-              <span class="text-xs text-gray-400">
-                {{ formatTanggalIndo(galery.tanggal) }}
-              </span>
+            <div class="px-6 pb-6 flex items-center justify-between -mt-2">
+              <div>
+                <div
+                  class="font-bold xl:text-2xl lg:text-xl text-base text-primary"
+                >
+                  {{ galery.nama_sekolah }}
+                </div>
+                <div class="xl:text-lg text-sm text-primary italic">
+                  {{ galery.wilayah }}, {{ galery.provinsi }}
+                </div>
+                <div class="flex items-center mt-1 pt-3">
+                  <span class="text-xs text-gray-400">
+                    {{ formatTanggalIndo(galery.tanggal) }}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-  </div>
-
   <!-- Popup -->
   <GaleryPopup
     :show="popup"
