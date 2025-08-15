@@ -308,7 +308,7 @@ class NewCompetitionController extends Controller
                             'name' => 'MEET THE JUDGE',
                             'desc' => 'Vialinda Dewi Fortuna, S.Tr.Sn biasa di panggil Vivi Fortuna adalah vokalis Gen Z berbakat jebolan ISI Jogja yang cumlaude! Aktif nyanyi dari panggung nasional sampai internasional, Vivi Fortuna pernah juara 1 di berbagai lomba vokal top, termasuk juara FLS2N Nasional dan BNN Nasional, bahkan tampil di Jepang! Selain jadi performer, dia juga sering jadi juri lomba solo vokal ataupun band, dan sekarang ngejalanin Fortuna Music—platform musik/ kursus musik miliknya sendiri. Skill? Komunikasi dan time management-nya top, plus hobi nyanyi & olahraga bikin dia makin all-rounder!',
                             'type' => 'VIVI FORTUNA',
-                            'image' => '/assets/images/competition/' . $slug . '/Juri.jpg',
+                            'image' => '/assets/images/competition/' . $slug . '/juri.jpg',
                             // 'akun_ig' => '@instagram_Juri'
                         ]
                     ],
