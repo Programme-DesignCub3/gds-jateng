@@ -29,34 +29,44 @@ class GaleryResource extends Resource
                 Forms\Components\TextInput::make('embed_link')
                     ->label('Embed Link')
                     ->required()
-                    ->helperText('Masukkan link embed video dari YouTube atau Instagram. Contoh: https://www.youtube.com/embed/xxxx atau https://www.instagram.com/p/xxxx/embed'),
+                    ->helperText('Masukkan link embed video dari YouTube atau Instagram. Contoh: https://www.youtube.com/embed/xxxx atau https://www.instagram.com/p/xxxx/embed')
+                    ->columnSpanFull(),
+
                 FileUpload::make('thumbnail')
                     ->label('Thumbnail')
                     ->disk('public')
                     ->directory('galery/thumbnails')
                     ->image()
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('nama_sekolah')
-                    ->label('Nama Sekolah')
-                    ->required(),
-                Forms\Components\TextInput::make('wilayah')
-                    ->label('Wilayah')
-                    ->required(),
-                Forms\Components\TextInput::make('provinsi')
-                    ->label('Provinsi')
-                    ->required(),
+
+                Forms\Components\TextInput::make('title')
+                    ->label('Title')
+                    ->required()
+                    ->columnSpan(6),
+
+                Forms\Components\TextInput::make('subtitle')
+                    ->label('Subtitle')
+                    ->required()
+                    ->nullable()
+                    ->columnSpan(6),
+
                 Forms\Components\DatePicker::make('tanggal')
                     ->label('Tanggal')
-                    ->required(),
+                    ->required()
+                    ->columnSpan(6),
+
                 Forms\Components\Select::make('lokasi')
                     ->label('Region')
                     ->options([
                         'yogyakarta' => 'Yogyakarta',
                         'semarang' => 'Semarang',
                     ])
-                    ->required(),
-            ]);
+                    ->required()
+                    ->columnSpan(6),
+            ])
+            ->columns(12);
     }
+
 
     public static function table(Table $table): Table
     {
@@ -65,12 +75,10 @@ class GaleryResource extends Resource
                 Tables\Columns\TextColumn::make('no')
                     ->label('No')
                     ->rowIndex(),
-                Tables\Columns\TextColumn::make('nama_sekolah')
-                    ->label('Nama Sekolah'),
-                Tables\Columns\TextColumn::make('wilayah')
-                    ->label('Wilayah'),
-                Tables\Columns\TextColumn::make('provinsi')
-                    ->label('Provinsi'),
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Title'),
+                Tables\Columns\TextColumn::make('subtitle')
+                    ->label('Subtitle'),
                 Tables\Columns\TextColumn::make('tanggal')
                     ->label('Tanggal')
                     ->date(),

@@ -14,9 +14,8 @@ class GaleryController extends Controller
             return [
                 'id' => $item->id,
                 'embed_link' => $item->embed_link,
-                'nama_sekolah' => $item->nama_sekolah,
-                'wilayah' => $item->wilayah,
-                'provinsi' => $item->provinsi,
+                'title' => $item->title,
+                'subtitle' => $item->subtitle,
                 'tanggal' => $item->tanggal,
                 'thumbnail' => $item->thumbnail_url, 
                 'lokasi' => $item->lokasi,

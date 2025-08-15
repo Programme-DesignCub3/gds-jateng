@@ -4,13 +4,17 @@
 
     <BackButton class="fixed left-4 top-20 z-1 md:top-28 lg:left-8 lg:top-40" />
 
-    <MainHeaderHome
+    <MainHeader
             bgImage="/assets/images/new/home.png"
-            class="relative z-0 bg-primary bg-[length:150%] bg-center bg-no-repeat md:bg-[length:125%] lg:bg-[length:115%] xl:bg-[length:110%]"
+            class="relative z-0 bg-primary bg-[length:150%] bg-center bg-no-repeat md:bg-[length:125%] lg:bg-[length:115%] xl:bg-[length:110%] xl:hidden block"
         /> 
 
-    <IconBackgroundDetail />
-    <!-- <IconContent /> -->
+    <MainHeaderHome
+        bgImage="/assets/images/new/home.png"
+        class="relative z-0 bg-primary bg-[length:150%] bg-center bg-no-repeat md:bg-[length:125%] lg:bg-[length:115%] xl:bg-[length:110%] xl:block hidden"
+    /> 
+
+    <IconContent />
     <div
       class="container flex flex-col items-center justify-center"
     >

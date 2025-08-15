@@ -2,8 +2,8 @@
 defineProps<{
   show: boolean;
   embed: string;
-  school: string;
-  region: string;
+  title: string;
+  subtitle: string;
   date: string;
 }>();
 
@@ -46,8 +46,8 @@ const emit = defineEmits(['close']);
         <!-- Info -->
         <div class="flex w-full justify-between items-end px-8">
           <div>
-            <div class="font-bold text-lg text-primary">{{ school }}</div>
-            <div class="text-sm text-primary italic opacity-80">{{ region }}</div>
+            <div class="font-bold text-lg text-primary">{{ title }}</div>
+            <div class="text-sm text-primary italic opacity-80">{{ subtitle }}</div>
             <div class="text-sm text-gray-500 md:hidden block pt-4">{{ date }}</div>
           </div>
           <div class="text-sm text-gray-500 md:block hidden">{{ date }}</div>

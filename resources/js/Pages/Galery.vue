@@ -22,9 +22,8 @@ import MainHeaderHome from "@/Components/MainHeaderHome.vue";
 interface Galery {
   id: number;
   embed_link: string;
-  nama_sekolah: string;
-  wilayah: string;
-  provinsi: string;
+  title: string;
+  subtitle: string;
   tanggal: string;
   thumbnail: string;
   lokasi: string;
@@ -35,8 +34,8 @@ const props = defineProps<{ galeries: Galery[] }>();
 const popup = ref(false);
 const selected = ref({
   image: "",
-  school: "",
-  region: "",
+  title: "",
+  subtitle: "",
   date: "",
   embed: ""
 });
@@ -45,7 +44,7 @@ const selected = ref({
 const groupedGaleries = computed<Record<string, Galery[]>>(() => {
   const groups: Record<string, Galery[]> = {};
   props.galeries.forEach(item => {
-    const key = item.lokasi ?? `${item.wilayah}, ${item.provinsi}`;
+    const key = item.lokasi ?? item.subtitle;
     if (!groups[key]) {
       groups[key] = [];
     }
@@ -70,8 +69,8 @@ function openPopupByLocation(lokasi: string, index: number) {
   const galery = (groupedGaleries.value[lokasi] ?? [])[index];
   selected.value = {
     image: galery.thumbnail,
-    school: galery.nama_sekolah,
-    region: `${galery.wilayah}, ${galery.provinsi}`,
+    title: galery.title,
+    subtitle: galery.subtitle,
     date: formatTanggalIndo(galery.tanggal),
     embed: galery.embed_link
   };
@@ -188,7 +187,7 @@ const hasValidLocation = computed(() => {
       <GaleryTitle :logo="getLogoByLocation(lokasi)" class="w-full h-auto py-12" />
 
       <div
-        class="relative z-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 items-stretch w-2/3 mx-auto"
+        class="relative z-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 items-stretch xl:w-3/4 lg:w-full mx-auto"
       >
         <div v-for="(galery, i) in items" :key="galery.id" class="relative group">
           <div
@@ -218,10 +217,10 @@ const hasValidLocation = computed(() => {
                 <div
                   class="font-bold xl:text-2xl lg:text-xl text-base text-primary"
                 >
-                  {{ galery.nama_sekolah }}
+                  {{ galery.title }}
                 </div>
                 <div class="xl:text-lg text-sm text-primary italic">
-                  {{ galery.wilayah }}, {{ galery.provinsi }}
+                  {{ galery.subtitle }}
                 </div>
                 <div class="flex items-center mt-1 pt-3">
                   <span class="text-xs text-gray-400">
@@ -239,8 +238,8 @@ const hasValidLocation = computed(() => {
   <GaleryPopup
     :show="popup"
     :embed="selected.embed"
-    :school="selected.school"
-    :region="selected.region"
+    :title="selected.title"
+    :subtitle="selected.subtitle"
     :date="selected.date"
     @close="closePopup"
   />

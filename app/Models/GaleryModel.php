@@ -12,9 +12,8 @@ class GaleryModel extends Model
     protected $table = 'galery';
     protected $fillable = [
         'embed_link',
-        'nama_sekolah',
-        'wilayah',
-        'provinsi',
+        'title',
+        'subtitle',
         'tanggal',
         'lokasi',
         'thumbnail'
