@@ -21,7 +21,7 @@
       <img :src="data.logoURL" alt="Logo" class="max-w-full w-auto h-auto max-h-[18rem]" />
     </div>
     <div
-      class="container my-8 flex flex-col items-center justify-center gap-y-8 md:w-3/5"
+      class="container my-8 flex flex-col items-center justify-center gap-y-8 md:w-1/2"
     >
       <div class="text-center text-lg font-raleway font-[500]" v-html="data.description"></div>
     </div>
@@ -34,7 +34,7 @@
       <CompetitionContentCard
         position="right"
         type=""
-        name="Hadiah"
+        name="HADIAH"
         :shortDesc="data.prize.desc"
         :imageUrl="data.prize.imageUrl"
       />
