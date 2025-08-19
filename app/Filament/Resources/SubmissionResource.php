@@ -2,30 +2,24 @@
 
 namespace App\Filament\Resources;
 
-use AnourValar\EloquentSerialize\Tests\Models\Post;
 use App\Enums\CompetitionList;
 use App\Filament\Resources\SubmissionResource\Pages;
-use App\Filament\Resources\SubmissionResource\RelationManagers;
 use App\Models\Submission;
-use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Forms\Get;
 use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\RepeatableEntry;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Illuminate\Support\Facades\Log;
 
 class SubmissionResource extends Resource
 {
-    protected static ?string $model = Submission::class;
+    // gunakan fully-qualified class name untuk menghindari masalah autoload/circular
+    protected static ?string $model = \App\Models\Submission::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -36,16 +30,13 @@ class SubmissionResource extends Resource
             TextEntry::make('submission_type'),
             TextEntry::make('submission_desc'),
             TextEntry::make('user.name')
-                ->label('pengirim'),
-            // TextEntry::make('user.is_school_account')
-            //     ->label('Jenis akun user')
-            //     ->formatStateUsing(fn(string $state): string => $state ? 'Sekolah' : "Pribadi")
-            //     ->badge()
-            //     ->color(fn(string $state): string => $state ? 'success' : "warning"),
+                ->label('pengirim')
+                ->default('-'),
             TextEntry::make('user.school_name')
-                ->label('nama sekolah'),
+                ->label('nama sekolah')
+                ->default('-'),
             TextEntry::make('ig_reel')
-                ->label('Instagram Reels')
+                ->label('Reels')
                 ->url(fn($state): string => $state)
                 ->openUrlInNewTab(),
             ImageEntry::make('thumbnail_path')
@@ -58,90 +49,56 @@ class SubmissionResource extends Resource
                     ImageEntry::make('')
                         ->disk('submission'),
                     TextEntry::make('')
-                        // ->hidden(fn ($record): bool => $record->submission_type === CompetitionList::MASCOT->value)
                         ->url(fn($state): string => asset('storage') . '/' . $state)
                         ->openUrlInNewTab()
                         ->formatStateUsing(fn(string $state): string => asset('storage') . '/' . $state)
-                ])
+                ]),
         ]);
     }
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return $form->schema([]);
     }
 
     public static function table(Table $table): Table
     {
+        Log::info('SubmissionResource table method called', [
+            'time' => now(),
+            'user_id' => auth()->id(),
+            'route' => request()->route()?->getName(),
+            'query' => request()->query(),
+        ]);
         return $table
             ->columns([
-
-                ImageColumn::make('thumbnail_path')
-                    ->disk('submission'),
-                TextColumn::make('submission_name')
-                    ->searchable(),
+                ImageColumn::make('thumbnail_path')->disk('submission'),
+                TextColumn::make('submission_name')->searchable(),
                 TextColumn::make('submission_type'),
-                TextColumn::make('user.name')
-                    ->searchable(),
-                // TextColumn::make('user.is_school_account')
-                //     ->label('Jenis akun user')
-                //     ->formatStateUsing(fn(string $state): string => $state ? 'Sekolah' : "Pribadi")
-                //     ->badge()
-                //     ->color(fn(string $state): string => $state ? 'success' : "warning"),
+                TextColumn::make('user.name')->default('-')->searchable(),
                 TextColumn::make('user.school_name')
                     ->default('-')
                     ->label('nama sekolah')
-                    ->searchable(
-                        isIndividual: true,
-                        isGlobal: false
-                    ),
-                TextColumn::make('created_at')
-                    ->dateTime('Y-m-d')
+                    ->searchable(isIndividual: true, isGlobal: false),
+                TextColumn::make('created_at')->dateTime('Y-m-d'),
             ])
-            // ->filters([
-
-            //     TernaryFilter::make('user')
-            //         ->relationship('user', 'is_school_account')
-
-            //         ->label('Jenis Akun')
-            //         // ->attribute('status_id')
-            //         ->placeholder('Pilih jenis akun')
-            //         ->trueLabel('Sekolah')
-            //         ->falseLabel('Pribadi')
-            // ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                // Tables\Actions\Action::make('download')
-                //     //
-                //     // ->url(fn ($record) => 'https://goodday-schoolicious-jateng.test/storage/' . $record->file_path)
-                //     // ->openUrlInNewTab()
-                //     ->icon('heroicon-o-arrow-down-on-square'),
-                // // Tables\Actions\EditAction::make(),
+                \Filament\Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    // Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                \Filament\Tables\Actions\BulkActionGroup::make([]),
             ]);
     }
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListSubmissions::route('/'),
-            // 'create' => Pages\CreateSubmission::route('/create'),
             'view' => Pages\ViewSubmission::route('/{record}'),
-            // 'edit' => Pages\EditSubmission::route('/{record}/edit'),
         ];
     }
 }
