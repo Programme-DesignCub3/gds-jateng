@@ -19,3 +19,4 @@ yarn-error.log
 /.vscode
 /goodday-schoolicious-jateng.zip
 vendor.zip
+*.zip
