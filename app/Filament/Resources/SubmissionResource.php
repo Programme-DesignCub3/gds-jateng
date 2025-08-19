@@ -101,17 +101,17 @@ class SubmissionResource extends Resource
                 TextColumn::make('created_at')
                     ->dateTime('Y-m-d')
             ])
-            ->filters([
+            // ->filters([
 
-                TernaryFilter::make('user')
-                    ->relationship('user', 'is_school_account')
+            //     TernaryFilter::make('user')
+            //         ->relationship('user', 'is_school_account')
 
-                    ->label('Jenis Akun')
-                    // ->attribute('status_id')
-                    ->placeholder('Pilih jenis akun')
-                    ->trueLabel('Sekolah')
-                    ->falseLabel('Pribadi')
-            ])
+            //         ->label('Jenis Akun')
+            //         // ->attribute('status_id')
+            //         ->placeholder('Pilih jenis akun')
+            //         ->trueLabel('Sekolah')
+            //         ->falseLabel('Pribadi')
+            // ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 // Tables\Actions\Action::make('download')
