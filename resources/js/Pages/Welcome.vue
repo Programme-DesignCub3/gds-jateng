@@ -38,7 +38,7 @@ defineProps<{
       <!-- Konten -->
       <div class="container relative z-10 w-2/3 pb-28 text-center pt-16">
         <div class="flex flex-col gap-6 text-xl">
-          <p>Siap-siap, geng! <strong> Good Day Schoolicious Good Challenge 2025 </strong> balik lagi buat kamu anak SMA yang penuh gaya, semangat, dan ide gokil! Dari dance ala K-pop, chant supporter super rame, sampai kolaborasa vokal kekinian, semua bisa kamu ikutin bareng tim kamu. Upload videonya, kumpulin poin, dan meriahkan perjalanan seru bareng Good Day dari sekolah kamu sampai ke Big Bang Event di Jogja! Jangan lupa, ada hadiah keren, guest star kece, dan momen tak terlupakan! Yuk, rayakan masa SMA kamu yang penuh warna, karena #HidupBanyakRasa!
+          <p>Siap-siap, genks!! <strong> Good Day Schoolicious Good Challenge 2025 </strong> balik lagi buat kamu anak SMA yang penuh gaya, semangat, dan ide gokil! Dari dance ala K-pop, chant supporter super rame, sampai kolaborasa vokal kekinian, semua bisa kamu ikutin bareng tim kamu. Upload videonya, kumpulin poin, dan meriahkan perjalanan seru bareng Good Day dari sekolah kamu sampai ke Big Bang Event di Jogja! Jangan lupa, ada hadiah keren, guest star kece, dan momen tak terlupakan! Yuk, rayakan masa SMA kamu yang penuh warna, karena #HidupBanyakRasa!
           </p>
         </div>
 

@@ -217,17 +217,18 @@ class NewCompetitionController extends Controller
                     'rules' => [
                         // 'file_url' => asset('rules/Rules Chant Supporter.pdf'),
                         'list' => '<ol class="list-none space-y-4 text-lg">
+                                <h3 class="font-bold text-lg">RULES & REGULATION</h3>
                                 <li class="flex items-start gap-3">
                                     <span class="font-bold">1.</span>
                                     <div>
-                                    <p class="font-bold">Kekompakan Tim — 25%</p>
+                                    <p class="font-bold">Kekompakan Tim — 35%</p>
                                     <p>Keseragaman suara, gerakan, dan interaksi antar anggota saat menyuarakan chant.</p>
                                     </div>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <span class="font-bold">2.</span>
                                     <div>
-                                    <p class="font-bold">Kreativitas Chant & Gerakan — 25%</p>
+                                    <p class="font-bold">Kreativitas Chant & Gerakan — 30%</p>
                                     <p>Orisinalitas chant, modifikasi dari chant yang ada, penggunaan properti, koreografi, atau elemen pendukung lainnya.</p>
                                     </div>
                                 </li>
@@ -241,22 +242,8 @@ class NewCompetitionController extends Controller
                                 <li class="flex items-start gap-3">
                                     <span class="font-bold">4.</span>
                                     <div>
-                                    <p class="font-bold">Representasi Sekolah — 15%</p>
-                                    <p>Kemampuan chant & visual mendukung semangat, identitas, dan kebanggaan sekolah.</p>
-                                    </div>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span class="font-bold">5.</span>
-                                    <div>
-                                    <p class="font-bold">Kualitas Video & Kepatuhan Format — 10%</p>
-                                    <p>Format landscape 16:9, resolusi minimal 720p, tidak diedit, 1 file (maks. 250MB), thumbnail (maks. 3MB) dengan semua peserta terlihat jelas.</p>
-                                    </div>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <span class="font-bold">6.</span>
-                                    <div>
-                                    <p class="font-bold">Kejelasan Audio & Visual — 5%</p>
-                                    <p>Chant terdengar jelas, gerakan dan ekspresi dapat terlihat dengan baik.</p>
+                                    <p class="font-bold">Artikulasi Chanting — 15%</p>
+                                    <p>Kejelasan intonasi suara saat menyuarakan chant.</p>
                                     </div>
                                 </li>
                                 </ol>'
@@ -314,7 +301,8 @@ class NewCompetitionController extends Controller
                     ],
                     'rules' => [
                         // 'file_url' => asset('rules/Rules Kolaborasa.pdf'),
-                        'list' => '<ol class="list-none space-y-4 text-lg">
+                        'list' => '<h3 class="font-bold text-lg">RULES & REGULATION</h3>
+                                    <ol class="list-none space-y-4 text-lg">
                                     <li class="flex items-start gap-3 font">
                                         <span class="font-bold">1.</span>
                                         <div>
@@ -332,25 +320,39 @@ class NewCompetitionController extends Controller
                                     <li class="flex items-start gap-3">
                                         <span class="font-bold">3.</span>
                                         <div>
-                                        <p class="font-bold">Kreativitas — 20%</p>
-                                        <p class="text-lg">Penggunaan variasi lagu, gaya penampilan, dan improvisasi yang menarik.</p>
+                                        <p class="font-bold">Kreativitas Penampilan — 20%</p>
+                                        <p class="text-lg">Orisinalitas (TIDAK LIPSYNC), Improvisasi lagu, Konsep aransemen keseluruhan.</p>
                                         </div>
                                     </li>
                                     <li class="flex items-start gap-3">
                                         <span class="font-bold">4.</span>
                                         <div>
-                                        <p class="font-bold">Penguasaan Lagu — 20%</p>
-                                        <p class="text-lg">Ketepatan nada, tempo, dan penguasaan lirik.</p>
+                                        <p class="font-bold"Ekspresi & Gaya - 15%</p>
+                                        <p class="text-lg">Konsep Outfit, Ekspresi/ penghayatan wajah sesuai lagu, Konsep gerakan dan karakter tiap anggota.</p>
                                         </div>
                                     </li>
                                     <li class="flex items-start gap-3">
                                         <span class="font-bold">5.</span>
                                         <div>
-                                        <p class="font-bold">Ekspresi &amp; Penampilan — 15%</p>
-                                        <p class="text-lg">Penjiwaan, interaksi dengan penonton, dan visual yang mendukung.</p>
+                                        <p class="font-bold">Kualitas Video & Format  - 10%</p>
+                                        <p class="text-lg">Video dalam format 9:16, resolusi min. 720p, tidak diedit, 1 file ( maks 250MB ) , dan thumbnail jelas ( maks. 3MB ).</p>
                                         </div>
                                     </li>
-                                    </ol>'
+                                    <li class="flex items-start gap-3">
+                                        <span class="font-bold">6.</span>
+                                        <div>
+                                        <p class="font-bold">Kejelasan Audio & Visual - 10%</p>
+                                        <p class="text-lg">Suara terdengar jelas (tidak noise), gambar cukup terang & fokus yang baik.</p>
+                                        </div>
+                                    </li>
+                                    </ol>
+                                    <br>
+                                    <br>
+                                    <h3 class="font-bold text-lg">CATATAN TAMBAHAN  :</h3>
+                                    <ul>
+                                        <li class="list-disc list-inside text-lg">Membawa properti dengan unsur Kopi Good Day</li>
+                                        <li class="list-disc list-inside text-lg">Lagu yang dibawakan ada kata Good atau Good Day</li>
+                                    </ul>'
                     ]
                 ];
                 break;
