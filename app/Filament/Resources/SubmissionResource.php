@@ -9,12 +9,14 @@ use Filament\Forms\Form;
 use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\ViewEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Facades\Log;
+use Filament\HtmlEntry;
 
 class SubmissionResource extends Resource
 {
@@ -46,13 +48,15 @@ class SubmissionResource extends Resource
             RepeatableEntry::make('files_path')
                 ->label('Submission file')
                 ->schema([
-                    ImageEntry::make('')
-                        ->disk('submission'),
+                    ViewEntry::make('') // Ganti jadi ViewEntry
+                        ->view('filament.video-preview'),
                     TextEntry::make('')
-                        ->url(fn($state): string => asset('storage') . '/' . $state)
+                        ->label('Link Video')
+                        ->url(fn($state): string => asset('storage/' . $state))
                         ->openUrlInNewTab()
-                        ->formatStateUsing(fn(string $state): string => asset('storage') . '/' . $state)
+                        ->formatStateUsing(fn(string $state): string => asset('storage/' . $state)),
                 ]),
+
         ]);
     }
 
