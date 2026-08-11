@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import AnnouncementHeader from "@/Components/AnnouncementHeader.vue";
 import AnnouncementSection from "@/Components/AnnouncementSection.vue";
-import AnnouncementTitle from "@/Components/AnnouncementTitle.vue";
-import IconBackgroundDetail from "@/Components/IconBackgroundDetail.vue";
-import { Alert, AlertDescription, AlertTitle } from "@/Components/ui/alert";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/Components/ui/tabs";
+import AnnouncementTitle from "@/Components/gds-2026/announcement/CompetitionTitle.vue";
+import MainHeaderHome from "@/Components/gds-2026/home/MainHeaderHome.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import type { TFinalistList } from "@/lib/types";
 import { Head } from "@inertiajs/vue3";
@@ -20,77 +18,95 @@ defineProps<{
 </script>
 
 <template>
-  <Head title="Pengumuman" />
-  <AppLayout>
-    <AnnouncementHeader
-        bgImage="/assets/images/new/home.png"
-        class="relative z-0 bg-primary bg-[length:150%] bg-center bg-no-repeat md:bg-[length:125%] lg:bg-[length:115%] xl:bg-[length:110%]"
-      /> 
-            <IconBackgroundDetail class="z-0" />
-
-    <div
-      class="container flex flex-col justify-center gap-y-10"
-      :class="{
-        'items-center': !currentRegion,
-      }"
-    >
-    <div class="py-12 2xl:space-y-[12rem] xl:space-y-[6rem] space-y-[6rem]">
-      <AnnouncementTitle
-        logo="/assets/images/new/announcement/winner-kolaborasa.png"
-        class="w-full h-auto z-0"
-      />
-      <AnnouncementTitle
-        logo="/assets/images/new/announcement/winner-chant.png"
-        class="w-full h-auto z-0"
-      />
-      <AnnouncementTitle
-        logo="/assets/images/new/announcement/winner-dance.png"
-        class="w-full h-auto z-0"
-      />
-    </div>
-      
-
-      <!-- <Tabs
-        @update:model-value="(region) => (currentRegion = String(region))"
-        default-value=""
-        class="flex flex-col items-center justify-center"
+  <div class="relative" :style="{
+      backgroundImage: `url('/assets/images/gds-2026/long-bg.png')`,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+    }">
+    <Head title="Pengumuman" />
+    <AppLayout>
+      <MainHeaderHome class="...">
+        <!-- Tag img langsung dengan class dan src pilihan Anda -->
+        <img 
+          src="/assets/images/gds-2026/logo-finalist.png" 
+          alt="Header Pengumuman" 
+          class="w-[20rem] sm:w-[20rem] md:w-[32rem] lg:w-[36rem] xl:w-[40rem] 2xl:w-[48rem] h-auto object-contain"
+          draggable="false"
+        />
+      </MainHeaderHome>
+      <div
+        class="container flex flex-col justify-center gap-y-10"
+        :class="{
+          'items-center': !currentRegion,
+        }"
       >
-        <TabsList class="justify-center space-x-4 bg-white text-center">
-          <TabsTrigger class="bg-muted text-2xl" value="yogyakarta">
-            Yogyakarta
-          </TabsTrigger>
+      <div class="pt-6 md:space-y-20 space-y-12 pb-20">
+        <AnnouncementTitle
+          title="Winner"
+          subtitle="Kolaborasa"
+          class="w-full h-auto z-0"
+        />
+        <AnnouncementTitle
+          title="Winner"
+          subtitle="Modern Dance Competition"
+          class="w-full h-auto z-0"
+        />
+        <AnnouncementTitle
+          title="Winner"
+          subtitle="Chant Supporter Competition"
+          class="w-full h-auto z-0"
+        />
+        <AnnouncementTitle
+          title="Winner"
+          subtitle="Vlog Competition"
+          class="w-full h-auto z-0"
+        />
+      </div>
+        
 
-          <TabsTrigger class="bg-muted text-2xl" value="semarang"> Semarang </TabsTrigger>
-        </TabsList>
+        <!-- <Tabs
+          @update:model-value="(region) => (currentRegion = String(region))"
+          default-value=""
+          class="flex flex-col items-center justify-center"
+        >
+          <TabsList class="justify-center space-x-4 bg-white text-center">
+            <TabsTrigger class="bg-muted text-2xl" value="yogyakarta">
+              Yogyakarta
+            </TabsTrigger>
 
-        <TabsContent class="w-full" value="yogyakarta">
-          <AnnouncementSection
-            :finalist-list="competition.list"
-            v-for="competition in finalistYogyakarta"
-            :key="`yogyakarta-${competition.competition}`"
-            :title="competition.label"
-          />
-        </TabsContent>
+            <TabsTrigger class="bg-muted text-2xl" value="semarang"> Semarang </TabsTrigger>
+          </TabsList>
 
-        <TabsContent class="w-full" value="semarang">
-          <AnnouncementSection
-            :finalist-list="competition.list"
-            v-for="competition in finalistSemarang"
-            :key="`semarang-${competition.competition}`"
-            :title="competition.label"
-          />
-        </TabsContent>
-      </Tabs>
+          <TabsContent class="w-full" value="yogyakarta">
+            <AnnouncementSection
+              :finalist-list="competition.list"
+              v-for="competition in finalistYogyakarta"
+              :key="`yogyakarta-${competition.competition}`"
+              :title="competition.label"
+            />
+          </TabsContent>
 
-      <Alert variant="destructive" class="w-fit text-lg" v-if="!currentRegion">
-        <AlertCircle class="size-5" />
-        <AlertTitle>Perhatian</AlertTitle>
-        <AlertDescription class="text-base">
-          Silahkan pilih area yang ingin ditampilkan
-        </AlertDescription>
-      </Alert> -->
-    </div>
-  </AppLayout>
+          <TabsContent class="w-full" value="semarang">
+            <AnnouncementSection
+              :finalist-list="competition.list"
+              v-for="competition in finalistSemarang"
+              :key="`semarang-${competition.competition}`"
+              :title="competition.label"
+            />
+          </TabsContent>
+        </Tabs>
+
+        <Alert variant="destructive" class="w-fit text-lg" v-if="!currentRegion">
+          <AlertCircle class="size-5" />
+          <AlertTitle>Perhatian</AlertTitle>
+          <AlertDescription class="text-base">
+            Silahkan pilih area yang ingin ditampilkan
+          </AlertDescription>
+        </Alert> -->
+      </div>
+    </AppLayout>
+  </div>
 </template>
 
 <style scoped></style>

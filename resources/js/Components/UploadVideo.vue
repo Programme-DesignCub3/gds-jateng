@@ -109,7 +109,7 @@ const submit = () => {
 </script>
 
 <template>
-  <div class="container mb-10 max-w-xl">
+  <div class="container pb-10 max-w-xl">
     <form
       @submit.prevent="submit"
       class="grid w-full items-start gap-6 overflow-auto p-2 lg:p-4"
@@ -129,7 +129,6 @@ const submit = () => {
             <div
               class="absolute -right-1 -bottom-1 w-full h-full rounded-2xl z-0"
               :class="''"
-              style="background-color: #F7C893;" 
               aria-hidden="true"
             ></div>
 
@@ -188,6 +187,7 @@ const submit = () => {
           id="instagram_reels"
           placeholder="ex: https://www.youtube.com/"
           :disabled="form.processing"
+          class="bg-[#fbf7f1]"
         />
         <InputError class="mt-2" :message="form.errors.linkIg" />
       </div>
@@ -200,6 +200,7 @@ const submit = () => {
           v-model="form.judulSubmission"
           placeholder="ex: GDSCHOOLICIOUS_NAMA SEKOLAH_KOTA ASAL"
           :disabled="form.processing"
+          class="bg-[#fbf7f1]"
         />
         <InputError class="mt-2" :message="form.errors.judulSubmission" />
       </div>
@@ -211,7 +212,6 @@ const submit = () => {
           <!-- shadow oranye -->
           <div
             class="absolute -right-1 -bottom-1 w-full h-full rounded-2xl z-0"
-            style="background-color: #F7C893;"
             aria-hidden="true"
           ></div>
 
@@ -245,7 +245,7 @@ const submit = () => {
           required
           v-model="form.submissionDescription"
           placeholder="ex: Temukan Harmoni indah dalam lagu 'Rasa di Ujung Senda' dengan lirik penuh makna dan melodi yang menenagkan"
-          class="min-h-[9.5rem]"
+          class="min-h-[9.5rem] bg-[#fbf7f1]"
           :disabled="form.processing"
         />
         <InputError class="mt-2" :message="form.errors.submissionDescription" />

@@ -12,6 +12,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Syne:wght@400..800&display=swap"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&display=swap" rel="stylesheet">
 
     <link rel="icon" href="/assets/favicon.ico" />
 
@@ -23,7 +24,7 @@
 
 </head>
 
-<body class="relative font-helvetica antialiased lg:text-lg bg-[#fff9f0]">
+<body class="relative antialiased lg:text-lg bg-[#fff9f0]">
     @inertia
 
     @production
@@ -38,7 +39,7 @@
 
             gtag('config', 'G-EQNB7RPZ5Y');
         </script>
-    @endproduction
+    @endproduction 
 </body>
 
 </html>

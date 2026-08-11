@@ -34,7 +34,7 @@ withDefaults(
                 }"
             >
                 <h2
-                    class="text-xl font-bold text-[#8b3b1e] md:text-2xl lg:text-4xl"
+                    class="text-xl font-black uppercase tracking-tighter text-sticker md:text-2xl lg:text-4xl"
                     v-if="name"
                 >
                     {{ name }}

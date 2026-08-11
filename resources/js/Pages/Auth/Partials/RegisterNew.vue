@@ -73,7 +73,7 @@ const submit = () => {
         <TextInput
           id="name"
           type="text"
-          class="mt-1 block w-full"
+          class="mt-1 block text-black bg-[#fbf7f1] w-full"
           v-model="form.name"
           required
           autofocus
@@ -86,7 +86,7 @@ const submit = () => {
         <InputLabel for="address" value="Alamat" />
         <textarea
             id="address"
-            class="mt-1 block w-full rounded-md border border-gray-600 bg-transparent px-3 py-2"
+            class="mt-1 block text-black bg-[#fbf7f1] w-full rounded-md border border-gray-600 bg-transparent px-3 py-2"
             v-model="form.address"
             required
             autofocus
@@ -102,7 +102,7 @@ const submit = () => {
           <TextInput
             id="instagram_account"
             type="text"
-            class="mt-1 block w-full"
+            class="mt-1 block text-black bg-[#fbf7f1] w-full"
             v-model="form.instagram_account"
             required
             autocomplete="instagram_account"
@@ -117,7 +117,7 @@ const submit = () => {
           <TextInput
             id="phone_no"
             type="tel"
-            class="mt-1 block w-full"
+            class="mt-1 block text-black bg-[#fbf7f1] w-full"
             v-model="form.phone_no"
             @keydown="isNumberKey"
             required
@@ -133,7 +133,7 @@ const submit = () => {
           <TextInput
             id="email"
             type="email"
-            class="mt-1 block w-full"
+            class="mt-1 block text-black bg-[#fbf7f1] w-full"
             v-model="form.email"
             required
             autocomplete="username"
@@ -147,7 +147,7 @@ const submit = () => {
         <TextInput
           id="school_name"
           type="text"
-          class="mt-1 block w-full"
+          class="mt-1 block text-black bg-[#fbf7f1] w-full"
           v-model="form.school_name"
           required
           autocomplete="school_name"
@@ -162,7 +162,7 @@ const submit = () => {
         <TextInput
           id="position"
           type="text"
-          class="mt-1 block w-full"
+          class="mt-1 block text-black bg-[#fbf7f1] w-full"
           v-model="form.position"
           required
           autocomplete="position"
@@ -194,11 +194,12 @@ const submit = () => {
         id="competition"
         v-model="form.competition"
         required
-        class="mt-1 block w-full rounded-md border border-gray-600 bg-transparent px-3 py-2"
+        class="mt-1 block text-black bg-[#fbf7f1] w-full rounded-md border border-gray-600 bg-transparent px-3 py-2"
         >
         <option disabled value="">Pilih kompetisi</option>
         <option value="modern-dance-competition">Moderrn Dance Competition</option>
         <option value="chant-supporter-competition">Chant Supporter Competition</option>
+        <option value="vlog-competition">Vlog Competition</option>
         <option value="kolaborasa">Kolaborasa</option>
         </select>
         <InputError class="mt-2" :message="form.errors.competition" />
@@ -213,7 +214,7 @@ const submit = () => {
         <TextInput
           id="password"
           type="password"
-          class="mt-1 block w-full"
+          class="mt-1 block text-black bg-[#fbf7f1] w-full"
           v-model="form.password"
           required
           autocomplete="new-password"
@@ -227,9 +228,9 @@ const submit = () => {
         <TextInput
           id="password_confirmation"
           type="password"
-          class="mt-1 block w-full"
+          class="mt-1 block text-black bg-[#fbf7f1] w-full"
           v-model="form.password_confirmation"
-          requiredr
+          required
           autocomplete="new-password_confirmation"
         />
         <InputError class="mt-2" :message="form.errors.password_confirmation" />
@@ -237,7 +238,7 @@ const submit = () => {
 
       <!-- sudah punya akun ? -->
       <div
-        class="rounded-md text-sm font-bold text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
+        class="rounded-md text-sm font-bold text-black hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
       >
         Sudah punya akun ?
         <Link :href="route('login')" class="text-primary font-bold"> klik disini </Link>

@@ -93,10 +93,12 @@ export default {
                 sm: "calc(var(--radius) - 4px)",
             },
             fontFamily: {
+                montserrat: ["Montserrat", ...defaultTheme.fontFamily.sans],
                 helvetica: ["Helvetica", ...defaultTheme.fontFamily.sans],
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
                 syne: ["Syne", ...defaultTheme.fontFamily.sans],
                 raleway: ["Raleway", ...defaultTheme.fontFamily.sans],
+                changa: ['"Changa One"', ...defaultTheme.fontFamily.sans],
             },
             keyframes: {
                 "accordion-down": {

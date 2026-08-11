@@ -1,16 +1,19 @@
 <template>
     <div
-        class="flex h-full items-center justify-between mx-12 gap-x-4 gap-y-4 md:rounded-full rounded-xl px-6 py-6 border-2 border-primary max-md:size-auto max-md:h-full max-md:flex-col md:max-h-80 md:max-w-3xl"
+        class="flex h-full items-center justify-between mx-12 gap-x-2 gap-y-4 md:rounded-[3rem] rounded-xl px-6 py-6 border-4 border-white max-md:size-auto max-md:h-full max-md:flex-col md:max-h-80 md:max-w-3xl"
     >
-        <img
-            v-if="imageUrl"
-            :src="imageUrl"
-            alt=""
-            class="w-full shrink overflow-hidden md:rounded-full rounded-lg object-cover object-center max-md:aspect-video md:max-w-40 md:basis-36"
-        />
+        <div class="w-full md:w-1/3 flex items-center justify-center">
+            <img
+                v-if="imageUrl"
+                :src="imageUrl"
+                alt=""
+                class="w-full shrink object-contain object-center max-md:aspect-video md:max-w-40 md:basis-36 md:object-cover"
+            />
+        </div>
+       
 
         <div
-            class="flex w-full flex-col items-start justify-center max-md:gap-x-4 md:max-w-lg"
+            class="flex w-full md:w-2/3 flex-col items-start justify-center max-md:gap-x-4 md:max-w-lg"
         >
             <h2 class="mb-3 text-xl font-bold md:mb-1 md:text-2xl">
                 {{ title }}

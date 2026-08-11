@@ -41,7 +41,7 @@ defineProps<{
 
 <template>
   <header
-    class="top-0 z-10 border-b bg-primary"
+    class="top-0 z-10 border-b bg-primary font-montserrat"
     :class="{ sticky: !fixedNav, 'fixed w-full': fixedNav }"
   >
     <div
@@ -128,9 +128,9 @@ defineProps<{
             <Link
               :href="route('galery')"
               :active="route().current('galery')"
-              class="hover:text-foreground"
+              class="hover:text-foreground pointer-events-none"
               :class="{
-                'text-muted-foreground': !route().current('galery'),
+                'text-muted-foreground/60 pointer-events-none': !route().current('galery'),
               }"
             >
               Galery
@@ -166,7 +166,9 @@ defineProps<{
         <NavLink
           :href="route('announcement')"
           class="hover:text-white text-gray-200 md:inline-block hidden pointer-events-none"
-          :active="route().current('announcement')"
+          :class="{
+            'text-muted-foreground/60 pointer-events-none': !route().current('announcement'),
+          }"
         >
           Announcement
         </NavLink>
@@ -174,9 +176,9 @@ defineProps<{
 
         <NavLink
           :href="route('galery')"
-          class="hover:text-white text-wihite md:inline-block hidden"
+          class="hover:text-white text-gray-200  md:inline-block hidden pointer-events-none"
           :class="{
-            'text-white': !route().current('galery'),
+            'text-muted-foreground/60 pointer-events-none': !route().current('galery'),
           }"
         >
           Galery

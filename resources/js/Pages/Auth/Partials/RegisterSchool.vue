@@ -199,6 +199,7 @@ const submit = () => {
             <SelectItem value="mascot-design">Mascot Design</SelectItem>
             <SelectItem value="cheerleading">Cheers & dancing</SelectItem>
             <SelectItem value="chants">Chant Competition</SelectItem>
+            <SelectItem value="vlog">Vlog Competition</SelectItem>
           </SelectContent>
         </Select>
         <InputError class="mt-2" :message="form.errors.competition" />

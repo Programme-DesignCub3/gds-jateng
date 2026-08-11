@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { InstagramIcon } from "lucide-vue-next";
-// import frameImage from '@/assets/images/new/frame.png';
 
 withDefaults(
     defineProps<{
-        position: "left" | "right";
-        type: string;
-        name: string;
+        position?: "left" | "right";
+        type?: string;
+        name?: string;
         shortDesc?: string;
         imageUrl: string;
+        imageUrl2?: string;
         pengalaman?: string[];
         akunIg?: string;
     }>(),
@@ -20,6 +20,7 @@ withDefaults(
 
 <template>
     <div class="grid min-h-10 sm:grid-cols-2">
+        <!-- Kolom Teks -->
         <div
             class="container flex flex-col justify-center px-4 text-center max-md:py-8 max-sm:order-1 md:px-20 xl:px-40"
             :class="{
@@ -35,7 +36,7 @@ withDefaults(
                 }"
             >
                 <h2
-                    class="text-xl font-bold text-[#8b3b1e] md:text-2xl lg:text-4xl"
+                    class="text-xl font-black uppercase tracking-tighter text-sticker md:text-2xl lg:text-4xl"
                     v-if="name"
                 >
                     {{ name }}
@@ -56,7 +57,7 @@ withDefaults(
                         'text-end': position === 'left',
                     }"
                 >
-                    <li class="text-center" v-for="item in pengalaman">
+                    <li class="text-center" v-for="(item, index) in pengalaman" :key="index">
                         {{ item }}
                     </li>
                 </ul>
@@ -72,36 +73,44 @@ withDefaults(
             </div>
         </div>
 
+        <!-- Kolom Foto -->
         <div
-            class="flex items-center justify-start max-sm:p-12"
-            :class="{ 'justify-end': position === 'right' }"
+            class="flex items-center justify-center max-sm:p-8"
+            :class="{ 
+                'sm:justify-end': position === 'right',
+                'sm:justify-start': position === 'left'
+            }"
         >
-            <div class="relative mx-4 flex aspect-square shrink md:mx-10 md:my-20 md:w-1/2">
-                <div
-                    class="w-full h-auto scale-[0.88]"
-                    :style="{
-                    WebkitMaskImage: `url('/assets/images/new/frame.png')`,
-                    WebkitMaskRepeat: 'no-repeat',
-                    WebkitMaskSize: 'cover',
-                    WebkitMaskPosition: 'center',
-                    maskImage: `url('/assets/images/new/frame.png')`,
-                    maskRepeat: 'no-repeat',
-                    maskSize: 'cover',
-                    maskPosition: 'center',
-                    }"
-                    >
+            <div 
+                v-if="!imageUrl2" 
+                class="relative mx-4 my-6 w-full max-w-[280px] sm:max-w-[320px] aspect-[3/4] transition-transform duration-300 hover:scale-105"
+            >
+                <img
+                    :src="imageUrl"
+                    alt="Foto"
+                    class="w-full h-full object-cover rounded-2xl border-4 border-red-600 shadow-lg"
+                />
+            </div>
+
+            <div 
+                v-else 
+                class="relative mx-4 my-8 flex items-center justify-center gap-2 sm:gap-4 w-full max-w-[420px]"
+            >
+                <div class="relative w-1/2 aspect-[3/4] -rotate-6 transition-transform duration-300 hover:rotate-0 hover:z-10">
                     <img
                         :src="imageUrl"
-                        alt="Foto Juri"
-                        class="w-full h-full object-cover object-center items-center justify-center"
+                        alt="Foto 1"
+                        class="w-full h-full object-cover rounded-2xl border-4 border-red-600 shadow-md"
                     />
                 </div>
-                <img
-                    src="/assets/images/new/frame-2.png"
-                    alt="Frame"
-                    class="absolute inset-0 w-full h-full object-contain pointer-events-none scale-100"
-                />
 
+                <div class="relative w-1/2 aspect-[3/4] rotate-6 transition-transform duration-300 hover:rotate-0 hover:z-10">
+                    <img
+                        :src="imageUrl2"
+                        alt="Foto 2"
+                        class="w-full h-full object-cover rounded-2xl border-4 border-red-600 shadow-md"
+                    />
+                </div>
             </div>
         </div>
     </div>

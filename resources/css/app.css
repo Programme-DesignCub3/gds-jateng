@@ -1,4 +1,4 @@
-@import "./typography.css";
+/* @import "./typography.css"; */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -71,8 +71,38 @@
         @apply border-border;
     }
     body {
-        @apply bg-background text-foreground;
+        font-family: 'Montserrat', sans-serif !important;
     }
+
+    /* b,
+    strong,
+    h1, h2, h3, h4, h5, h6,
+    .font-semibold,
+    .font-bold,
+    .font-extrabold,
+    .font-black {
+        font-family: 'Changa One', cursive, sans-serif !important;
+    } */
+}
+
+@layer utilities {
+  .text-sticker {
+    color: #E1202C; 
+    
+    -webkit-text-stroke: 8px white;
+    paint-order: stroke fill; 
+
+    filter: 
+      drop-shadow(2px 0 0 #000)
+      drop-shadow(-2px 0 0 #000)
+      drop-shadow(0 2px 0 #000)
+      drop-shadow(0 -2px 0 #000)
+      drop-shadow(1px 1px 0 #000)
+      drop-shadow(-1px -1px 0 #000)
+      drop-shadow(1px -1px 0 #000)
+      drop-shadow(-1px 1px 0 #000)
+      drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.5)); 
+  }
 }
 
 @layer components {
@@ -80,8 +110,6 @@
         background-color: hsl(var(--primary));
         background-image: url(/assets/images/kompetisi_pattern.png);
         background-position: left top;
-        /* background-size: 50%; */
-        /* background-size: 100%; */
     }
 
     .filepond--root {
