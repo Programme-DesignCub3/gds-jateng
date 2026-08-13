@@ -3,6 +3,7 @@ import AnnouncementHeader from "@/Components/AnnouncementHeader.vue";
 import AnnouncementSection from "@/Components/AnnouncementSection.vue";
 import AnnouncementTitle from "@/Components/gds-2026/announcement/CompetitionTitle.vue";
 import MainHeaderHome from "@/Components/gds-2026/home/MainHeaderHome.vue";
+import IconSecondary from "@/Components/gds-2026/include/IconSecondary.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import type { TFinalistList } from "@/lib/types";
 import { Head } from "@inertiajs/vue3";
@@ -18,16 +19,12 @@ defineProps<{
 </script>
 
 <template>
-  <div class="relative" :style="{
-      backgroundImage: `url('/assets/images/gds-2026/long-bg.png')`,
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
-      backgroundSize: 'cover',
-    }">
+    <div class="relative bg-[url('/assets/images/gds-2026/home-long.png')] bg-no-repeat bg-center bg-cover lg:bg-[length:100%_120%]">
+
     <Head title="Pengumuman" />
     <AppLayout>
+
       <MainHeaderHome class="...">
-        <!-- Tag img langsung dengan class dan src pilihan Anda -->
         <img 
           src="/assets/images/gds-2026/logo-finalist.png" 
           alt="Header Pengumuman" 
@@ -35,76 +32,42 @@ defineProps<{
           draggable="false"
         />
       </MainHeaderHome>
-      <div
-        class="container flex flex-col justify-center gap-y-10"
-        :class="{
-          'items-center': !currentRegion,
-        }"
-      >
-      <div class="pt-6 md:space-y-20 space-y-12 pb-20">
-        <AnnouncementTitle
-          title="Winner"
-          subtitle="Kolaborasa"
-          class="w-full h-auto z-0"
-        />
-        <AnnouncementTitle
-          title="Winner"
-          subtitle="Modern Dance Competition"
-          class="w-full h-auto z-0"
-        />
-        <AnnouncementTitle
-          title="Winner"
-          subtitle="Chant Supporter Competition"
-          class="w-full h-auto z-0"
-        />
-        <AnnouncementTitle
-          title="Winner"
-          subtitle="Vlog Competition"
-          class="w-full h-auto z-0"
-        />
-      </div>
-        
 
-        <!-- <Tabs
-          @update:model-value="(region) => (currentRegion = String(region))"
-          default-value=""
-          class="flex flex-col items-center justify-center"
+      <div class="relative w-full overflow-hidden">
+        <IconSecondary />
+
+        <div
+          class="container relative z-1 mx-auto flex flex-col justify-center gap-y-10"
+          :class="{
+            'items-center': !currentRegion,
+          }"
         >
-          <TabsList class="justify-center space-x-4 bg-white text-center">
-            <TabsTrigger class="bg-muted text-2xl" value="yogyakarta">
-              Yogyakarta
-            </TabsTrigger>
-
-            <TabsTrigger class="bg-muted text-2xl" value="semarang"> Semarang </TabsTrigger>
-          </TabsList>
-
-          <TabsContent class="w-full" value="yogyakarta">
-            <AnnouncementSection
-              :finalist-list="competition.list"
-              v-for="competition in finalistYogyakarta"
-              :key="`yogyakarta-${competition.competition}`"
-              :title="competition.label"
+          <div class="pt-6 md:space-y-20 space-y-12 pb-20 w-full">
+            <AnnouncementTitle
+              title="Winner"
+              subtitle="Kolaborasa"
+              class="w-full h-auto z-0"
             />
-          </TabsContent>
-
-          <TabsContent class="w-full" value="semarang">
-            <AnnouncementSection
-              :finalist-list="competition.list"
-              v-for="competition in finalistSemarang"
-              :key="`semarang-${competition.competition}`"
-              :title="competition.label"
+            <AnnouncementTitle
+              title="Winner"
+              subtitle="Modern Dance Competition"
+              class="w-full h-auto z-0"
             />
-          </TabsContent>
-        </Tabs>
+            <AnnouncementTitle
+              title="Winner"
+              subtitle="Chant Supporter Competition"
+              class="w-full h-auto z-0"
+            />
+            <AnnouncementTitle
+              title="Winner"
+              subtitle="Vlog Competition"
+              class="w-full h-auto z-0"
+            />
+          </div>
 
-        <Alert variant="destructive" class="w-fit text-lg" v-if="!currentRegion">
-          <AlertCircle class="size-5" />
-          <AlertTitle>Perhatian</AlertTitle>
-          <AlertDescription class="text-base">
-            Silahkan pilih area yang ingin ditampilkan
-          </AlertDescription>
-        </Alert> -->
+        </div>
       </div>
+
     </AppLayout>
   </div>
 </template>

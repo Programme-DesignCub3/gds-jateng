@@ -14,9 +14,8 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import { ref, watch, onMounted, onBeforeUnmount, nextTick, computed } from "vue";
 import GaleryPopup from "@/Components/GaleryPopup.vue";
-import IconBackgroundDetail from "@/Components/IconBackgroundDetail.vue";
-import MainHeader from "@/Components/MainHeader.vue";
 import MainHeaderHome from "@/Components/gds-2026/home/MainHeaderHome.vue";
+import IconSecondary from "@/Components/gds-2026/include/IconSecondary.vue";
 
 interface Galery {
   id: number;
@@ -142,80 +141,84 @@ const hasValidLocation = computed(() => {
     g => g.lokasi && g.lokasi.trim() !== ""
   );
 });
-
 </script>
 
 <template>
-  <div class="relative" :style="{
-      backgroundImage: `url('/assets/images/gds-2026/long-bg.png')`,
+  <div class="relative min-h-screen" :style="{
+      backgroundImage: `url('/assets/images/gds-2026/home-long.png')`,
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
       backgroundSize: 'cover',
     }">
     <Head title="Galery" />
-    <AppLayout></AppLayout>
+    <AppLayout>
 
-    <MainHeaderHome
-      class="relative z-0 bg-transparent bg-[length:150%] bg-center bg-no-repeat md:bg-[length:125%] lg:bg-[length:115%] xl:bg-[length:110%]"
-    />
+      <MainHeaderHome
+        class="relative z-1 bg-transparent bg-[length:150%] bg-center bg-no-repeat md:bg-[length:125%] lg:bg-[length:115%] xl:bg-[length:110%]"
+      />
 
-    <div
-      class="relative xl:pb-[20rem] pb-[8rem] md:px-12 px-6 md:bg-cover object-cover bg-no-repeat bg-[length:100%_100%]"
-      ref="galeryContainer"
-    >
-      <div v-if="!hasValidLocation" class="text-center py-16 w-1/4 mx-auto">
-        <p class="text-black text-xl font-bold border-2 border-primary rounded-lg py-12">
-          Galery Not Found
-        </p>
-      </div>
-
-      <div v-else v-for="(items, lokasi) in groupedGaleries" :key="lokasi" class="mb-16">
-        <div class="w-full flex items-center justify-center py-12">
-          <h1 class="font-black uppercase tracking-tighter text-sticker text-3xl md:text-4xl lg:text-6xl select-none text-center">
-            {{ lokasi }}
-          </h1>
-        </div>
+      <div class="relative w-full overflow-hidden">
+        <IconSecondary />
 
         <div
-          class="relative z-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 items-stretch xl:w-3/4 lg:w-full mx-auto"
+          class="relative z-1 xl:pb-[20rem] pb-[8rem] md:px-12 px-6"
+          ref="galeryContainer"
         >
-          <div v-for="(galery, i) in items" :key="galery.id" class="relative group">
+          <div v-if="!hasValidLocation" class="text-center py-16 w-1/4 mx-auto">
+            <p class="text-black text-xl font-bold border-2 border-primary rounded-lg py-12 bg-white/80">
+              Galery Not Found
+            </p>
+          </div>
+
+          <div v-else v-for="(items, lokasi) in groupedGaleries" :key="lokasi" class="mb-16">
+            <div class="w-full flex items-center justify-center py-12">
+              <h1 class="font-black uppercase tracking-tighter text-sticker text-3xl md:text-4xl lg:text-6xl select-none text-center">
+                {{ lokasi }}
+              </h1>
+            </div>
+
             <div
-              class="relative bg-white rounded-[2rem] overflow-hidden z-1 border-4 border-primary cursor-pointer transition-transform duration-300 hover:scale-105 h-full flex flex-col"
-              @click.stop="openPopupByLocation(lokasi, i)"
+              class="relative z-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 items-stretch xl:w-3/4 lg:w-full mx-auto"
             >
-              <div class="relative w-full xl:h-64 h-52">
-                <img
-                  :src="galery.thumbnail"
-                  class="w-full xl:h-64 h-52 p-6 object-cover rounded-[3.5rem]"
-                  alt="Video Preview"
-                />
-                <div class="absolute inset-0 flex items-center justify-center">
-                  <button
-                    class="bg-primary rounded-full p-6 flex items-center justify-center"
-                  >
+              <div v-for="(galery, i) in items" :key="galery.id" class="relative group">
+                <div
+                  class="relative bg-white rounded-[2rem] overflow-hidden z-1 border-4 border-primary cursor-pointer transition-transform duration-300 hover:scale-105 h-full flex flex-col"
+                  @click.stop="openPopupByLocation(lokasi, i)"
+                >
+                  <div class="relative w-full xl:h-64 h-52">
                     <img
-                      src="/assets/images/play_button.png"
-                      alt="Play Button"
-                      class="lg:w-8 w-4 lg:h-8 h-4"
+                      :src="galery.thumbnail"
+                      class="w-full xl:h-64 h-52 p-6 object-cover rounded-[3.5rem]"
+                      alt="Video Preview"
                     />
-                  </button>
-                </div>
-              </div>
-              <div class="px-6 pb-6 flex items-center justify-between -mt-2">
-                <div>
-                  <div
-                    class="font-bold xl:text-2xl lg:text-xl text-base text-primary"
-                  >
-                    {{ galery.title }}
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <button
+                        class="bg-primary rounded-full p-6 flex items-center justify-center"
+                      >
+                        <img
+                          src="/assets/images/play_button.png"
+                          alt="Play Button"
+                          class="lg:w-8 w-4 lg:h-8 h-4"
+                        />
+                      </button>
+                    </div>
                   </div>
-                  <div class="xl:text-lg text-sm text-primary italic">
-                    {{ galery.subtitle }}
-                  </div>
-                  <div class="flex items-center mt-1 pt-3">
-                    <span class="text-xs text-gray-400">
-                      {{ formatTanggalIndo(galery.tanggal) }}
-                    </span>
+                  <div class="px-6 pb-6 flex items-center justify-between -mt-2">
+                    <div>
+                      <div
+                        class="font-bold xl:text-2xl lg:text-xl text-base text-primary"
+                      >
+                        {{ galery.title }}
+                      </div>
+                      <div class="xl:text-lg text-sm text-primary italic">
+                        {{ galery.subtitle }}
+                      </div>
+                      <div class="flex items-center mt-1 pt-3">
+                        <span class="text-xs text-gray-400">
+                          {{ formatTanggalIndo(galery.tanggal) }}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -223,9 +226,9 @@ const hasValidLocation = computed(() => {
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Popup -->
+    </AppLayout>
+
     <GaleryPopup
       :show="popup"
       :embed="selected.embed"

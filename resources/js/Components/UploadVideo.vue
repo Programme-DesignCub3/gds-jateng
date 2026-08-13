@@ -125,7 +125,7 @@ const submit = () => {
         <div class="flex flex-col gap-2">
           <Label class="text-lg">Upload File</Label>
 
-          <div class="relative inline-block w-2/6">
+          <div class="relative inline-block w-full md:w-2/6">
             <div
               class="absolute -right-1 -bottom-1 w-full h-full rounded-2xl z-0"
               :class="''"
@@ -208,7 +208,7 @@ const submit = () => {
       <div class="flex flex-col gap-2">
         <Label class="text-lg">Upload Thumbnail Video</Label>
 
-        <div class="relative inline-block w-2/6">
+        <div class="relative inline-block w-full md:w-2/6">
           <!-- shadow oranye -->
           <div
             class="absolute -right-1 -bottom-1 w-full h-full rounded-2xl z-0"

@@ -3,9 +3,9 @@ import { InstagramIcon } from "lucide-vue-next";
 
 withDefaults(
     defineProps<{
-        position: "left" | "right";
-        type: string;
-        name: string;
+        position?: "left" | "right";
+        type?: string;
+        name?: string;
         shortDesc?: string;
         imageUrl: string;
         pengalaman?: string[];
@@ -18,23 +18,23 @@ withDefaults(
 </script>
 
 <template>
-    <div class="grid min-h-10 sm:grid-cols-2">
-        <div
-            class="container flex flex-col justify-center px-4 text-center max-md:py-8 max-sm:order-1 md:px-20 xl:px-40"
-            :class="{
-                'sm:order-1 md:pl-10 xl:pl-20': position === 'right',
-                'md:pr-10 xl:pr-20': position === 'left',
-            }"
-        >
-            <div
-                class="flex h-full flex-col justify-center gap-y-4 text-base lg:my-4 lg:max-w-[80%] lg:text-lg"
-                :class="{
-                    'lg:ml-auto': position === 'left',
-                    'lg:mr-auto': position === 'right',
-                }"
-            >
+    <div class="grid min-h-10 items-center justify-center gap-8 sm:grid-cols-2 px-4 md:px-12 max-w-7xl mx-auto py-8">
+        <!-- Kolom Gambar Hadiah (DI KIRI) -->
+        <div class="flex items-center justify-center max-sm:order-1">
+            <div class="relative w-full max-w-[320px] md:max-w-[400px] flex justify-center items-center">
+                <img
+                    :src="imageUrl"
+                    alt="Gambar Hadiah"
+                    class="w-full h-auto object-contain transition-transform duration-300 hover:scale-105"
+                />
+            </div>
+        </div>
+
+        <!-- Kolom Teks Penjelasan (DI KANAN) -->
+        <div class="flex flex-col justify-center text-center items-center px-2 max-sm:order-2">
+            <div class="flex flex-col justify-center gap-y-3 text-base max-w-lg w-full">
                 <h2
-                    class="text-xl font-black uppercase tracking-tighter text-sticker md:text-2xl lg:text-4xl"
+                    class="text-2xl font-black uppercase tracking-tighter text-sticker md:text-3xl lg:text-4xl"
                     v-if="name"
                 >
                     {{ name }}
@@ -42,20 +42,14 @@ withDefaults(
                 <p class="font-bold md:text-xl lg:text-2xl" v-if="type">
                     {{ type }}
                 </p>
-                <p
+                <div
                     v-if="shortDesc"
-                    class="font-raleway text-xs md:text-base lg:text-base w-3/4 mx-auto"
+                    class="font-raleway text-xs sm:text-sm md:text-base leading-relaxed w-full mx-auto"
                     v-html="shortDesc"
-                ></p>
+                ></div>
 
-                <ul
-                    v-if="pengalaman"
-                    :class="{
-                        'text-start': position === 'right',
-                        'text-end': position === 'left',
-                    }"
-                >
-                    <li class="text-center" v-for="item in pengalaman">
+                <ul v-if="pengalaman" class="text-center">
+                    <li v-for="(item, index) in pengalaman" :key="index">
                         {{ item }}
                     </li>
                 </ul>
@@ -63,26 +57,9 @@ withDefaults(
                     v-if="akunIg"
                     class="flex items-center justify-center gap-2"
                 >
-                    <span class="inline-block">
-                        <InstagramIcon class="size-6" />
-                    </span>
+                    <InstagramIcon class="size-6" />
                     <p>{{ akunIg }}</p>
                 </div>
-            </div>
-        </div>
-
-        <div
-            class="flex items-center justify-start max-sm:p-12"
-            :class="{ 'justify-end': position === 'right' }"
-        >
-            <div
-                class="relative mx-4 flex shrink overflow-hidden md:mx-10 md:my-20"
-            >
-                <img
-                    :src="imageUrl"
-                    alt=""
-                    class="w-full h-auto object-cover object-center"
-                />
             </div>
         </div>
     </div>

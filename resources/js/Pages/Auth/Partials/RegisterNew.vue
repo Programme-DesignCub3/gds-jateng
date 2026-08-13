@@ -86,7 +86,7 @@ const submit = () => {
         <InputLabel for="address" value="Alamat" />
         <textarea
             id="address"
-            class="mt-1 block text-black bg-[#fbf7f1] w-full rounded-md border border-gray-600 bg-transparent px-3 py-2"
+            class="mt-1 block text-black bg-[#fbf7f1] w-full rounded-md border border-gray-600 px-3 py-2"
             v-model="form.address"
             required
             autofocus
@@ -194,7 +194,7 @@ const submit = () => {
         id="competition"
         v-model="form.competition"
         required
-        class="mt-1 block text-black bg-[#fbf7f1] w-full rounded-md border border-gray-600 bg-transparent px-3 py-2"
+        class="mt-1 block text-black bg-[#fbf7f1] w-full rounded-md border border-gray-600 px-3 py-2"
         >
         <option disabled value="">Pilih kompetisi</option>
         <option value="modern-dance-competition">Moderrn Dance Competition</option>
