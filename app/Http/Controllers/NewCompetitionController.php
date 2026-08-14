@@ -378,30 +378,26 @@ class NewCompetitionController extends Controller
                                 <br>
                                 <div class="space-y-2">
                                     <h3 class="font-bold">REWARD</h3>
-                                    <p class="font-semibold">Hadiah Tingkat Area :</p>
+                                    <p class="font-semibold">Hadiah Tingkat Regional :</p>
                                     <ul class="list-none pl-0">
-                                        <li>Juara 1 : Rp x.000.000,-</li>
-                                        <li>Juara 2 : Rp x.000.000,-</li>
+                                        <li>Juara 1 : Rp 1.000.000,-</li>
+                                        <li>Juara 2 : Rp 750.000,-</li>
                                     </ul>
 
-                                    <p class="font-semibold">Hadiah Tingkat Regional Jawa Tengah :</p>
-                                    <ul class="list-none pl-0">
-                                        <li>Juara 1 : Rp x.000.000,-</li>
-                                        <li>Juara 2 : Rp x.000.000,-</li>
-                                    </ul>
+                                    
                                 </div>'
                     ],
 
-                    'jury' => [
-                        [
-                            'name' => 'SAFINA & FIFI',
-                            'desc' => ' Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euis mod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea com modo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse mo lestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feu gait nulla facilisi.',
-                            'image' => '/assets/images/gds-2026/kompetisi/' . $slug . '/safina.jpeg',
-                            'image2' => '/assets/images/gds-2026/kompetisi/' . $slug . '/vivi.jpeg',
-                            // 'type' => 'SAFINA ADRIANI',
-                            // 'akun_ig' => '@instagram_Juri'
-                        ]
-                    ],
+                    // 'jury' => [
+                    //     [
+                    //         'name' => 'SAFINA & FIFI',
+                    //         'desc' => ' Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euis mod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea com modo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse mo lestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feu gait nulla facilisi.',
+                    //         'image' => '/assets/images/gds-2026/kompetisi/' . $slug . '/safina.jpeg',
+                    //         'image2' => '/assets/images/gds-2026/kompetisi/' . $slug . '/vivi.jpeg',
+                    //         // 'type' => 'SAFINA ADRIANI',
+                    //         // 'akun_ig' => '@instagram_Juri'
+                    //     ]
+                    // ],
 
                     'rules' => [
                         // 'file_url' => asset('rules/Rules Desain Maskot.pdf'),
