@@ -7,7 +7,7 @@
         />
         <img
             draggable="false"
-            src="/assets/images/gds.png"
+            src="/assets/images/GDS.png"
             alt="GDS Logo"
         />
     </div>
