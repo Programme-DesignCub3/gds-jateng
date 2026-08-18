@@ -369,7 +369,7 @@ class NewCompetitionController extends Controller
                                 Punya cerita seru tentang school life? Saatnya jadi <strong>content creator versi kamu</strong> di Vlog Competition Good Day Schoolicious Good Challenge 2026! Kompetisi ini terbuka untuk <strong>seluruh siswa secara individu</strong>, jadi nggak perlu nunggu squad untuk ikut seru-seruan. Buat vlog original di <strong>sekolah, kantin, atau rumah dengan seragam sekolah</strong>, lalu ceritakan momen dan kreativitasmu dengan cara yang paling autentik. 
                                 <br>
                                 <br>
-                                Jangan lupa hadirkan <strong>Good Day & Schoolicious</strong> secara natural dan kreatif di dalam kontenmu, kemudian upload ke TikTok dengan hashtag dan tag akun resmi Good Day. Karena di sini, bukan cuma konten yang keren yang dicari—<strong>50% Content Quality + 50% Engagement</strong> akan menentukan siapa yang paling standout! 
+                                Jangan lupa hadirkan <strong>Good day schoolicious</strong> secara natural dan kreatif di dalam kontenmu, kemudian upload ke TikTok dengan hashtag dan tag akun resmi Good Day. Karena di sini, bukan cuma konten yang keren yang dicari—<strong>50% Content Quality + 50% Engagement</strong> akan menentukan siapa yang paling standout! 
 ',
 
                     'prize' => [
@@ -423,7 +423,7 @@ class NewCompetitionController extends Controller
                                         <span class="font-bold italic">3.</span>
                                         <p class=">
                                             <span class="font-bold">Good Day Integration — 20%</span><br>
-                                            Integrasikan <span class="font-bold">Good Day & Schoolicious</span> secara natural, kreatif, dan tidak terasa dipaksakan.
+                                            Integrasikan <span class="font-bold">Good day schoolicious</span> secara natural, kreatif, dan tidak terasa dipaksakan.
                                         </p>
                                     </li>
                                     <li class="flex items-start gap-3">
@@ -466,7 +466,7 @@ class NewCompetitionController extends Controller
                                     <li class="flex items-start gap-3">
                                         <span class="font-bold">•</span>
                                         <p class=">
-                                            <span class="font-bold">Good Day Integration:</span> Wajib menampilkan dan mengintegrasikan <span class="font-bold">Good Day & Schoolicious</span> secara natural dan kreatif.
+                                            <span class="font-bold">Good Day Integration:</span> Wajib menampilkan dan mengintegrasikan <span class="font-bold">Good day schoolicious</span> secara natural dan kreatif.
                                         </p>
                                     </li>
                                     <li class="flex items-start gap-3">

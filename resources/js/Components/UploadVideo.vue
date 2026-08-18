@@ -113,15 +113,21 @@ const submit = () => {
     <form
       @submit.prevent="submit"
       class="grid w-full items-start gap-6 overflow-auto p-2 lg:p-4"
-    >
-      <!-- <div class="gap-3">
-        <Label for="competition">Competition : </Label>
-        <Badge>{{ getCompetitionLabel(form.competition) }}</Badge>
+    > 
+      <div
+        v-if="Object.keys(form.errors).length > 0"
+        class="mb-4 rounded-lg border border-red-300 bg-red-50 p-4 text-red-700"
+      >
+        <p class="font-bold mb-2">Terjadi kesalahan:</p>
 
-        <InputError class="mt-2" :message="form.errors.competition" />
-      </div> -->
+        <ul class="list-disc pl-5 space-y-1">
+          <li v-for="(error, field) in form.errors" :key="field">
+            {{ error }}
+          </li>
+        </ul>
+      </div>
 
-      <div class="">
+      <div v-if="form.competition !== 'vlog-competition'" class="flex flex-col gap-2">
         <div class="flex flex-col gap-2">
           <Label class="text-lg">Upload File</Label>
 
