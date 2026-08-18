@@ -37,7 +37,6 @@
               type=""
               name="HADIAH"
               :shortDesc="data.prize.desc"
-              :imageUrl="data.prize.imageUrl"
             />
 
             <CompetitionContentCardNew

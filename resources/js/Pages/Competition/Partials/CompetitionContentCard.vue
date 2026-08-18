@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { InstagramIcon } from "lucide-vue-next";
+import Hadiah from "@/Components/gds-2026/include/hadiah.vue";
 
 withDefaults(
     defineProps<{
@@ -7,7 +8,7 @@ withDefaults(
         type?: string;
         name?: string;
         shortDesc?: string;
-        imageUrl: string;
+        imageUrl?: string;
         pengalaman?: string[];
         akunIg?: string;
     }>(),
@@ -19,18 +20,10 @@ withDefaults(
 
 <template>
     <div class="grid min-h-10 items-center justify-center gap-8 sm:grid-cols-2 px-4 md:px-12 max-w-7xl mx-auto py-8">
-        <!-- Kolom Gambar Hadiah (DI KIRI) -->
         <div class="flex items-center justify-center max-sm:order-1">
-            <div class="relative w-full max-w-[320px] md:max-w-[400px] flex justify-center items-center">
-                <img
-                    :src="imageUrl"
-                    alt="Gambar Hadiah"
-                    class="w-full h-auto object-contain transition-transform duration-300 hover:scale-105"
-                />
-            </div>
+            <Hadiah />
         </div>
 
-        <!-- Kolom Teks Penjelasan (DI KANAN) -->
         <div class="flex flex-col justify-center text-center items-center px-2 max-sm:order-2">
             <div class="flex flex-col justify-center gap-y-3 text-base max-w-lg w-full">
                 <h2
@@ -64,5 +57,3 @@ withDefaults(
         </div>
     </div>
 </template>
-
-<style scoped></style>
