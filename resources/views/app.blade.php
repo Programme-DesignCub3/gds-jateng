@@ -24,11 +24,11 @@
 
 </head>
 
-<body class="relative antialiased lg:text-lg bg-[#fff9f0]">
+<body class="relative bg-[#fff9f0] lg:text-lg antialiased">
     @inertia
 
     @production
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-EQNB7RPZ5Y"></script>
+        {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-EQNB7RPZ5Y"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
 
@@ -38,8 +38,17 @@
             gtag('js', new Date());
 
             gtag('config', 'G-EQNB7RPZ5Y');
+        </script> --}}
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-EQNB7RPZ5Y"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-EQNB7RPZ5Y');
         </script>
-    @endproduction 
+    @endproduction
 </body>
 
 </html>
