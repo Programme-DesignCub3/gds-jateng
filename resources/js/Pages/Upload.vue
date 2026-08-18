@@ -29,7 +29,7 @@ import IconPrimary from "@/Components/gds-2026/include/IconPrimary.vue";
             <div class="relative w-full overflow-hidden">
                 <IconPrimary />
 
-                <div class="container relative z-10 mx-auto px-4 py-12 flex flex-col items-center justify-center">
+                <div class="container relative z-0 mx-auto px-4 py-12 flex flex-col items-center justify-center">
                     <h1 class="font-black uppercase tracking-tighter text-sticker text-3xl md:text-4xl lg:text-5xl select-none text-center mb-8">
                         Submission
                     </h1>
