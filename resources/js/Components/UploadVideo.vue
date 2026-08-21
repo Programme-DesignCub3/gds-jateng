@@ -203,7 +203,7 @@ const submit = () => {
       </div>
 
       <div class="gap-3">
-        <Label for="judul" class="text-lg">Judul</Label>
+        <Label for="judul" class="text-lg">Judul Video</Label>
         <Input
           id="judul"
           required
