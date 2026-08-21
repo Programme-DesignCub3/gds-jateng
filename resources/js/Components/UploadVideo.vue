@@ -185,13 +185,17 @@ const submit = () => {
 
       <div class="gap-3">
         <div>
-          <Label for="instagram_reels" class="text-lg">link URL Youtube :</Label>
+          <Label for="instagram_reels" class="text-lg">
+            link URL {{ form.competition === 'vlog-competition' ? 'Tiktok' : 'Youtube' }} :
+          </Label>
         </div>
         <Input
           v-model="form.linkIg"
           required
           id="instagram_reels"
-          placeholder="ex: https://www.youtube.com/"
+          :placeholder="form.competition === 'vlog-competition'
+            ? 'ex: https://www.tiktok.com/'
+            : 'ex: https://www.youtube.com/'"
           :disabled="form.processing"
           class="bg-[#fbf7f1]"
         />
